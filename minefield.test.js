@@ -1,7 +1,7 @@
 import { test, expect } from "vitest";
 
 function showMinefield(minefieldRows) {
-  return ["0"];
+  return minefieldRows.map((row) => "0");
 }
 
 test("should return empty minefield", () => {
