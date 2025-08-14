@@ -9,7 +9,7 @@ function showMinefield(minefieldRows) {
       colIndex < minefieldRows[rowIndex].length;
       colIndex++
     ) {
-      row += "0";
+      row += minefieldRows[rowIndex][colIndex] === "*" ? "*" : "0";
     }
     result.push(row);
   }
