@@ -10,12 +10,13 @@ function showMinefield(minefieldRows) {
 
   function cellValue(row, col) {
     if (hasMine(row, col)) return "*";
+    let result = 0;
     for (let r = -1; r <= 1; r++) {
       for (let c = -1; c <= 1; c++) {
-        if (hasMine(row - r, col - c)) return 1;
+        if (hasMine(row - r, col - c)) result += 1;
       }
     }
-    return 0;
+    return result;
   }
 
   for (let row = 0; row < minefieldRows.length; row++) {
