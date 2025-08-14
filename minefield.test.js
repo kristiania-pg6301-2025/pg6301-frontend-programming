@@ -7,3 +7,6 @@ function showMinefield(minefieldRows) {
 test("should return empty minefield", () => {
   expect(showMinefield(["."])).toEqual(["0"]);
 });
+test("should show correct number of rows", () => {
+  expect(showMinefield([".", "."])).toEqual(["0", "0"]);
+});
