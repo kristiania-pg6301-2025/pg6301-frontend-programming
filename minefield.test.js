@@ -10,10 +10,14 @@ function showMinefield(minefieldRows) {
 
   function cellValue(row, col) {
     if (hasMine(row, col)) return "*";
+    if (hasMine(row - 1, col - 1)) return 1;
     if (hasMine(row - 1, col)) return 1;
+    if (hasMine(row - 1, col + 1)) return 1;
     if (hasMine(row, col - 1)) return 1;
     if (hasMine(row, col + 1)) return 1;
+    if (hasMine(row + 1, col - 1)) return 1;
     if (hasMine(row + 1, col)) return 1;
+    if (hasMine(row + 1, col + 1)) return 1;
     return 0;
   }
 
@@ -47,6 +51,6 @@ testMinefield("should display hints below", ["*", "."], ["*", "1"]);
 testMinefield("should display hints above", [".", "*", "."], ["1", "*", "1"]);
 testMinefield(
   "should display hints around",
-  ["..", ".*.", "..."],
+  ["...", ".*.", "..."],
   ["111", "1*1", "111"],
 );
