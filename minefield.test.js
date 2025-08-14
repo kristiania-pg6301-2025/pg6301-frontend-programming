@@ -1,12 +1,31 @@
 import { test, expect } from "vitest";
 
 function showMinefield(minefieldRows) {
-  return minefieldRows.map((row) => "0");
+  const result = [];
+  for (let rowIndex = 0; rowIndex < minefieldRows.length; rowIndex++) {
+    let row = "";
+    for (
+      let colIndex = 0;
+      colIndex < minefieldRows[rowIndex].length;
+      colIndex++
+    ) {
+      row += "0";
+    }
+    result.push(row);
+  }
+  return result;
 }
 
-test("should return empty minefield", () => {
-  expect(showMinefield(["."])).toEqual(["0"]);
-});
-test("should show correct number of rows", () => {
-  expect(showMinefield([".", "."])).toEqual(["0", "0"]);
-});
+function testMinefield(description, inputMinefield, expectedOutput) {
+  test(description, () => {
+    expect(showMinefield(inputMinefield)).toEqual(expectedOutput);
+  });
+}
+
+testMinefield("should return empty minefield", ["."], ["0"]);
+testMinefield("should show correct number of rows", [".", "."], ["0", "0"]);
+testMinefield(
+  "should show correct number of columns",
+  ["...", "..."],
+  ["000", "000"],
+);
