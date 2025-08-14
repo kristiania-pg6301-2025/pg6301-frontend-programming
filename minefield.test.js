@@ -2,16 +2,21 @@ import { test, expect } from "vitest";
 
 function showMinefield(minefieldRows) {
   const result = [];
-  for (let rowIndex = 0; rowIndex < minefieldRows.length; rowIndex++) {
-    let row = "";
-    for (
-      let colIndex = 0;
-      colIndex < minefieldRows[rowIndex].length;
-      colIndex++
-    ) {
-      row += minefieldRows[rowIndex][colIndex] === "*" ? "*" : "0";
+
+  function hasMine(row, col) {
+    return minefieldRows[row][col] === "*";
+  }
+
+  function cellValue(row, col) {
+    return hasMine(row, col) ? "*" : "0";
+  }
+
+  for (let row = 0; row < minefieldRows.length; row++) {
+    let outputRow = "";
+    for (let col = 0; col < minefieldRows[row].length; col++) {
+      outputRow += cellValue(row, col);
     }
-    result.push(row);
+    result.push(outputRow);
   }
   return result;
 }
