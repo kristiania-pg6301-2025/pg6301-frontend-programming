@@ -1,7 +1,7 @@
 import { test, expect } from "vitest";
 
 function isLeapYear(number) {
-  return number === 2028;
+  return number % 4 === 0;
 }
 
 test("2025 is not a leap year", () => {
