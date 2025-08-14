@@ -10,3 +10,6 @@ test("2025 is not a leap year", () => {
 test("2028 is a leap year", () => {
   expect(isLeapYear(2028)).toBe(true);
 });
+test("2032 is a leap year", () => {
+  expect(isLeapYear(2032)).toBe(true);
+});
