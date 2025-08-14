@@ -8,7 +8,9 @@ function showMinefield(minefieldRows) {
   }
 
   function cellValue(row, col) {
-    return hasMine(row, col) ? "*" : "0";
+    if (hasMine(row, col)) return "*";
+    if (hasMine(row, col - 1)) return "1";
+    return "0";
   }
 
   for (let row = 0; row < minefieldRows.length; row++) {
