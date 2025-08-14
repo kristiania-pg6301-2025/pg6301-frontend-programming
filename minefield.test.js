@@ -38,3 +38,4 @@ testMinefield(
 );
 testMinefield("should display mines", ["****", "****"], ["****", "****"]);
 testMinefield("should display hint to the right", ["*."], ["*1"]);
+testMinefield("should display hint to the left", [".*."], ["1*1"]);
