@@ -4,11 +4,13 @@ function showMinefield(minefieldRows) {
   const result = [];
 
   function hasMine(row, col) {
+    if (row < 0) return false;
     return minefieldRows[row][col] === "*";
   }
 
   function cellValue(row, col) {
     if (hasMine(row, col)) return "*";
+    if (hasMine(row - 1, col)) return 1;
     if (hasMine(row, col - 1)) return 1;
     if (hasMine(row, col + 1)) return 1;
     return 0;
