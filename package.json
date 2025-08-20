@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:watch": "vitest --watch"
   },
   "repository": {
     "type": "git",
