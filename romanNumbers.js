@@ -1,7 +1,7 @@
 export function romanNumbers(number) {
   let result = "";
 
-  function convertDigits(digit, value) {
+  function convertDigits(value, digit) {
     while (number >= value) {
       result += digit;
       number -= value;
