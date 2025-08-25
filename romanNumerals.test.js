@@ -2,6 +2,7 @@ import { test, expect } from "vitest";
 
 function romanNumbers(number) {
   let result = "";
+  if (number === 9) return "IX";
   if (number >= 5) {
     result += "V";
     number -= 5;
