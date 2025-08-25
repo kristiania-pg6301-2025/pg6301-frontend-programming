@@ -1,14 +1,32 @@
 export const norwegian: ApplicationMessages = {
   generalError: "En feil har inntruffet",
+  serverError: "Mistet kontakt med serveren",
+  invalidWeekday: (day) => `'${day}' er ikke en gyldig ukedag`,
 };
 export const english: ApplicationMessages = {
   generalError: "Something went wrong",
+  serverError: "Cannot connect to server",
+  invalidWeekday: (day) => `'${day}' is not a valid weekday`,
 };
 
 interface ApplicationMessages {
   generalError: string;
+  serverError: string;
+
+  invalidWeekday(day: string): string;
 }
 
-export function showMessage(language: ApplicationMessages, error: string) {
-  return language["generalError"];
+type Message =
+  | { code: "generalError" | "serverError" }
+  | { code: "invalidWeekday"; day: string };
+
+export function showMessage(language: ApplicationMessages, message: Message) {
+  if (message.code === "generalError" || message.code === "serverError")
+    return language[message.code];
+  else if (message.code === "invalidWeekday")
+    return language.invalidWeekday(message.day);
+  else {
+    const code: never = message.code;
+    return `Unknown message type ${code}`;
+  }
 }
