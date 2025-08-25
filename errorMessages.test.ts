@@ -27,3 +27,33 @@ test("weekdays", () => {
     showMessage(english, { code: "invalidWeekday", day: "Doomsday" }),
   ).toBe("'Doomsday' is not a valid weekday");
 });
+
+test("email domains", () => {
+  expect(
+    showMessage(norwegian, {
+      code: "emailDomains",
+      email: "foor@bart.com",
+      validDomains: ["foo.no", "example.com"],
+    }),
+  ).toBe(
+    "foor@bart.com er en ugyldig adresse. Må være på domenet foo.no eller example.com",
+  );
+  expect(
+    showMessage(norwegian, {
+      code: "emailDomains",
+      email: "hello@example.net",
+      validDomains: ["example.com"],
+    }),
+  ).toBe(
+    "hello@example.net er en ugyldig adresse. Må være på domenet example.com",
+  );
+  expect(
+    showMessage(english, {
+      code: "emailDomains",
+      email: "foor@bart.com",
+      validDomains: ["foo.no", "example.com"],
+    }),
+  ).toBe(
+    "foor@bart.com is an invalid email. Must be in domain foo.no or example.com",
+  );
+});
