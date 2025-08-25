@@ -1,9 +1,12 @@
 import { test, expect } from "vitest";
 
 function romanNumbers(number) {
-  if (number === 3) return "III";
-  if (number === 2) return "II";
-  return "I";
+  let result = "";
+  while (number > 0) {
+    result += "I";
+    number -= 1;
+  }
+  return result;
 }
 
 function testRoman(number, expectedText) {
