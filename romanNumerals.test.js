@@ -38,3 +38,4 @@ testRoman(9, "IX");
 testRoman(10, "X");
 testRoman(11, "XI");
 testRoman(38, "XXXVIII");
+testRoman(40, "XL");
