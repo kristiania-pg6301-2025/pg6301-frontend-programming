@@ -1,12 +1,18 @@
 import { expect, test } from "vitest";
 
-const norwegian = {};
-const english = {};
+const norwegian = {
+  generalError: "En feil har inntruffet",
+};
+const english = {
+  generalError: "Something went wrong",
+};
 
-interface ApplicationMessages {}
+interface ApplicationMessages {
+  generalError: string;
+}
 
 function showMessage(language: ApplicationMessages, error: string) {
-  return "En feil har inntruffet";
+  return language["generalError"];
 }
 
 test("general error", () => {
