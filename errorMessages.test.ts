@@ -10,6 +10,15 @@ test("general error", () => {
   );
 });
 
+test("server error", () => {
+  expect(showMessage(norwegian, { code: "serverError" })).toBe(
+    "Mistet kontakt med serveren",
+  );
+  expect(showMessage(english, { code: "serverError" })).toBe(
+    "Cannot connect to server",
+  );
+});
+
 test("weekdays", () => {
   expect(
     showMessage(norwegian, { code: "invalidWeekday", day: "Doomsday" }),
