@@ -1,10 +1,12 @@
 import { test, expect } from "vitest";
 
 function romanNumbers(number) {
-  if (number === 6) return "VI";
-  if (number === 5) return "V";
-  if (number === 4) return "IV";
   let result = "";
+  if (number >= 5) {
+    result += "V";
+    number -= 5;
+  }
+  if (number === 4) return "IV";
   while (number > 0) {
     result += "I";
     number -= 1;
