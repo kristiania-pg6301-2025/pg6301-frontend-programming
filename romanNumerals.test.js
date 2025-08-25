@@ -2,20 +2,23 @@ import { test, expect } from "vitest";
 
 function romanNumbers(number) {
   let result = "";
-  while (number >= 10) {
-    result += "X";
-    number -= 10;
+
+  function convertDigits(digit, value) {
+    while (number >= value) {
+      result += digit;
+      number -= value;
+    }
   }
+
+  convertDigits("X", 10);
+
   if (number === 9) return "IX";
   if (number >= 5) {
     result += "V";
     number -= 5;
   }
   if (number === 4) return "IV";
-  while (number > 0) {
-    result += "I";
-    number -= 1;
-  }
+  convertDigits("I", 1);
   return result;
 }
 
