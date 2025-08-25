@@ -21,9 +21,12 @@ type Message =
   | { code: "invalidWeekday"; day: string };
 
 export function showMessage(language: ApplicationMessages, message: Message) {
-  if (message.code === "generalError") return language["generalError"];
-  else if (message.code === "serverError") return language["serverError"];
+  if (message.code === "generalError" || message.code === "serverError")
+    return language[message.code];
   else if (message.code === "invalidWeekday")
     return language.invalidWeekday(message.day);
-  else return "what?";
+  else {
+    const code: never = message.code;
+    return `Unknown message type ${code}`;
+  }
 }
