@@ -26,3 +26,4 @@ testRoman(3, "III");
 testRoman(4, "IV");
 testRoman(5, "V");
 testRoman(6, "VI");
+testRoman(9, "IX");
