@@ -9,6 +9,8 @@ interface ApplicationMessages {
   generalError: string;
 }
 
-export function showMessage(language: ApplicationMessages, error: string) {
+type Message = "generalError" | { code: "invalidWeekday"; day: string };
+
+export function showMessage(language: ApplicationMessages, error: Message) {
   return language["generalError"];
 }
