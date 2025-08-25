@@ -18,3 +18,4 @@ function testRoman(number, expectedText) {
 testRoman(1, "I");
 testRoman(2, "II");
 testRoman(3, "III");
+testRoman(4, "IV");
