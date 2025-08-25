@@ -5,10 +5,11 @@ function romanNumbers(number) {
   return "I";
 }
 
-test("1 in roman numbers is I", () => {
-  expect(romanNumbers(1)).toBe("I");
-});
+function testRoman(number, expectedText) {
+  test(`${number} in roman numbers is ${expectedText}`, () => {
+    expect(romanNumbers(number)).toBe(expectedText);
+  });
+}
 
-test("2 in roman numbers is II", () => {
-  expect(romanNumbers(2)).toBe("II");
-});
+testRoman(1, "I");
+testRoman(2, "II");
