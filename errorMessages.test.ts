@@ -10,4 +10,7 @@ test("weekdays", () => {
   expect(
     showMessage(norwegian, { code: "invalidWeekday", day: "Doomsday" }),
   ).toBe("'Doomsday' er ikke en gyldig ukedag");
+  expect(
+    showMessage(english, { code: "invalidWeekday", day: "Doomsday" }),
+  ).toBe("'Doomsday' is not a valid weekday");
 });
