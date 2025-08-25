@@ -10,8 +10,10 @@ function romanNumbers(number) {
     }
   }
 
+  convertDigits("CM", 900);
   convertDigits("D", 500);
   convertDigits("CD", 400);
+  convertDigits("XC", 90);
   convertDigits("L", 50);
   convertDigits("XL", 40);
   convertDigits("X", 10);
