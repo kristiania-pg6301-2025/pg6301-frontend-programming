@@ -13,9 +13,11 @@ interface ApplicationMessages {
   invalidWeekday(day: string): string;
 }
 
-type Message = "generalError" | { code: "invalidWeekday"; day: string };
+type Message =
+  | { code: "generalError" }
+  | { code: "invalidWeekday"; day: string };
 
 export function showMessage(language: ApplicationMessages, message: Message) {
-  if (message === "generalError") return language["generalError"];
+  if (message.code === "generalError") return language["generalError"];
   else return language.invalidWeekday(message.day);
 }
