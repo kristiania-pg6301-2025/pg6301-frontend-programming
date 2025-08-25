@@ -41,3 +41,4 @@ testRoman(11, "XI");
 testRoman(38, "XXXVIII");
 testRoman(40, "XL");
 testRoman(444, "CDXLIV");
+testRoman(555, "DLV");
