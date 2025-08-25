@@ -3,7 +3,7 @@ export const norwegian: ApplicationMessages = {
   serverError: "Mistet kontakt med serveren",
 
   emailDomains: (emails, validDomains) =>
-    "foor@bart.com er en ugyldig adresse. Må være på domenet foo.no eller example.com",
+    `${emails} er en ugyldig adresse. Må være på domenet ${validDomains.join(" eller ")}`,
   invalidWeekday: (day) => `'${day}' er ikke en gyldig ukedag`,
 };
 export const english: ApplicationMessages = {
@@ -11,7 +11,7 @@ export const english: ApplicationMessages = {
   serverError: "Cannot connect to server",
 
   emailDomains: (emails, validDomains) =>
-    "foor@bart.com is an invalid email. Must be in domain foo.no or example.com",
+    `${emails} is an invalid email. Must be in domain ${validDomains.join(" or ")}`,
   invalidWeekday: (day) => `'${day}' is not a valid weekday`,
 };
 
