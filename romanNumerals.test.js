@@ -10,6 +10,7 @@ function romanNumbers(number) {
     }
   }
 
+  convertDigits("XL", 40);
   convertDigits("X", 10);
 
   if (number === 9) return "IX";
