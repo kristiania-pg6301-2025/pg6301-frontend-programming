@@ -2,8 +2,9 @@
   "name": "pg6301-frontend-programming",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "npx prettier --check .",
+    "test": "tsc --noEmit && npx prettier --check .",
     "test:watch": "vitest"
   },
   "repository": {

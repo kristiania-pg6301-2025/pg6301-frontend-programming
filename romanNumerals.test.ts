@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
-import { romanNumbers } from "./romanNumbers";
+import { romanNumbers } from "./romanNumbers.js";
 
-function testRoman(number, expectedText) {
+function testRoman(number: number, expectedText: string) {
   test(`${number} in roman numbers is ${expectedText}`, () => {
     expect(romanNumbers(number)).toBe(expectedText);
   });
