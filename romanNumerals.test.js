@@ -40,3 +40,4 @@ testRoman(38, "XXXVIII");
 testRoman(444, "CDXLIV");
 testRoman(555, "DLV");
 testRoman(999, "CMXCIX");
+testRoman(3888, "MMMDCCCLXXXVIII");
