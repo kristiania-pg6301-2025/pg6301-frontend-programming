@@ -2,7 +2,7 @@ import { test, expect } from "vitest";
 
 function romanNumbers(number) {
   let result = "";
-  if (number >= 10) {
+  while (number >= 10) {
     result += "X";
     number -= 10;
   }
