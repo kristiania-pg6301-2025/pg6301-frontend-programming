@@ -10,6 +10,9 @@ function romanNumbers(number) {
     }
   }
 
+  convertDigits("D", 500);
+  convertDigits("CD", 400);
+  convertDigits("L", 50);
   convertDigits("XL", 40);
   convertDigits("X", 10);
 
@@ -18,7 +21,10 @@ function romanNumbers(number) {
     result += "V";
     number -= 5;
   }
-  if (number === 4) return "IV";
+  if (number >= 4) {
+    result += "IV";
+    number -= 4;
+  }
   convertDigits("I", 1);
   return result;
 }
