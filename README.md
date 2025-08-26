@@ -78,7 +78,7 @@ This lecture covers Github Actions, Pull requests, GitHub issues and Code Review
 
 Bonus content: Course logo
 
-### Lecture 3: A tour of React, Express and Heroku
+### Lecture 3: A tour of React, Hono and Heroku
 
 [![Lecture 3 code](https://img.shields.io/badge/Lecture_3-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/03)
 [![Lecture 3 reference](https://img.shields.io/badge/Lecture_3-reference_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/reference/03)
@@ -125,10 +125,10 @@ We will also look at navigating in the app with React Router.
 [![Lecture 6 reference](https://img.shields.io/badge/Lecture_6-reference_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/reference/06)
 [![Lecture 6 exercise](https://img.shields.io/badge/Lecture_6-exercise-pink)](./exercises/EXERCISES.md#exercise-6)
 
-We will create an Express server which serves a React application that uses an API implemented in [Hono](https://hono.dev/) to implement
+We will create an Hono server which serves a React application that uses an API implemented in [Hono](https://hono.dev/) to implement
 functionality.
-See [Convert to serve from Express](#implement-server-side-apis-with-express) on the steps to take the code from the
-previous lecture to be served from Express.
+See [Convert to serve from Hono] on the steps to take the code from the
+previous lecture to be served from Hono.
 
 
 ### Lecture 7: Publishing your application on Heroku
@@ -464,7 +464,7 @@ it("handles event", async () => {
 
 #### Using supertest to check server side behavior
 
-For testing Express components, I recommend [Supertest](https://github.com/ladjs/supertest)
+For testing Hono files, I recommend [Supertest](https://github.com/ladjs/supertest)
 
 <details>
 
@@ -475,53 +475,12 @@ For testing Express components, I recommend [Supertest](https://github.com/ladjs
 
 To test a bookApi defined in `server/booksApi.js` like this:
 
-```javascript
-import express from "express";
-
-export const booksApi = new express.Router();
-booksApi.get(":id", (req, res) => {
-  // ...
-});
-booksApi.put(":id", (req, res) => {
-    // ...
-});
-```
+TODO
 
 you can use a test in `server/tests/booksApi.test.js` like this:
 
-```javascript
-import { beforeAll, describe, expect, it } from "vitest";
-import express from "express";
-import request from "supertest";
-import { booksApi } from "../booksApi";
+TODO
 
-const app = express();
-app.use(bodyParser.json());
-app.use(booksApi);
-
-describe("books api", () => {
-
-  it("can update existing books", async () => {
-    const book = (await request(app).get("/2")).body;
-    const updated = {
-      ...book,
-      author: "Egner",
-    };
-    await request(app).put("/2").send(updated).expect(200);
-    await request(app)
-      .get("/2")
-      .then((response) => {
-        expect(response.body).toMatchObject({
-          id: 2,
-          author: "Egner",
-        });
-      });
-  });
-
-});
-```
-
-</details>
 
 
 ## OpenID Connect - Log on with Google
