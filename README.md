@@ -51,10 +51,10 @@ In the course we will mainly be building two example applications:
 
 In this lecture, we will look at some popular and effective software engineering practices:
 
-* Test-driven development: Alternating between writing testing code and production code, writing the test code first
-* Pair-programming: Two developers working together on the same code with one keyboard and mouse, preferably alternating frequently who is at the keyboard
-* Refactoring: Improving the structure of the code without changing the behavior, preferably using refactoring support in the IDE
-* Continuous integration: Sharing the code frequently with the rest of the team, preferably running automated checks whenever the code is pushed
+- Test-driven development: Alternating between writing testing code and production code, writing the test code first
+- Pair-programming: Two developers working together on the same code with one keyboard and mouse, preferably alternating frequently who is at the keyboard
+- Refactoring: Improving the structure of the code without changing the behavior, preferably using refactoring support in the IDE
+- Continuous integration: Sharing the code frequently with the rest of the team, preferably running automated checks whenever the code is pushed
 
 These are some of the practices of Extreme Programming, the first Agile method to be widely documented and used.
 
@@ -65,7 +65,18 @@ These are some of the practices of Extreme Programming, the first Agile method t
 [![Lecture 2 exercise](https://img.shields.io/badge/Lecture_2-exercise-pink)](./exercises/EXERCISES.md#exercise-2)
 [![Lecture 2 issues](https://img.shields.io/badge/Lecture_2-issues-green)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/milestone/2)
 
-This lecture covers Github Actions, Pull requests, GitHub issues and Code Reviews.
+This lecture covers Github Actions, Pull requests, GitHub issues and Code Reviews. This completes most of the practices from Extreme Programming:
+
+- Pair programming
+- Test-driven development
+- Simple design
+- Refactoring
+- Continuous integration
+- Coding standard
+- (Collective code ownership)
+- (Sustainable pace)
+
+Bonus content: Course logo
 
 ### Lecture 3: A tour of React, Express and Heroku
 
@@ -101,7 +112,7 @@ creating functional components and using props, state and effects.
 
 We will continue on the React topics from the last lecture of creating components.
 We will use the `useEffect` and `useRef` hooks to set up interaction between our app and the DOM-objects in the browser
-in order to create a Dialog component using the HTML `<dialog >` element
+in order to create a Dialog component using the HTML `<dialog />` element
 We will also look at navigating in the app with React Router.
 
 #### Reference material
