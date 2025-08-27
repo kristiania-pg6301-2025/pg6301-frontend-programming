@@ -3,12 +3,7 @@ import { createRoot } from "react-dom/client";
 
 function Application() {
   const [newTaskTitle, setNewTaskTitle] = useState("");
-  const [tasks, setTasks] = useState([
-    { title: "Client side", completed: true },
-    { title: "Fetch from server" },
-    { title: "Post to server" },
-    { title: "Deployment" },
-  ]);
+  const [tasks, setTasks] = useState([]);
 
   async function onLoad() {
     const res = await fetch("/api/tasks");
