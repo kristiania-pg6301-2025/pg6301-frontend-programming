@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { type FormEvent, useState } from "react";
 
-function NewTaskForm({ onNewTask }) {
+interface Task {
+  title: string;
+  color?: string;
+}
+
+function NewTaskForm({ onNewTask }: { onNewTask: (task: Task) => void }) {
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("");
 
-  function handleSubmit(event) {
+  function handleSubmit(event: FormEvent) {
     event.preventDefault();
     onNewTask({ title, color });
     setTitle("");
@@ -35,11 +40,11 @@ function NewTaskForm({ onNewTask }) {
   );
 }
 
-function TaskList({ tasks }) {
+function TaskList({ tasks }: { tasks: Task[] }) {
   return (
     <ul>
       {tasks.map((t) => (
-        <li style={{ backgroundColor: t.colour }}>
+        <li style={{ backgroundColor: t.color }}>
           <label>
             <input type={"checkbox"} />
             {t.title}
@@ -51,9 +56,9 @@ function TaskList({ tasks }) {
 }
 
 export function Application() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  function handleNewTask(newTask) {
+  function handleNewTask(newTask: Task) {
     setTasks((old) => [...old, newTask]);
   }
   return (
