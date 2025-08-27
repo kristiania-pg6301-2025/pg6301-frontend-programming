@@ -23,6 +23,8 @@ function Application() {
       },
       body: JSON.stringify({ title: newTaskTitle }),
     });
+    await onLoad();
+    setNewTaskTitle("");
   }
 
   return (
