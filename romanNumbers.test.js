@@ -3,7 +3,7 @@ import { test, expect } from "vitest";
 function romanNumerals(number) {
   let result = "";
 
-  function convertDigit(digit, digitValue) {
+  function convertDigit(digitValue, digit) {
     while (number >= digitValue) {
       result += digit;
       number -= digitValue;
