@@ -7,7 +7,9 @@
     "test": "prettier --check .",
     "dev": "vite",
     "prepare": "husky",
-    "build": "vite build"
+    "build": "vite build",
+    "start": "cd server && npm start",
+    "postinstall": "cd server && npm install"
   },
   "repository": {
     "type": "git",

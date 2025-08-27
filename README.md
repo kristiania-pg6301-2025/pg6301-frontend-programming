@@ -54,3 +54,12 @@ We now need to set up the build process:
 You will now see the output in a new `dist/`. This should be added to `.gitignore`
 
 We now need to make `npm start` work
+
+1. `npm pkg set scripts.start="cd server && npm start"`
+2. `npm pkg set scripts.postinstall="cd server && npm install"`
+3. `npm install`
+4. `npm start`
+
+If you go to http://localhost:3000/api/tasks you will now see the tasks
+
+But we still need to see the React application at http://localhost:3000
