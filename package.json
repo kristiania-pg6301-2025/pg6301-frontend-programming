@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test:watch": "vitest --watch",
+    "test:github": "npm test && vitest --run",
     "test": "prettier --check .",
     "prepare": "husky"
   },
