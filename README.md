@@ -67,3 +67,12 @@ But we still need to see the React application at http://localhost:3000:
 1. In `server/server.js`, call `app.use("*", serveStatic({ root: "../dist" }));`
 
 But we need Hono to start on the port that Heroku specifies
+
+1. Simulate Heroku deciding the port:
+   - on Windows: `set PORT=9000`
+   - on Linux/Mac: `export PORT=9000`
+2. We now expect to access the application on http://localhost:9000
+
+To make it work, replace `serve(app)` with `serve({ port: process.env.PORT || 3000, fetch: app.fetch })`
+
+After commiting to git, you can `git push heroku` again

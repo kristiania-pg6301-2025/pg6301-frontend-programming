@@ -17,4 +17,4 @@ app.post("/api/tasks", async (c) => {
 });
 
 app.use("*", serveStatic({ root: "../dist" }));
-serve(app);
+serve({ port: process.env.PORT || 3000, fetch: app.fetch });
