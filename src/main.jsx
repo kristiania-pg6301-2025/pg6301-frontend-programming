@@ -3,7 +3,12 @@ import { createRoot } from "react-dom/client";
 
 function Application() {
   const [newTaskTitle, setNewTaskTitle] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([
+    { title: "Client side", completed: true },
+    { title: "Fetch from server" },
+    { title: "Post to server" },
+    { title: "Deployment" },
+  ]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -12,7 +17,7 @@ function Application() {
 
   return (
     <>
-      <h1>My tasks</h1>
+      <h1>My task application</h1>
       <form onSubmit={handleSubmit}>
         <div>
           Title:{" "}
@@ -30,7 +35,7 @@ function Application() {
       <ul>
         {tasks.map((t) => (
           <li>
-            <input type={"checkbox"} />
+            <input type={"checkbox"} checked={t.completed} />
             {t.title}
           </li>
         ))}
