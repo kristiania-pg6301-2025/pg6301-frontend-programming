@@ -25,20 +25,24 @@ function NewTaskForm({ onNewTask }) {
   );
 }
 
-function TaskList() {
+function TaskList({ tasks }) {
   return (
     <ul>
-      <li>
-        <label>
-          <input type={"checkbox"} />
-          Task one
-        </label>
-      </li>
+      {tasks.map((t) => (
+        <li>
+          <label>
+            <input type={"checkbox"} />
+            {t.title}
+          </label>
+        </li>
+      ))}
     </ul>
   );
 }
 
 export function Application() {
+  const [tasks, setTasks] = useState([{ title: "My task" }]);
+
   function handleNewTask(newTask) {
     alert("Creating task: " + JSON.stringify(newTask));
   }
@@ -48,7 +52,7 @@ export function Application() {
       <h2>Create new task</h2>
       <NewTaskForm onNewTask={handleNewTask} />
       <h2>Existing tasks</h2>
-      <TaskList />
+      <TaskList tasks={tasks} />
     </>
   );
 }
