@@ -6,7 +6,7 @@ const norwegian: ApplicationMessages = {
 };
 const english: ApplicationMessages = {
   generalError: "An error has occurred",
-  networkError: "An error has occurred",
+  networkError: "No connection to server",
 };
 
 interface ApplicationMessages {
@@ -16,7 +16,7 @@ interface ApplicationMessages {
 
 function localizedMessage(language: ApplicationMessages, errorCode: string) {
   if (errorCode === "generalError") return language.generalError;
-  if (errorCode === "networkErrro") return language.networkError;
+  if (errorCode === "networkError") return language.networkError;
 }
 
 test("should translate general error", () => {
@@ -29,10 +29,10 @@ test("should translate general error", () => {
 });
 
 test("should translate server error", () => {
-  expect(localizedMessage(norwegian, "serverError")).toBe(
+  expect(localizedMessage(norwegian, "networkError")).toBe(
     "Fikk ikke kontakt med serveren",
   );
-  expect(localizedMessage(english, "serverError")).toBe(
+  expect(localizedMessage(english, "networkError")).toBe(
     "No connection to server",
   );
 });
