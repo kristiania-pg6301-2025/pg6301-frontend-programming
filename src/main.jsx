@@ -14,9 +14,15 @@ function Application() {
     onLoad();
   }, []);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    setTasks((old) => [...old, { title: newTaskTitle }]);
+    await fetch("/api/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title: newTaskTitle }),
+    });
   }
 
   return (
