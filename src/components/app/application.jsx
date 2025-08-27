@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 
-function NewTaskForm() {
+function NewTaskForm({ onNewTask }) {
   const [title, setTitle] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-    const newTask = { title };
-    alert("Creating task: " + JSON.stringify(newTask));
+    onNewTask({ title });
   }
 
   return (
@@ -40,11 +39,14 @@ function TaskList() {
 }
 
 export function Application() {
+  function handleNewTask(newTask) {
+    alert("Creating task: " + JSON.stringify(newTask));
+  }
   return (
     <>
       <h1>Tasks</h1>
       <h2>Create new task</h2>
-      <NewTaskForm />
+      <NewTaskForm onNewTask={handleNewTask} />
       <h2>Existing tasks</h2>
       <TaskList />
     </>
