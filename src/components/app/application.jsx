@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 function NewTaskForm({ onNewTask }) {
   const [title, setTitle] = useState("");
+  const [color, setColor] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-    onNewTask({ title });
+    onNewTask({ title, color });
     setTitle("");
   }
 
@@ -20,7 +21,15 @@ function NewTaskForm({ onNewTask }) {
         />
       </div>
       <div>
-        <button>Submit {title}</button>
+        <strong>Color: </strong>
+        <input
+          type="color"
+          value={color}
+          onChange={(e) => setColor(e.target.value)}
+        />
+      </div>
+      <div>
+        <button disabled={!title}>Submit</button>
       </div>
     </form>
   );
@@ -30,7 +39,7 @@ function TaskList({ tasks }) {
   return (
     <ul>
       {tasks.map((t) => (
-        <li>
+        <li style={{ backgroundColor: t.colour }}>
           <label>
             <input type={"checkbox"} />
             {t.title}
