@@ -38,11 +38,11 @@ see [Coding Dojo description of Roman Numerals](https://codingdojo.org/kata/Roma
 4. In IntelliJ, select ☰ > File > New Project from Version Control and copy your new GitHub repo as the URL
 5. Open the terminal Windows in IntelliJ
 6. Create the `package.json` files for your Vitest tests to work
-    1. `npm init -y`
-    2. `npm install --save-dev vitest husky prettier`
-    3. `npx husky init`
-    4. `npm pkg set scripts.test="prettier --check ."`
-    5. `npm pkg set scripts.test:watch="vitest --watch"`
+   1. `npm init -y`
+   2. `npm install --save-dev vitest husky prettier`
+   3. `npx husky init`
+   4. `npm pkg set scripts.test="prettier --check ."`
+   5. `npm pkg set scripts.test:watch="vitest --watch"`
 7. Start running the tests: `npm run test:watch`
 
 You should now see an error message saying "No test files found. You can change the file name pattern by pressing "p"".
@@ -51,16 +51,18 @@ This means that your tests are configured correctly.
 ### Step 3: Write your first failing test
 
 1. Create a file named `romanNumerals.test.js`
-    - The output from "vitest" should now say "No test suite found in file ...". This means that Vitest found the test
-      file, but it was empty
+   - The output from "vitest" should now say "No test suite found in file ...". This means that Vitest found the test
+     file, but it was empty
 2. Add code for your first test in `romanNumerals.test.js`
-    ```js
-    import { test, expect } from "vitest";
-    
-    test("1 in roman numerals is I", () => {
-      expect(romanNumerals(1)).toBe("I");
-    });
-    ```
+
+   ```js
+   import { test, expect } from "vitest";
+
+   test("1 in roman numerals is I", () => {
+     expect(romanNumerals(1)).toBe("I");
+   });
+   ```
+
 3. You should now receive the error message "ReferenceError: romanNumerals is not defined". This means that your test
    ran, but we haven't yet created the code for it to test
 4. In IntelliJ, press F2 to select the next problem and `Alt-enter` (`opt-enter` on Mac) to get a quick fix. You can now
@@ -87,11 +89,11 @@ The other programmer should now take over.
 4. Implement the test as simply as possible: Just make `romanNumerals` always `return "I"`
 5. You tests run green. You should now give each other a HIGH FIVE
 6. Implement the second test:
-    ```js
-    test("2 in roman numerals is II", () => {
-      expect(romanNumerals(2)).toBe("II");
-    });
-    ```
+   ```js
+   test("2 in roman numerals is II", () => {
+     expect(romanNumerals(2)).toBe("II");
+   });
+   ```
 7. The test should fail with "AssertionError: expected 'I' to be 'II'"
 8. Reformat you code with Prettier (if needed), git commit and git push
 
@@ -118,7 +120,7 @@ The other programmer should take over.
 3. Instead of having a list of "ifs", make a loop that adds one "I" to the resulting value. Changing the working code is
    called "refactoring"
 4. If you do it correctly, you tests will still pass
-5. You can now add a test for 4 ("IV"). If you do it correctly, you will get the message "AssertionError: expected 
+5. You can now add a test for 4 ("IV"). If you do it correctly, you will get the message "AssertionError: expected
    'IIII' to be 'IV'". This a satifying result as it is reflecting the current understanding in your code
 
 Commit and push your code to GitHub and let your partner take over.
@@ -146,11 +148,11 @@ In this exercise, we will implement a program to calculate the scores of a [Yaht
 ### Implement the first rules of yahtzee
 
 1. The first programmer should implement scoring of "chance":
-    ```js
-    test("scoring Chance add all dice", () => {
-      expect(yatzeeScore("Chance", [1, 2, 3, 4, 5])).toBe(1+2+3+4+5);
-    });
-    ```
+   ```js
+   test("scoring Chance add all dice", () => {
+     expect(yatzeeScore("Chance", [1, 2, 3, 4, 5])).toBe(1 + 2 + 3 + 4 + 5);
+   });
+   ```
 2. Once you see the test run and fail, commit and push the code
 3. The other programmer should implement `yahtzeeScore` to make it pass
 4. The other programmer should write a new test, for example to describe `Ones`
@@ -188,4 +190,67 @@ In GitHub, go to Issues and create a New issue for the tasks you are planning to
 
 This is a good time to test out working in parallel. Assign one issue to each of the programmers in the pair, complete some Yahtzee rules and create a Pull request each. Review and merge each other's pull request.
 
+## Exercise 3
 
+<details>
+
+### The React todo-application
+
+The main running exercise of this course is the classic "TODO" application. This is a very common example, and you can see lots of examples using this online. The application lets to users create tasks and mark them as complete. In addition, we will be adding details to the tasks and give access to tasks to other users.
+
+Your application should have the following:
+
+1. A list of checkboxes for all created tasks
+2. An input field with a submit button to add a new task
+
+### Before you begin
+
+Make sure you have signed up for GitHub Education and installed NodeJS and IntelliJ.
+
+### Getting started
+
+1. Create a repository in GitHub. You can also create a subdirectory in an existing repository if you prefer
+2. In the terminal, create a React project
+   1. `npm init -y`
+   2. `npm install -D husky prettier vite`
+   3. `npm pkg set scripts.test="prettier --check ."`
+   4. `npx husky init`
+   5. `npm install react react-dom`
+   6. `npm pkg set scripts.dev="vite"`
+3. Go to http://localhost:5173 to see the Vite development server running. You will receive a 404 error as it is empty
+4. Create a file named `index.html`:
+   ```html
+   <html lang="en">
+     <body>
+       <div id="root"></div>
+     </body>
+     <script src="src/main.jsx" type="module"></script>
+   </html>
+   ```
+5. Create a file named `src/main.jsx`:
+
+   ```jsx
+   import React from "react";
+   import { createRoot } from "react-dom/client";
+
+   createRoot(document.getElementById("root")).render(<h1>Hello React</h1>);
+   ```
+
+6. If you refresh your browser, you will now see the message
+7. Try to change the text "Hello React" in `src/main.jsx`. As you save, your browser should refresh automatically
+
+If you want to explore React a bit more right away, check out the [official React tutorials](https://react.dev/learn).
+
+### Create the React code for the todo application
+
+At this point, your todo application should consist of two components:
+
+- A list of tasks, backed by `const [tasks, setTasks] = useState([])`
+- A form to create a new task, with the title backed by `const [title, setTitle] = useState("")`
+- When submitting the form, you need to create a `onSubmit` handler which updates the `tasks` state
+
+### Step 4: Competition
+
+We need a logo for the course GitHub pages. Post your as a comment to [Course logo issue](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/issues/12) and vote with emojiis on other entries. Despite knowing better from experience, I will let the democratic process decide on the logo.
+
+</details>

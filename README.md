@@ -4,8 +4,8 @@ Welcome to this course in Web Development and API Design. In this course, we wil
 look at creating single-page applications with React backed by APIs implemented
 with React. The application will store data in MongoDB and be deployed on Heroku
 
-* [Lectures](#lectures)
-* [Reference material](#reference-material)
+- [Lectures](#lectures)
+- [Reference material](#reference-material)
 
 ## Understanding the course
 
@@ -20,8 +20,8 @@ available on GitHub for student's reference.
 
 There are many topics that we believe are more suitable for self-study than
 classroom explanations, and you will not always be shown how all topics are used
-in a more general situation. *You will be expected to master some such topics
-to get a top grade at the exam*. In order to be prepared for the exam, you have
+in a more general situation. _You will be expected to master some such topics
+to get a top grade at the exam_. In order to be prepared for the exam, you have
 to follow the lectures, but you also have to be able to solve new problems and
 find relevant information along the way. To be able to do this, it's extremely
 valuable for you to follow the exercises along the lectures.
@@ -32,11 +32,11 @@ The lectures will be recorded and the recordings will be available to students i
 
 In the course we will mainly be building two example applications:
 
-* The todo-application: This is a very common example, and you can see lots of examples
+- The todo-application: This is a very common example, and you can see lots of examples
   using this online. The application lets to users create tasks and mark them as
   complete. In addition, we will be adding details to the tasks and give access to
   tasks to other users
-* Movie reviews
+- Movie reviews
 
 ## Lectures
 
@@ -65,7 +65,7 @@ These are some of the practices of Extreme Programming, the first Agile method t
 [![Lecture 2 exercise](https://img.shields.io/badge/Lecture_2-exercise-pink)](./exercises/EXERCISES.md#exercise-2)
 [![Lecture 2 issues](https://img.shields.io/badge/Lecture_2-issues-green)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/milestone/2)
 
-This lecture covers Github Actions, Pull requests, GitHub issues and Code Reviews. This completes most of the practices from Extreme Programming:
+This lecture covers GitHub Actions, Pull requests, GitHub issues and Code Reviews. This completes most of the practices from Extreme Programming:
 
 - Pair programming
 - Test-driven development
@@ -85,10 +85,12 @@ Bonus content: Course logo
 [![Lecture 3 exercise](https://img.shields.io/badge/Lecture_3-exercise-pink)](./exercises/EXERCISES.md#exercise-3)
 
 We explore the most important parts to the whole application up and running on
-a server. This lecture will be *way too fast to understand* and will serve merely
+a server. This lecture will be _way too fast to understand_ and will serve merely
 as a teaser to topics that will be important through the course. After the
 lecture, you will only be expected to know the basics of how to create a React
 application with Vite and React Router
+
+[Reference server running on Heroku](https://pg6301-reference-77c6cee527d5.herokuapp.com/)
 
 ### Lecture 4: React, `useState` and props
 
@@ -101,8 +103,8 @@ creating functional components and using props, state and effects.
 
 #### Reference material
 
-* [Fireship: React in 100 seconds](https://youtu.be/Tn6-PIqc4UM)
-* [Fireship: every React hook](https://youtu.be/TNhaISOUy6Q)
+- [Fireship: React in 100 seconds](https://youtu.be/Tn6-PIqc4UM)
+- [Fireship: every React hook](https://youtu.be/TNhaISOUy6Q)
 
 ### Lecture 5: `useEffect`, `useRef` and React Router
 
@@ -117,7 +119,7 @@ We will also look at navigating in the app with React Router.
 
 #### Reference material
 
-* [Fireship: every React hook](https://youtu.be/TNhaISOUy6Q)
+- [Fireship: every React hook](https://youtu.be/TNhaISOUy6Q)
 
 ### Lecture 6: Implementing a React backend with Hono
 
@@ -130,7 +132,6 @@ functionality.
 See [Convert to serve from Hono] on the steps to take the code from the
 previous lecture to be served from Hono.
 
-
 ### Lecture 7: Publishing your application on Heroku
 
 [![Lecture 7 code](https://img.shields.io/badge/Lecture_7-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/07)
@@ -142,8 +143,8 @@ See [the steps to deploy to Heroku](#deploy-to-heroku).
 
 **Reference material:**
 
-* [Heroku's documentation on using Node.js](https://www.heroku.com/nodejs)
-* [Heroku free credits for students](https://www.heroku.com/github-students)
+- [Heroku's documentation on using Node.js](https://www.heroku.com/nodejs)
+- [Heroku free credits for students](https://www.heroku.com/github-students)
 
 In this lecture, we also look at ways to make sure our code is good, from formatting, to linting, to testing.
 We will look at the tools husky, prettier and Typescript. We will also be using GitHub to run our quality
@@ -168,11 +169,11 @@ In this lecture, we learn how to store and retrieve data in [MongoDB](https://ww
 
 **Reference material:**
 
-* [MongoDB Skills](https://www.youtube.com/watch?v=0vPt7GI-2kc) - very useful and brief
-* [MongoDB in 100 seconds (Fireship.io)](https://www.youtube.com/watch?v=-bt_y4Loofg)
-* [MongoDB University: JavaScript](https://university.mongodb.com/courses/M220JS/about)
-* [MongoDB documentation: How to query collections](https://www.mongodb.com/docs/manual/reference/operator/query/)
-* [MongoDB documentation: How to insert a document](https://www.mongodb.com/docs/drivers/node/current/usage-examples/insertOne/)
+- [MongoDB Skills](https://www.youtube.com/watch?v=0vPt7GI-2kc) - very useful and brief
+- [MongoDB in 100 seconds (Fireship.io)](https://www.youtube.com/watch?v=-bt_y4Loofg)
+- [MongoDB University: JavaScript](https://university.mongodb.com/courses/M220JS/about)
+- [MongoDB documentation: How to query collections](https://www.mongodb.com/docs/manual/reference/operator/query/)
+- [MongoDB documentation: How to insert a document](https://www.mongodb.com/docs/drivers/node/current/usage-examples/insertOne/)
 
 ### Lecture 10: Who's your user? OpenID Connect
 
@@ -185,12 +186,10 @@ In this lecture, we learn how to store and retrieve data in [MongoDB](https://ww
 In this lecture we will implement "log in with Google"-functionality. We will also explore other identity
 services that also implement OpenID Connect, such as LinkedIn and Microsoft Entra ID.
 
-### Lecture 11: 
+### Lecture 11:
 
 [![Lecture 11 code](https://img.shields.io/badge/Lecture_11-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/11)
 [![Lecture 11 reference](https://img.shields.io/badge/Lecture_11-reference_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/reference/11)
-
-
 
 ### Lecture 12: Repetition of everything
 
@@ -243,12 +242,11 @@ npm install vitest
 #### Minimal `index.html`
 
 ```html
-
 <html lang="en">
-<body>
-<div id="root"></div>
-</body>
-<script src="src/main.tsx" type="module"></script>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="src/main.tsx" type="module"></script>
 </html>
 ```
 
@@ -256,7 +254,7 @@ npm install vitest
 
 ```jsx
 import React from "react";
-import {createRoot} from "react-dom/client";
+import { createRoot } from "react-dom/client";
 
 createRoot(document.getElementById("root")).render(<h1>Hello React</h1>);
 ```
@@ -277,15 +275,14 @@ to use Heroku or a similar service
 #### Minimal `vite.config.ts`
 
 ```ts
-import {defineConfig} from "vite";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-    // This has to be equal to the name of your repository
-    // For example, since this repository is https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming,
-    //  `base` has to be `/pg6301-frontend-programming`
-    base: "/pg6301-frontend-programming",
+  // This has to be equal to the name of your repository
+  // For example, since this repository is https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming,
+  //  `base` has to be `/pg6301-frontend-programming`
+  base: "/pg6301-frontend-programming",
 });
-
 ```
 
 #### Minimal `.github/workflows/publish-to-github-pages.yml`
@@ -297,7 +294,7 @@ on:
   push:
     # Only deploy when the branch name matches one of these
     # You probably only need `main`, the others are provided to work with the lecture
-    branches: [ "main", "reference/*", "lecture/*" ]
+    branches: ["main", "reference/*", "lecture/*"]
 
 jobs:
   build:
@@ -359,17 +356,17 @@ npm pkg set scripts.start="tsx server.ts"
 **`server/server.ts`**
 
 ```typescript
-import {Hono} from "hono";
-import {serve} from "@hono/node-server";
-import {serveStatic} from "@hono/node-server/serve-static";
+import { Hono } from "hono";
+import { serve } from "@hono/node-server";
+import { serveStatic } from "@hono/node-server/serve-static";
 
 const app = new Hono();
 // `serveStatic` makes Hono serve the output from `vite build`
-app.use("*", serveStatic({root: "../dist"}));
+app.use("*", serveStatic({ root: "../dist" }));
 
 // Heroku provides the port that the server should start on as an environment variable
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-serve({fetch: app.fetch, port});
+serve({ fetch: app.fetch, port });
 ```
 
 #### Deploying to Heroku
@@ -385,7 +382,6 @@ Now you need to commit your changes. You can then create a Heroku application an
 1. `heroku apps:create`
 2. `git push heroku`
 
-
 #### Snapshot testing - check that a view is rendered correctly
 
 For testing react code, I recommend [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)
@@ -396,22 +392,23 @@ To test with react, install devDependencies `@testing-library/react` and `jsdom`
 
 1. `npm install --save-dev vitest @testing-library/react jsdom`
 2. Add the following to your `vite.config.js`:
-    ```js
-    import { defineConfig } from "vite";
-    
-    export default defineConfig({
-      test: {
-        environment: "jsdom",
-      },
-    });
-    ```
 
-* Use `render` from `@testing-library/react` to instantiate components
-* Use `expect(RenderResult.baseElement).toMatchSnapshot()` for a test that checks that nothing has changed
-* Use `RenderResult.baseElement.{querySelector,querySelectorAll}` to find DOM elements to inspect in the test
-* You can also use [`RenderResult.findBy{Text,LabelText}`](https://testing-library.com/docs/queries/about) to find elements - this retries for up to one second
-* Use `fireEvent` from `@testing-library/react` to create change, submit and other events
-* Use [`vitest.fn()`](https://vitest.dev/guide/mocking) to create a [Mock](https://vitest.dev/guide/mocking) function that can be used to verify that an event was triggered
+   ```js
+   import { defineConfig } from "vite";
+
+   export default defineConfig({
+     test: {
+       environment: "jsdom",
+     },
+   });
+   ```
+
+- Use `render` from `@testing-library/react` to instantiate components
+- Use `expect(RenderResult.baseElement).toMatchSnapshot()` for a test that checks that nothing has changed
+- Use `RenderResult.baseElement.{querySelector,querySelectorAll}` to find DOM elements to inspect in the test
+- You can also use [`RenderResult.findBy{Text,LabelText}`](https://testing-library.com/docs/queries/about) to find elements - this retries for up to one second
+- Use `fireEvent` from `@testing-library/react` to create change, submit and other events
+- Use [`vitest.fn()`](https://vitest.dev/guide/mocking) to create a [Mock](https://vitest.dev/guide/mocking) function that can be used to verify that an event was triggered
 
 ```javascript
 import { afterEach, describe, expect, it, vitest } from "vitest";
@@ -424,14 +421,12 @@ afterEach(cleanup);
 it("matches snapshot", async () => {
   const app = render(
     <MemoryRouter initialEntries={["/"]}>
-      <MoviesRoutes fetchMovies={() => movies}/>,
+      <MoviesRoutes fetchMovies={() => movies} />,
     </MemoryRouter>,
   );
   expect(app.baseElement).toMatchSnapshot();
   expect(
-    [...app.baseElement.querySelectorAll("h3")].map(
-      (c) => c.textContent
-    ),
+    [...app.baseElement.querySelectorAll("h3")].map((c) => c.textContent),
   ).toEqual(["Barbie", "Oppenheimer"]);
 });
 ```
@@ -468,7 +463,7 @@ For testing Hono files, I recommend [Supertest](https://github.com/ladjs/superte
 
 <details>
 
-***Setup***:
+**_Setup_**:
 
 1. `cd client`
 2. `npm install --save-dev vitest supertest`
@@ -480,8 +475,6 @@ TODO
 you can use a test in `server/tests/booksApi.test.js` like this:
 
 TODO
-
-
 
 ## OpenID Connect - Log on with Google
 
@@ -512,21 +505,20 @@ function LoginButton() {
   async function generateAuthorizationUrl() {
     // Get the location of endpoints from Google
     const { authorization_endpoint } = await fetchJson(
-      "https://accounts.google.com/.well-known/openid-configuration"
+      "https://accounts.google.com/.well-known/openid-configuration",
     );
     // Tell Google how to perform the authentication
     const parameters = {
       response_type: "token",
-      client_id:
-        "<get this from Google Cloud Console>",
+      client_id: "<get this from Google Cloud Console>",
       // Tell user to come back to http://localhost:3000/login/callback when logged in
       redirect_uri: window.location.origin + "/login/callback",
       scope: "profile email",
     };
     setAuthorizationUrl(
       discoveryDoc.authorization_endpoint +
-      "?" +
-      new URLSearchParams(parameters),
+        "?" +
+        new URLSearchParams(parameters),
     );
   }
 
@@ -598,10 +590,10 @@ app.use(async (req, res, next) => {
   const { access_token } = req.signedCookies;
   if (access_token) {
     const { userinfo_endpoint } = await fetchJSON(
-      "https://accounts.google.com/.well-known/openid-configuration"
+      "https://accounts.google.com/.well-known/openid-configuration",
     );
     req.userinfo = await fetchJSON(userinfo_endpoint, {
-      headers: { "Authorization": `Bearer ${access_token}` },
+      headers: { Authorization: `Bearer ${access_token}` },
     });
   }
   next();
@@ -632,7 +624,7 @@ app.get("/profile", (req, res) => {
 These are some of the most versatile keyboard shortcuts in IntelliJ. There are many more, but learning these 12 will really speed up your code
 
 | Shortcut (Windows)   | Shortcut (Mac)      | Command                                    |
-|----------------------|---------------------|--------------------------------------------|
+| -------------------- | ------------------- | ------------------------------------------ |
 | alt-enter            | opt-enter           | Show content action (quick fix)            |
 | ctrl-alt-shift-t     | ctrl-t              | Refactor this (show refactor menu)         |
 | alt-insert           | cmd-n               | New... (add some content)                  |
@@ -647,6 +639,7 @@ These are some of the most versatile keyboard shortcuts in IntelliJ. There are m
 
 Make yourself familiar with `Refactor this` (ctrl-alt-shift-t / ctrl-t) and use it to learn the shortcut keys for your
 favorite refactorings like Extract method, Rename and Inline.
+
 </details>
 
 ### Git commands
@@ -654,7 +647,7 @@ favorite refactorings like Extract method, Rename and Inline.
 <details>
 
 | Command      | Description                              | IntelliJ shortcut                         |
-|--------------|------------------------------------------|-------------------------------------------|
+| ------------ | ---------------------------------------- | ----------------------------------------- |
 | `git init`   | Creates a new local git repo in `.git/`  | VCS > Import into version control         |
 | `git add`    | Stage files to include in next commit    | (not needed)                              |
 | `git commit` | Store your local changes in git history  | ctrl-k / cmd-k                            |
@@ -667,18 +660,17 @@ favorite refactorings like Extract method, Rename and Inline.
 
 ## Software and libraries used in this course:
 
-* [Vite](https://vitejs.dev/)
-* [Vitest](https://vitest.dev/)
-* [React](https://react.dev)
-* [NodeJs](https://nodejs.org)
-* [Hono](https://hono.dev/)
-* [IntelliJ](https://www.jetbrains.com/idea/)
-* [Heroku](https://devcenter.heroku.com/)
-* [MongoDB](https://www.mongodb.com/)
-* [Husky](https://typicode.github.io/husky/)
-* [Prettier](https://prettier.io/)
-* [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-* [Supertest](https://github.com/ladjs/supertest)
-* Google Login
-* Entra ID (?)
-
+- [Vite](https://vitejs.dev/)
+- [Vitest](https://vitest.dev/)
+- [React](https://react.dev)
+- [NodeJs](https://nodejs.org)
+- [Hono](https://hono.dev/)
+- [IntelliJ](https://www.jetbrains.com/idea/)
+- [Heroku](https://devcenter.heroku.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Husky](https://typicode.github.io/husky/)
+- [Prettier](https://prettier.io/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Supertest](https://github.com/ladjs/supertest)
+- Google Login
+- Entra ID (?)
