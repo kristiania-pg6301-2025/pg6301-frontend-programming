@@ -8,10 +8,14 @@ function Application() {
       <h1>My tasks</h1>
       <form>
         <div>
-          Title: <input />
+          Title:{" "}
+          <input
+            value={newTaskTitle}
+            onChange={(e) => setNewTaskTitle(e.target.value)}
+          />
         </div>
         <div>
-          <button>Save task: New task</button>
+          <button>Save task: {newTaskTitle}</button>
         </div>
       </form>
       <h2>Existing tasks</h2>
