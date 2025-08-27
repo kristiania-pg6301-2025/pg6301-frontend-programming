@@ -62,4 +62,8 @@ We now need to make `npm start` work
 
 If you go to http://localhost:3000/api/tasks you will now see the tasks
 
-But we still need to see the React application at http://localhost:3000
+But we still need to see the React application at http://localhost:3000:
+
+1. In `server/server.js`, call `app.use("*", serveStatic({ root: "../dist" }));`
+
+But we need Hono to start on the port that Heroku specifies
