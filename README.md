@@ -60,7 +60,7 @@ These are some of the practices of Extreme Programming, the first Agile method t
 
 ### Lecture 2: Programming tools
 
-[![Lecture 2 code](https://img.shields.io/badge/Lecture_2-lecture_code-blue)](https://github.com/kristiania-kws2100-2025/kws2100-lecture-02)
+[![Lecture 2 code](https://img.shields.io/badge/Lecture_2-lecture_code-blue)]([https://github.com/kristiania-kws2100-2025/kws2100-lecture-02](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/02))
 [![Lecture 2 reference](https://img.shields.io/badge/Lecture_2-reference_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/reference/02)
 [![Lecture 2 exercise](https://img.shields.io/badge/Lecture_2-exercise-pink)](./exercises/EXERCISES.md#exercise-2)
 [![Lecture 2 issues](https://img.shields.io/badge/Lecture_2-issues-green)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/milestone/2)
