@@ -44,3 +44,13 @@ We need to get the application to run from a clean slate.
 
 1. Stop any node processes you're running
 2. `git clean -xf node_modules server/node_modules` - this simulates starting from scratch
+
+We now need to set up the build process:
+
+1. `npm install`
+2. `npm pkg set scripts.build="vite build"`
+3. `npm run build`
+
+You will now see the output in a new `dist/`. This should be added to `.gitignore`
+
+We now need to make `npm start` work
