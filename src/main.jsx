@@ -3,10 +3,16 @@ import { createRoot } from "react-dom/client";
 
 function Application() {
   const [newTaskTitle, setNewTaskTitle] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    alert("Hello");
+  }
+
   return (
     <>
       <h1>My tasks</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           Title:{" "}
           <input
