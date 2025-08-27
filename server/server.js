@@ -10,4 +10,9 @@ app.get("/api/tasks", async (c) => {
     { title: "Deployment" },
   ]);
 });
+app.post("/api/tasks", async (c) => {
+  const task = await c.req.json();
+  console.log(task);
+  return c.status(201);
+});
 serve(app);
