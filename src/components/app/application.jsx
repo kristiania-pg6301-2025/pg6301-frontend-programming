@@ -6,6 +6,7 @@ function NewTaskForm({ onNewTask }) {
   function handleSubmit(event) {
     event.preventDefault();
     onNewTask({ title });
+    setTitle("");
   }
 
   return (
@@ -41,10 +42,10 @@ function TaskList({ tasks }) {
 }
 
 export function Application() {
-  const [tasks, setTasks] = useState([{ title: "My task" }]);
+  const [tasks, setTasks] = useState([]);
 
   function handleNewTask(newTask) {
-    alert("Creating task: " + JSON.stringify(newTask));
+    setTasks((old) => [...old, newTask]);
   }
   return (
     <>
