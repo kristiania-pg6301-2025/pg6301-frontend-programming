@@ -15,5 +15,5 @@ on:
   push:
     branches:
       - lecture/*
-      - lecture/*/dev/*
+      - lecture/dev/*/*
       - main
