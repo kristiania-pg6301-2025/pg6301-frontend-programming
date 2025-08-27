@@ -1,9 +1,9 @@
 import { test, expect } from "vitest";
 
-function romanNumerals(number) {
+function romanNumerals(number: number) {
   let result = "";
 
-  function convertDigit(digitValue, digit) {
+  function convertDigit(digit: string, digitValue: number) {
     while (number >= digitValue) {
       result += digit;
       number -= digitValue;
@@ -23,7 +23,7 @@ function romanNumerals(number) {
   return result;
 }
 
-function testRomanNumbers(number, expected) {
+function testRomanNumbers(number: number, expected: string) {
   test(`${number} should be ${expected}`, () => {
     expect(romanNumerals(number)).toBe(expected);
   });
