@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 function Application() {
@@ -9,6 +9,15 @@ function Application() {
     { title: "Post to server" },
     { title: "Deployment" },
   ]);
+
+  async function onLoad() {
+    const res = await fetch("/api/tasks");
+    setTasks(await res.json());
+  }
+
+  useEffect(() => {
+    onLoad();
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
