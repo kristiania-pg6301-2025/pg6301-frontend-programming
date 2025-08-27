@@ -76,3 +76,5 @@ But we need Hono to start on the port that Heroku specifies
 To make it work, replace `serve(app)` with `serve({ port: process.env.PORT || 3000, fetch: app.fetch })`
 
 After commiting to git, you can `git push heroku` again
+
+Run `heroku open` to open your browser to the server
