@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 function NewTaskForm() {
+  const [title, setTitle] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const newTask = { title };
+    alert("Creating task: " + JSON.stringify(newTask));
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div>
         <strong>Task description: </strong>
-        <input type="text" />
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </div>
       <div>
-        <button>Submit</button>
+        <button>Submit {title}</button>
       </div>
     </form>
   );
