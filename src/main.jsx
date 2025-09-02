@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 
 function TaskApplication() {
-  const [tasks, setTasks] = useState([
-    { description: "Create initial project structure", completed: true },
-    { description: "Create frontend application", completed: false },
-    { description: "Create backend application", completed: false },
-    { description: "Deploy to Heroku", completed: false },
-  ]);
+  const [tasks, setTasks] = useState([]);
 
   const [description, setDescription] = useState("");
 
