@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 function TaskApplication() {
   const [tasks, setTasks] = useState([]);
+
+  async function fetchTask() {
+    const res = await fetch("/api/tasks");
+    const tasks = await res.json();
+    setTasks(tasks);
+  }
+
+  useEffect(() => {
+    fetchTask();
+  }, []);
 
   const [description, setDescription] = useState("");
 
