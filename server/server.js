@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
+import { serveStatic } from "@hono/node-server/serve-static";
 
 const app = new Hono();
 
@@ -19,4 +20,5 @@ app.post("/api/task", async (c) => {
   return c.newResponse(200);
 });
 
-serve(app);
+app.use("*", serveStatic({ root: "../dist" }));
+serve({ port: process.env.PORT || 3000, fetch: app.fetch });

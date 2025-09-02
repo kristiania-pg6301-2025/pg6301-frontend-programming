@@ -4,8 +4,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
+    "build": "vite build",
     "test": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "start": "cd server && npm start",
+    "postinstall": "cd server && npm install"
   },
   "repository": {
     "type": "git",
