@@ -132,6 +132,8 @@ with 5, 6, then skip to 9, 10, 11 and then skip to 20
 
 ## Exercise 2
 
+<details>
+
 Programming tools allow you to collaborate safely and efficiently with other programmers. In this exercise, we will learn about GitHub Actions Workflows, Pull requests and Code reviews.
 
 Make sure that you have followed Exercise 1 first, as Exercise 2 builds on what you learned before.
@@ -190,9 +192,11 @@ In GitHub, go to Issues and create a New issue for the tasks you are planning to
 
 This is a good time to test out working in parallel. Assign one issue to each of the programmers in the pair, complete some Yahtzee rules and create a Pull request each. Review and merge each other's pull request.
 
+</details>
+
 ## Exercise 3
 
-<details>
+<details open>
 
 ### The React todo-application
 
