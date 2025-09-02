@@ -9,7 +9,7 @@ const tasks = [
   { description: "Create frontend application", completed: true },
   { description: "Create hono server", completed: true },
   { description: "Create backend application", completed: true },
-  { description: "Deploy to Heroku", completed: false },
+  { description: "Deploy to Heroku", completed: true },
 ];
 app.get("/api/tasks", (c) => {
   return c.json(tasks);
