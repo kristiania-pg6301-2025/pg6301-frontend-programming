@@ -4,21 +4,29 @@ import { createRoot } from "react-dom/client";
 function TaskApplication() {
   const [tasks, setTasks] = useState([]);
 
-  async function fetchTask() {
+  async function fetchTasks() {
     const res = await fetch("/api/tasks");
     const tasks = await res.json();
     setTasks(tasks);
   }
 
   useEffect(() => {
-    fetchTask();
+    fetchTasks();
   }, []);
 
   const [description, setDescription] = useState("");
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    setTasks((old) => [...old, { description }]);
+    //setTasks((old) => [...old, { description }]);
+    await fetch("/api/task", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ description }),
+    });
+    await fetchTasks();
   }
 
   return (
