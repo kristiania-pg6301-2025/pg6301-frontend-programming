@@ -196,7 +196,7 @@ This is a good time to test out working in parallel. Assign one issue to each of
 
 ## Exercise 3
 
-<details open>
+<details>
 
 ### The React todo-application
 
@@ -256,5 +256,31 @@ At this point, your todo application should consist of two components:
 ### Step 4: Competition
 
 We need a logo for the course GitHub pages. Post your as a comment to [Course logo issue](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/issues/12) and vote with emojiis on other entries. Despite knowing better from experience, I will let the democratic process decide on the logo.
+
+</details>
+
+## Exercise 4
+
+<details open>
+
+### Updating tasks
+
+The goal of this exercise is to extend the task management application from [exercise 3](#exercise-3) with functionality
+to write details about a task and to make the task as being completed. You should complete exercise 3 before starting this
+exercise.
+
+### Goal #1: Mark tasks as checked or and unchecked
+
+When the user checks the "complete" checkbox for a task, the task should be changed to completed. In order
+to make this work, you need to implement an id for each task in the list.
+
+# Goal #2: View and update details about tasks
+
+Add react-router-dom as a dependency.
+
+When the user clicks the title for a task, they should navigate to the details for that task. If there is no
+description registered for the task, the user should be able to provide one.
+
+If you want to explore React a bit more right away, check out the official React tutorials.
 
 </details>
