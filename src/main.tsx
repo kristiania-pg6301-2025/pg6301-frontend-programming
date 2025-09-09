@@ -7,18 +7,33 @@ import { TaskDetails } from "./components/tasks/taskDetails.js";
 
 function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([
-    { id: 0, summary: "Create npm app", complete: true },
-    { id: 1, summary: "Create react app", complete: true },
-    { id: 2, summary: "Insert new tasks", complete: true },
-    { id: 3, summary: "Update task status", complete: false },
+    { id: 0, summary: "Create npm app", description: "First", complete: true },
+    {
+      id: 1,
+      summary: "Create react app",
+      description: "Scond",
+      complete: true,
+    },
+    {
+      id: 2,
+      summary: "Insert new tasks",
+      description: "Thired",
+      complete: true,
+    },
+    {
+      id: 3,
+      summary: "Update task status",
+      description: "Fourth",
+      complete: false,
+    },
   ]);
 
   function handleNewTask(task: Omit<TaskItem, "id">) {
     setTasks((old) => [...old, { id: old.length, ...task }]);
   }
 
-  function handleItemChecked(id: number, complete: boolean) {
-    setTasks((old) => old.map((o) => (o.id === id ? { ...o, complete } : o)));
+  function handleChange(id: number, task: Partial<TaskItem>) {
+    setTasks((old) => old.map((o) => (o.id === id ? { ...o, ...task } : o)));
   }
 
   return (
@@ -28,12 +43,15 @@ function Application() {
         element={
           <FrontPage
             tasks={tasks}
-            onItemChecked={handleItemChecked}
+            onItemChecked={(id, complete) => handleChange(id, { complete })}
             onNewTask={handleNewTask}
           />
         }
       />
-      <Route path={"/tasks/:id"} element={<TaskDetails tasks={tasks} />} />
+      <Route
+        path={"/tasks/:id"}
+        element={<TaskDetails tasks={tasks} onChange={handleChange} />}
+      />
       <Route path={"*"} element={<h1>Not found</h1>} />
     </Routes>
   );

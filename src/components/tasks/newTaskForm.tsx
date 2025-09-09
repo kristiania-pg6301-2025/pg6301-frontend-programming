@@ -8,7 +8,7 @@ export function NewTaskForm({
 }) {
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    onNewTask({ summary, complete: false });
+    onNewTask({ summary, complete: false, description: "" });
   }
 
   const [summary, setSummary] = useState("");
