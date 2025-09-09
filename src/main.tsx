@@ -2,6 +2,8 @@ import { createRoot } from "react-dom/client";
 import React, { useState } from "react";
 import type { TaskItem } from "./taskItem.js";
 import { FrontPage } from "./components/tasks/frontPage.js";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { TaskDetails } from "./components/tasks/taskDetails.js";
 
 function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([
@@ -20,12 +22,25 @@ function Application() {
   }
 
   return (
-    <FrontPage
-      tasks={tasks}
-      onItemChecked={handleItemChecked}
-      onNewTask={handleNewTask}
-    />
+    <Routes>
+      <Route
+        path={"/"}
+        element={
+          <FrontPage
+            tasks={tasks}
+            onItemChecked={handleItemChecked}
+            onNewTask={handleNewTask}
+          />
+        }
+      />
+      <Route path={"/tasks/:id"} element={<TaskDetails tasks={tasks} />} />
+      <Route path={"*"} element={<h1>Not found</h1>} />
+    </Routes>
   );
 }
 
-createRoot(document.getElementById("app")!).render(<Application />);
+createRoot(document.getElementById("app")!).render(
+  <BrowserRouter>
+    <Application />
+  </BrowserRouter>,
+);
