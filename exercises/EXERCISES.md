@@ -274,13 +274,13 @@ exercise.
 When the user checks the "complete" checkbox for a task, the task should be changed to completed. In order
 to make this work, you need to implement an id for each task in the list.
 
-# Goal #2: View and update details about tasks
+### Goal #2: View and update details about tasks
 
 Add react-router-dom as a dependency.
 
 When the user clicks the title for a task, they should navigate to the details for that task. If there is no
 description registered for the task, the user should be able to provide one.
 
-If you want to explore React a bit more right away, check out the official React tutorials.
+If you want to explore React a bit more right away, check out [the official React tutorials](https://react.dev/learn/tutorial-tic-tac-toe).
 
 </details>
