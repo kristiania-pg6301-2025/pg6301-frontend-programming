@@ -1,8 +1,7 @@
 import { createRoot } from "react-dom/client";
 import React, { useState } from "react";
-import { TaskList } from "./components/tasks/taskList.js";
-import { NewTaskForm } from "./components/tasks/newTaskForm.js";
 import type { TaskItem } from "./taskItem.js";
+import { FrontPage } from "./components/tasks/frontPage.js";
 
 function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([
@@ -21,12 +20,11 @@ function Application() {
   }
 
   return (
-    <>
-      <h1>Tasks</h1>
-      <TaskList tasks={tasks} onItemChecked={handleItemChecked} />
-      <h2>Create new task</h2>
-      <NewTaskForm onNewTask={handleNewTask} />
-    </>
+    <FrontPage
+      tasks={tasks}
+      onItemChecked={handleItemChecked}
+      onNewTask={handleNewTask}
+    />
   );
 }
 
