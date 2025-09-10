@@ -91,6 +91,8 @@ lecture, you will only be expected to know the basics of how to create a React
 application with Vite and React Router
 
 [Reference server running on Heroku](https://pg6301-reference-77c6cee527d5.herokuapp.com/)
+[Lecture server running on Heroku](https://pg6301-lecture-fc44d69a53a7.herokuapp.com/)
+
 
 ### Lecture 4: React, `useState` and props
 
