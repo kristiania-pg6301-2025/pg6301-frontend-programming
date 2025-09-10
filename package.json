@@ -2,9 +2,10 @@
   "name": "pg6301-frontend-programming",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "test": "prettier --check .",
+    "test": "tsc --noEmit && prettier --check .",
     "prepare": "husky"
   },
   "repository": {
@@ -20,8 +21,10 @@
   "homepage": "https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming#readme",
   "description": "",
   "devDependencies": {
+    "@types/react-dom": "^19.1.9",
     "husky": "^9.1.7",
     "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
     "vite": "^7.1.5"
   },
   "dependencies": {

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { TaskList } from "./taskList";
-import { NewTaskForm } from "./newTaskForm";
+import { TaskList } from "./taskList.js";
+import { NewTaskForm } from "./newTaskForm.js";
+import type { TaskItem } from "../../taskItem.js";
 
 export function Application() {
-  const [tasks, setTasks] = useState([
+  const [tasks, setTasks] = useState<TaskItem[]>([
     { summary: "Create package.json file", completed: true },
     { summary: "List existing tasks", completed: false },
   ]);
-  function handleNewTask(task) {
+  function handleNewTask(task: TaskItem) {
     setTasks((old) => [...old, task]);
   }
   return (
