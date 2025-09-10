@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "vite",
     "test": "prettier --check .",
     "prepare": "husky"
   },
@@ -20,6 +21,8 @@
   "description": "",
   "devDependencies": {
     "husky": "^9.1.7",
-    "prettier": "^3.6.2"
-  }
+    "prettier": "^3.6.2",
+    "vite": "^7.1.5"
+  },
+  "dependencies": {}
 }
