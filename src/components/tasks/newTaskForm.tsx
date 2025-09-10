@@ -4,7 +4,7 @@ import type { TaskItem } from "../../taskItem.js";
 export function NewTaskForm({
   onNewTask,
 }: {
-  onNewTask: (task: TaskItem) => void;
+  onNewTask: (task: Omit<TaskItem, "id">) => void;
 }) {
   const [summary, setSummary] = useState("");
 
