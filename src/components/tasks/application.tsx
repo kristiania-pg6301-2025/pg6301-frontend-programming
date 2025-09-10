@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TaskList } from "./taskList.js";
 import { NewTaskForm } from "./newTaskForm.js";
 import type { TaskItem } from "../../taskItem.js";
@@ -31,12 +31,19 @@ function TaskView({ tasks }: { tasks: TaskItem[] }) {
 }
 
 export function Application() {
-  const [tasks, setTasks] = useState<TaskItem[]>([
-    { id: 0, summary: "Create package.json file", completed: true },
-    { id: 1, summary: "List existing tasks", completed: true },
-    { id: 2, summary: "Introduce typescript", completed: true },
-    { id: 3, summary: "Update state for checkboxes", completed: false },
-  ]);
+  const [tasks, setTasks] = useState<TaskItem[]>(() => {
+    const existing = localStorage.getItem("tasks");
+    if (existing) return JSON.parse(existing);
+    return [
+      { id: 0, summary: "Create package.json file", completed: true },
+      { id: 1, summary: "List existing tasks", completed: true },
+      { id: 2, summary: "Introduce typescript", completed: true },
+      { id: 3, summary: "Update state for checkboxes", completed: false },
+    ];
+  });
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
   function handleNewTask(task: Omit<TaskItem, "id">) {
     setTasks((old) => [...old, { id: old.length, ...task }]);
   }
