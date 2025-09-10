@@ -11,7 +11,7 @@ export function TaskList({
   return (
     <ul>
       {tasks.map((t) => (
-        <li>
+        <li key={t.id}>
           <label
             style={{ textDecoration: t.completed ? "line-through" : undefined }}
           >
