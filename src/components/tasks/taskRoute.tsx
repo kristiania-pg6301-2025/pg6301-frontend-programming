@@ -34,9 +34,10 @@ function TaskView({
       <Dialog isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen}>
         <form onSubmit={handleSubmit}>
           <h2>Task description</h2>
-          <textarea onChange={(e) => setDraftDescription(e.target.value)}>
-            {draftDescription}
-          </textarea>
+          <textarea
+            value={draftDescription}
+            onChange={(e) => setDraftDescription(e.target.value)}
+          />
           <p>
             <button>Update</button>
           </p>

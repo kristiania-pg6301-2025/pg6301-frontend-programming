@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import type { TaskItem } from "../../taskItem.js";
+import type { TaskDelta, TaskItem } from "../../taskItem.js";
 import { FrontPage } from "./frontPage.js";
 import { Route, Routes } from "react-router-dom";
 import { TaskRoute } from "./taskRoute.js";
@@ -23,13 +23,7 @@ export function Application() {
     setTasks((old) => [...old, { id: old.length, ...task }]);
   }
 
-  function handleTaskCompleted(task: TaskItem, completed: boolean) {
-    setTasks((old) =>
-      old.map((o) => (task.id === o.id ? { ...o, completed } : o)),
-    );
-  }
-
-  function handleUpdateTask(id: number, delta: Partial<Omit<TaskItem, "id">>) {
+  function handleUpdateTask(id: number, delta: TaskDelta) {
     setTasks((old) => old.map((o) => (id === o.id ? { ...o, ...delta } : o)));
   }
 
@@ -40,7 +34,9 @@ export function Application() {
         element={
           <FrontPage
             tasks={tasks}
-            onCompleted={handleTaskCompleted}
+            onCompleted={({ id }, completed) =>
+              handleUpdateTask(id, { completed })
+            }
             onNewTask={handleNewTask}
           />
         }

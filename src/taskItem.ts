@@ -4,7 +4,6 @@ export interface TaskItem {
   completed: boolean;
   description?: string;
 }
-export type UpdateTaskEventHandler = (
-  id: number,
-  delta: Partial<Omit<TaskItem, "id">>,
-) => void;
+
+export type TaskDelta = Partial<Omit<TaskItem, "id">>;
+export type UpdateTaskEventHandler = (id: number, delta: TaskDelta) => void;
