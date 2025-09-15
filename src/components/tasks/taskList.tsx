@@ -1,5 +1,6 @@
 import React from "react";
 import type { TaskItem } from "../../taskItem.js";
+import { TaskListItem } from "./taskListItem.js";
 
 export function TaskList({
   tasks,
@@ -11,18 +12,7 @@ export function TaskList({
   return (
     <ul>
       {tasks.map((t) => (
-        <li key={t.id}>
-          <label
-            style={{ textDecoration: t.completed ? "line-through" : undefined }}
-          >
-            <input
-              type={"checkbox"}
-              checked={t.completed}
-              onChange={(e) => onCompleted(t, e.target.checked)}
-            />{" "}
-            {t.summary}
-          </label>
-        </li>
+        <TaskListItem key={t.id} task={t} onCompleted={onCompleted} />
       ))}
     </ul>
   );
