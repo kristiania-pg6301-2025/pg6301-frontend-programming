@@ -9,14 +9,15 @@ export function TaskListItem({
   task: TaskItem;
   onCompleted: (task: TaskItem, completed: boolean) => void;
 }) {
+  const { id, summary, completed } = task;
   return (
-    <li style={{ textDecoration: task.completed ? "line-through" : undefined }}>
+    <li style={{ textDecoration: completed ? "line-through" : undefined }}>
       <input
         type={"checkbox"}
-        checked={task.completed}
+        checked={completed}
         onChange={(e) => onCompleted(task, e.target.checked)}
       />{" "}
-      <Link to={`/tasks/${task.id}`}>{task.summary}</Link>
+      <Link to={`/tasks/${id}`}>{summary}</Link>
     </li>
   );
 }
