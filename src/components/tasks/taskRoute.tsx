@@ -5,8 +5,13 @@ import { Link, useParams } from "react-router-dom";
 function TaskView({ task: { summary, completed } }: { task: TaskItem }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   useEffect(() => {
+    dialogRef.current?.addEventListener("close", () => setIsDialogOpen(false));
+  }, []);
+  useEffect(() => {
     if (isDialogOpen) {
       dialogRef.current?.showModal();
+    } else {
+      dialogRef.current?.close();
     }
   }, [isDialogOpen]);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
@@ -18,7 +23,12 @@ function TaskView({ task: { summary, completed } }: { task: TaskItem }) {
       </p>
       {completed && <p>Completed</p>}
       <button onClick={() => setIsDialogOpen(true)}>Update description</button>
-      <dialog ref={dialogRef}>
+      <dialog
+        ref={dialogRef}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setIsDialogOpen(false);
+        }}
+      >
         <form>
           <h2>Task description</h2>
           <textarea></textarea>
@@ -26,7 +36,7 @@ function TaskView({ task: { summary, completed } }: { task: TaskItem }) {
             <button>Update</button>
           </p>
           <p>
-            <button>Cancel</button>
+            <button onClick={() => setIsDialogOpen(false)}>Cancel</button>
           </p>
         </form>
       </dialog>
