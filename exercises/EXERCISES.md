@@ -261,12 +261,14 @@ We need a logo for the course GitHub pages. Post your as a comment to [Course lo
 
 ## Exercise 4
 
-<details open>
+<details>
 
 ### Updating tasks
 
 The goal of this exercise is to extend the task management application from [exercise 3](#exercise-3) with functionality
-to write details about a task and to make the task as being completed. You should complete exercise 3 before starting this
+to write details about a task and to make the task as being completed.
+
+You should complete exercise 3 before starting this
 exercise.
 
 ### Goal #1: Mark tasks as checked or and unchecked
@@ -282,5 +284,42 @@ When the user clicks the title for a task, they should navigate to the details f
 description registered for the task, the user should be able to provide one.
 
 If you want to explore React a bit more right away, check out [the official React tutorials](https://react.dev/learn/tutorial-tic-tac-toe).
+
+</details>
+
+## Exercise 5
+
+<details>
+
+### Dialog, useEffect and useRef
+
+The goal of this exercise is to use the fairly new HTML tag `<dialog />` with React. As `<dialog />` has a lot of
+built-in functionality, our React code must interact with the JavaScript of the DOM (document object model).
+
+You should complete exercise 4 before starting this exercise.
+
+### Desired functionality
+
+1. Create a new task from the front page (exercise 3)
+2. Click on the title of the task to see the task details with react-router-dom (exercise 4)
+3. Click on an `Edit` button to bring up a `<dialog />` to change the description of the task (this exercise)
+4. Submitting the form in the dialog should close the dialog and update the task description. It should also be possible to cancel the update
+
+### How to implement it:
+
+* Use `useState` to create a `isDialogOpen`-state that reflects the state of the `<dialog />`
+* Use `useRef` to refer to the `<dialog>` element
+* Use `useEffect` to call `showModal()` on the ref when `isDialogOpen` updates
+
+### Close the dialog correctly
+
+If you press Escape in the dialog for updating task title, you may be unable to click the dialog open again.
+This is because the state of `isDialogOpen` has drifted away from the state of the HTML elements. Add a close listener
+to the dialog (using the `useRef` reference) to update `isDialogOpen` state when the user closes the dialog.
+
+### Show task details with a router
+
+Add `react-router-dom` as a dependency. Clicking on a task should take you to another route that focuses on the task.
+You can choose whether this page just displays the task description or if you want to add more info.
 
 </details>
