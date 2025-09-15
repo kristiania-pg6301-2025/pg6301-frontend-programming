@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { TaskItem } from "../../taskItem.js";
 import { FrontPage } from "./frontPage.js";
+import { Route, Routes } from "react-router-dom";
 
 export function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([
@@ -20,10 +21,17 @@ export function Application() {
   }
 
   return (
-    <FrontPage
-      tasks={tasks}
-      onCompleted={handleTaskCompleted}
-      onNewTask={handleNewTask}
-    />
+    <Routes>
+      <Route
+        path={"/"}
+        element={
+          <FrontPage
+            tasks={tasks}
+            onCompleted={handleTaskCompleted}
+            onNewTask={handleNewTask}
+          />
+        }
+      />
+    </Routes>
   );
 }
