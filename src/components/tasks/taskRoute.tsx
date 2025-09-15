@@ -1,24 +1,10 @@
 import type { TaskItem } from "../../taskItem.js";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Dialog } from "../dialog/dialog.js";
 
 function TaskView({ task: { summary, completed } }: { task: TaskItem }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  function setClosed() {
-    setIsDialogOpen(false);
-  }
-  useEffect(() => {
-    dialogRef.current?.addEventListener("close", setClosed);
-    return () => dialogRef.current?.removeEventListener("close", setClosed);
-  }, []);
-  useEffect(() => {
-    if (isDialogOpen) {
-      dialogRef.current?.showModal();
-    } else {
-      dialogRef.current?.close();
-    }
-  }, [isDialogOpen]);
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
   return (
     <>
       <h1>Single task: {summary}</h1>
@@ -27,12 +13,7 @@ function TaskView({ task: { summary, completed } }: { task: TaskItem }) {
       </p>
       {completed && <p>Completed</p>}
       <button onClick={() => setIsDialogOpen(true)}>Update description</button>
-      <dialog
-        ref={dialogRef}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) setClosed();
-        }}
-      >
+      <Dialog isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen}>
         <form>
           <h2>Task description</h2>
           <textarea></textarea>
@@ -40,10 +21,10 @@ function TaskView({ task: { summary, completed } }: { task: TaskItem }) {
             <button>Update</button>
           </p>
           <p>
-            <button onClick={setClosed}>Cancel</button>
+            <button onClick={() => setIsDialogOpen(false)}>Cancel</button>
           </p>
         </form>
-      </dialog>
+      </Dialog>
     </>
   );
 }
