@@ -32,6 +32,7 @@ export function Application() {
           />
         }
       />
+      <Route path={"/tasks/:id"} element={<h1>Single task</h1>} />
       <Route path={"*"} element={<h1>Not found</h1>} />
     </Routes>
   );
