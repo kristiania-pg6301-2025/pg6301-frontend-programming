@@ -32,6 +32,7 @@ export function Application() {
           />
         }
       />
+      <Route path={"*"} element={<h1>Not found</h1>} />
     </Routes>
   );
 }
