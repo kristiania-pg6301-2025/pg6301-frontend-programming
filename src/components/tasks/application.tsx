@@ -29,6 +29,10 @@ export function Application() {
     );
   }
 
+  function handleUpdateTask(id: number, delta: Partial<Omit<TaskItem, "id">>) {
+    setTasks((old) => old.map((o) => (id === o.id ? { ...o, ...delta } : o)));
+  }
+
   return (
     <Routes>
       <Route
@@ -41,7 +45,10 @@ export function Application() {
           />
         }
       />
-      <Route path={"/tasks/:id"} element={<TaskRoute tasks={tasks} />} />
+      <Route
+        path={"/tasks/:id"}
+        element={<TaskRoute tasks={tasks} onUpdateTask={handleUpdateTask} />}
+      />
       <Route path={"*"} element={<h1>Not found</h1>} />
     </Routes>
   );
