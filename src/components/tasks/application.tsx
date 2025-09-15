@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import type { TaskItem } from "../../taskItem.js";
 import { FrontPage } from "./frontPage.js";
 import { Route, Routes } from "react-router-dom";
+import { TaskRoute } from "./taskRoute.js";
 
 export function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([
@@ -32,7 +33,7 @@ export function Application() {
           />
         }
       />
-      <Route path={"/tasks/:id"} element={<h1>Single task</h1>} />
+      <Route path={"/tasks/:id"} element={<TaskRoute tasks={tasks} />} />
       <Route path={"*"} element={<h1>Not found</h1>} />
     </Routes>
   );
