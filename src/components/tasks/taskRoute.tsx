@@ -1,8 +1,15 @@
 import type { TaskItem } from "../../taskItem.js";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 function TaskView({ task: { summary, completed } }: { task: TaskItem }) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  useEffect(() => {
+    if (isDialogOpen) {
+      dialogRef.current?.showModal();
+    }
+  }, [isDialogOpen]);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
   return (
     <>
       <h1>Single task: {summary}</h1>
@@ -10,6 +17,19 @@ function TaskView({ task: { summary, completed } }: { task: TaskItem }) {
         <Link to={"/"}>All tasks</Link>
       </p>
       {completed && <p>Completed</p>}
+      <button onClick={() => setIsDialogOpen(true)}>Update description</button>
+      <dialog ref={dialogRef}>
+        <form>
+          <h2>Task description</h2>
+          <textarea></textarea>
+          <p>
+            <button>Update</button>
+          </p>
+          <p>
+            <button>Cancel</button>
+          </p>
+        </form>
+      </dialog>
     </>
   );
 }
