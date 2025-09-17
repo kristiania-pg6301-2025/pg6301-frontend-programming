@@ -28,12 +28,6 @@ export function Application() {
     setTasks((old) => [...old, { id: old.length, ...task }]);
   }
 
-  function handleTaskCompleted(task: TaskItem, completed: boolean) {
-    setTasks((old) =>
-      old.map((o) => (task.id === o.id ? { ...o, completed } : o)),
-    );
-  }
-
   function handleTaskChanged(id: number, taskDelta: TaskDelta) {
     setTasks((old) =>
       old.map((o) => (id === o.id ? { ...o, ...taskDelta } : o)),
@@ -47,7 +41,7 @@ export function Application() {
         element={
           <FrontPage
             tasks={tasks}
-            onCompleted={handleTaskCompleted}
+            onTaskChanged={handleTaskChanged}
             onNewTask={handleNewTask}
           />
         }

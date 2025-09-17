@@ -1,13 +1,13 @@
 import React from "react";
-import type { TaskItem } from "../../taskItem.js";
+import type { TaskChangeHandler, TaskItem } from "../../taskItem.js";
 import { Link } from "react-router-dom";
 
 export function TaskList({
   tasks,
-  onCompleted,
+  onTaskChanged,
 }: {
   tasks: TaskItem[];
-  onCompleted: (task: TaskItem, completed: boolean) => void;
+  onTaskChanged: TaskChangeHandler;
 }) {
   return (
     <ul>
@@ -16,7 +16,9 @@ export function TaskList({
           <input
             type={"checkbox"}
             checked={t.completed}
-            onChange={(e) => onCompleted(t, e.target.checked)}
+            onChange={(e) =>
+              onTaskChanged(t.id, { completed: e.target.checked })
+            }
           />{" "}
           <Link
             to={`/tasks/${t.id}`}
