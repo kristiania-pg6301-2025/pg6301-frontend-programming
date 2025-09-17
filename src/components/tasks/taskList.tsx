@@ -1,5 +1,6 @@
 import React from "react";
 import type { TaskItem } from "../../taskItem.js";
+import { Link } from "react-router-dom";
 
 export function TaskList({
   tasks,
@@ -12,7 +13,8 @@ export function TaskList({
     <ul>
       {tasks.map((t) => (
         <li key={t.id}>
-          <label
+          <Link
+            to={`/tasks/${t.id}`}
             style={{ textDecoration: t.completed ? "line-through" : undefined }}
           >
             <input
@@ -21,7 +23,7 @@ export function TaskList({
               onChange={(e) => onCompleted(t, e.target.checked)}
             />{" "}
             {t.summary}
-          </label>
+          </Link>
         </li>
       ))}
     </ul>

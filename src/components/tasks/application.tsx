@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { TaskList } from "./taskList.js";
-import { NewTaskForm } from "./newTaskForm.js";
 import type { TaskItem } from "../../taskItem.js";
+import { FrontPage } from "./frontPage.js";
+import { Route, Routes } from "react-router-dom";
 
 export function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([
@@ -21,12 +21,18 @@ export function Application() {
   }
 
   return (
-    <>
-      <h1>Task manager</h1>
-      <h2>My tasks</h2>
-      <TaskList tasks={tasks} onCompleted={handleTaskCompleted} />
-      <h2>New task</h2>
-      <NewTaskForm onNewTask={handleNewTask} />
-    </>
+    <Routes>
+      <Route
+        path={"/"}
+        element={
+          <FrontPage
+            tasks={tasks}
+            onCompleted={handleTaskCompleted}
+            onNewTask={handleNewTask}
+          />
+        }
+      />
+      <Route path={"*"} element={<h1>Not found</h1>} />
+    </Routes>
   );
 }
