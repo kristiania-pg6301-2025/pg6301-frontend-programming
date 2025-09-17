@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import type { TaskItem } from "../../taskItem.js";
 import { FrontPage } from "./frontPage.js";
 import { Route, Routes } from "react-router-dom";
+import { SingleTaskRoute } from "./singleTaskRoute.js";
 
 export function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([
@@ -31,6 +32,10 @@ export function Application() {
             onNewTask={handleNewTask}
           />
         }
+      />
+      <Route
+        path={"/tasks/:taskId"}
+        element={<SingleTaskRoute tasks={tasks} />}
       />
       <Route path={"*"} element={<h1>Not found</h1>} />
     </Routes>
