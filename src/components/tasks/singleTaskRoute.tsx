@@ -1,6 +1,7 @@
 import type { TaskChangeHandler, TaskItem } from "../../taskItem.js";
 import { Link, useParams } from "react-router-dom";
-import React, { type FormEvent, useRef, useState } from "react";
+import React, { type FormEvent, useState } from "react";
+import { Dialog } from "../dialog/dialog.js";
 
 function TaskView({
   task: { id, summary, description },
@@ -9,11 +10,13 @@ function TaskView({
   task: TaskItem;
   onTaskChanged: TaskChangeHandler;
 }) {
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const [editedDescription, setEditedDescription] = useState(description || "");
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
     onTaskChanged(id, { description: editedDescription });
+    setIsDialogOpen(false);
   }
   return (
     <>
@@ -28,11 +31,9 @@ function TaskView({
         </>
       )}
       <p>
-        <button onClick={() => dialogRef.current?.showModal()}>
-          Edit description
-        </button>
+        <button onClick={() => setIsDialogOpen(true)}>Edit description</button>
       </p>
-      <dialog ref={dialogRef}>
+      <Dialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen}>
         <form onSubmit={handleSubmit}>
           <h1>Here is the task description</h1>
           <textarea
@@ -40,10 +41,13 @@ function TaskView({
             onChange={(e) => setEditedDescription(e.target.value)}
           />
           <p>
-            <button onClick={() => dialogRef.current?.close()}>Submit</button>
+            <button>Submit</button>
+          </p>
+          <p>
+            <button onClick={() => setIsDialogOpen(false)}>Cancel</button>
           </p>
         </form>
-      </dialog>
+      </Dialog>
     </>
   );
 }
