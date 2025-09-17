@@ -13,15 +13,15 @@ export function TaskList({
     <ul>
       {tasks.map((t) => (
         <li key={t.id}>
+          <input
+            type={"checkbox"}
+            checked={t.completed}
+            onChange={(e) => onCompleted(t, e.target.checked)}
+          />{" "}
           <Link
             to={`/tasks/${t.id}`}
             style={{ textDecoration: t.completed ? "line-through" : undefined }}
           >
-            <input
-              type={"checkbox"}
-              checked={t.completed}
-              onChange={(e) => onCompleted(t, e.target.checked)}
-            />{" "}
             {t.summary}
           </Link>
         </li>
