@@ -11,6 +11,11 @@ function Application() {
   useEffect(() => {
     loadTasks();
   }, []);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+  }
+
   return (
     <>
       <h1>My Task Manager</h1>
@@ -19,6 +24,15 @@ function Application() {
           <li>{t.description}</li>
         ))}
       </ul>
+      <h2>New task</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input />
+        </div>
+        <div>
+          <button>Submit</button>
+        </div>
+      </form>
     </>
   );
 }
