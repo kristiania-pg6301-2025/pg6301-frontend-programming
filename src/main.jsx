@@ -24,12 +24,30 @@ function Application() {
     await loadTasks();
   }
 
+  async function handleTaskUpdated(id, delta) {
+    await fetch(`/api/tasks/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(delta),
+    });
+    await loadTasks();
+  }
+
   return (
     <>
       <h1>My Task Manager</h1>
       <ul>
-        {tasks.map(({ description, id }) => (
-          <li key={id}>{description}</li>
+        {tasks.map(({ description, id, completed }) => (
+          <li key={id}>
+            <input
+              type={"checkbox"}
+              checked={completed}
+              onChange={(e) =>
+                handleTaskUpdated(id, { completed: e.target.checked })
+              }
+            />
+            {description}
+          </li>
         ))}
       </ul>
       <h2>New task</h2>
