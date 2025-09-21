@@ -20,6 +20,8 @@ function Application() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ description }),
     });
+    setDescription("");
+    await loadTasks();
   }
 
   return (
