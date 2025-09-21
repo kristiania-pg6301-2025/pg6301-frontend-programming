@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import React, { useEffect, useState } from "react";
+import React, { type FormEvent, useEffect, useState } from "react";
 
 function Application() {
   const [tasks, setTasks] = useState([]);
@@ -13,7 +13,7 @@ function Application() {
     loadTasks();
   }, []);
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     await fetch("/api/tasks", {
       method: "POST",
@@ -24,7 +24,7 @@ function Application() {
     await loadTasks();
   }
 
-  async function handleTaskUpdated(id, delta) {
+  async function handleTaskUpdated(id: number, delta: unknown) {
     await fetch(`/api/tasks/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -66,4 +66,4 @@ function Application() {
   );
 }
 
-createRoot(document.getElementById("app")).render(<Application />);
+createRoot(document.getElementById("app")!).render(<Application />);
