@@ -28,8 +28,8 @@ function Application() {
     <>
       <h1>My Task Manager</h1>
       <ul>
-        {tasks.map((t) => (
-          <li>{t.description}</li>
+        {tasks.map(({ description, id }) => (
+          <li key={id}>{description}</li>
         ))}
       </ul>
       <h2>New task</h2>

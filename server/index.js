@@ -4,17 +4,17 @@ import { serve } from "@hono/node-server";
 const app = new Hono();
 
 const tasks = [
-  { description: "Create project (server)", completed: true },
-  { description: "Create React webapp (server)", completed: true },
-  { description: "Create Hono backend", completed: true },
-  { description: "Update with Hono backend", completed: false },
+  { id: 0, description: "Create project (server)", completed: true },
+  { id: 1, description: "Create React webapp (server)", completed: true },
+  { id: 2, description: "Create Hono backend", completed: true },
+  { id: 3, description: "Update with Hono backend", completed: false },
 ];
 app.get("/api/tasks", (c) => {
   return c.json(tasks);
 });
 app.post("/api/tasks", async (c) => {
-  const task = await c.req.json();
-  tasks.push(task);
+  const { description } = await c.req.json();
+  tasks.push({ id: tasks.length, description, completed: false });
   return c.newResponse(null, 201);
 });
 
