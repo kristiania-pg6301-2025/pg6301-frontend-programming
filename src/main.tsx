@@ -2,12 +2,24 @@ import { createRoot } from "react-dom/client";
 import React, { type FormEvent, useEffect, useState } from "react";
 import type { TaskItem } from "../shared/taskItem.js";
 
+async function fetchJson<T>(path: string) {
+  const res = await fetch(path);
+  return (await res.json()) as T;
+}
+
+async function postJson<T>(path: string, body: T, method: string = "POST") {
+  await fetch(path, {
+    method: method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+}
+
 function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [description, setDescription] = useState("");
   async function loadTasks() {
-    const res = await fetch("/api/tasks");
-    setTasks(await res.json());
+    setTasks(await fetchJson("/api/tasks"));
   }
 
   useEffect(() => {
@@ -16,21 +28,13 @@ function Application() {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    await fetch("/api/tasks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ description }),
-    });
+    await postJson<Partial<TaskItem>>("/api/tasks", { description });
     setDescription("");
     await loadTasks();
   }
 
   async function handleTaskUpdated(id: number, delta: Partial<TaskItem>) {
-    await fetch(`/api/tasks/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(delta),
-    });
+    await postJson<Partial<TaskItem>>(`/api/tasks/${id}`, delta, "PUT");
     await loadTasks();
   }
 
