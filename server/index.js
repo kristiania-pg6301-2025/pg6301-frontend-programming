@@ -17,5 +17,13 @@ app.post("/api/tasks", async (c) => {
   tasks.push({ id: tasks.length, description, completed: false });
   return c.newResponse(null, 201);
 });
+app.put("/api/tasks/:taskId", async (c) => {
+  const { taskId } = c.req.param();
+  const { completed } = await c.req.json();
+  tasks
+    .filter((t) => t.id === parseInt(taskId))
+    .forEach((t) => (t.completed = completed));
+  return c.newResponse(null, 200);
+});
 
 serve(app);
