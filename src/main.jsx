@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 function Application() {
   const [tasks, setTasks] = useState([]);
+  const [description, setDescription] = useState("");
   async function loadTasks() {
     const res = await fetch("/api/tasks");
     setTasks(await res.json());
@@ -12,8 +13,13 @@ function Application() {
     loadTasks();
   }, []);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    await fetch("/api/tasks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ description }),
+    });
   }
 
   return (
@@ -27,7 +33,10 @@ function Application() {
       <h2>New task</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <input />
+          <input
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </div>
         <div>
           <button>Submit</button>
