@@ -91,7 +91,6 @@ application with Vite and React Router
 [Reference server running on Heroku](https://pg6301-reference-77c6cee527d5.herokuapp.com/)
 [Lecture server running on Heroku](https://pg6301-lecture-fc44d69a53a7.herokuapp.com/)
 
-
 ### Lecture 4: React, `useState` and props
 
 [![Lecture 4 code](https://img.shields.io/badge/Lecture_4-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/04)
@@ -348,12 +347,13 @@ npm init -y
 
 npm install hono @hono/node-server
 npm install --save-dev tsx
-npm pkg set scripts.dev="tsx --watch server.ts"
-npm pkg set scripts.start="tsx server.ts"
+npm pkg set type=module
+npm pkg set scripts.dev="tsx --watch index.ts"
+npm pkg set scripts.start="tsx index.ts"
 
 ```
 
-**`server/server.ts`**
+**`server/index.ts`**
 
 ```typescript
 import { Hono } from "hono";
@@ -367,6 +367,66 @@ app.use("*", serveStatic({ root: "../dist" }));
 // Heroku provides the port that the server should start on as an environment variable
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 serve({ fetch: app.fetch, port });
+```
+
+### Handling API calls:
+
+**Make Vite proxy (forward) calls to /api to port 3000 when running locally:**
+
+```js
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  server: {
+    proxy: { "/api": "http://localhost:3000" },
+  },
+});
+```
+
+**In React: fetching data:**
+
+```jsx
+const [tasks, setTasks] = useState([]);
+async function loadTasks() {
+  const res = await fetch("/api/tasks");
+  setTasks(await res.json());
+}
+
+useEffect(() => {
+  loadTasks();
+}, []);
+```
+
+**In Hono: fetching data:**
+
+```jsx
+app.get("/api/tasks", (c) => {
+  return c.json(tasks);
+});
+```
+
+**In React: updating data:**
+
+```jsx
+const [description, setDescription] = useState("");
+async function handleSubmit(event) {
+  event.preventDefault();
+  await fetch("/api/tasks", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ description }),
+  });
+}
+```
+
+**In Hono: updating data:**
+
+```jsx
+app.post("/api/tasks", async (c) => {
+  const task = await c.req.json();
+  tasks.push(task);
+  return c.newResponse(null, 201);
+});
 ```
 
 #### Deploying to Heroku
