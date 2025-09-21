@@ -323,3 +323,193 @@ Add `react-router-dom` as a dependency. Clicking on a task should take you to an
 You can choose whether this page just displays the task description or if you want to add more info.
 
 </details>
+
+
+## Exercise 6:
+
+<details open>
+
+### Implementing APIs with Hono
+
+The goal of this exercise is to store the tasks on a server so all users see the same task list. It's helpful to
+have completed [exercise 4](#exercise-4) before you start this exercise so you are familiar with React, but I
+recommend starting the code from scratch for this exercise.
+
+### Step by step instructions: Getting the client ready:
+
+1. Create a new GitHub repository and open it in IntelliJ
+2. [Create a basic React application](../README.md#creating-a-react-application) with vite (you should add
+   prettier and husky as well, but I will leave them out of the description)
+   1. `npm init -y`
+   2. `npm i -D vite`
+   3. `npm pkg set scripts.dev="vite"`
+   4. Run the project with `npm run dev` (or `npx vite`)
+   5. Add `index.html`
+   6. Add `node_modules/` and `/.idea` to `.gitignore`
+   7. Commit all files to Git and push to GitHub
+3. Add React:
+   1. `npm i react react-dom`
+   2. Update `index.html` to have a `<div id="app"></div>` element and
+      `<script src="src/main.jsx" type="module"></script>`
+      (see [reference material](../README.md#minimal-indexhtml) for details)
+   3. Create a minimal React Application (see
+      [reference material](../README.md#minimal-srcmaintsx) for details)
+   4. Commit and push the new files
+4. Create a `<Application>` component to hold and render the task and use it in the
+   `createRoot(...).render(<Application />)` statement:
+    ```jsx
+    function Application() {
+      const [tasks, setTasks] = useState([
+        { description: "Create project", completed: true },
+        { description: "Create React webapp", completed: false },
+        { description: "Create Hono backend", completed: false },
+      ]);
+      return (
+        <>
+          <h1>My Task Manager</h1>
+          <ul>
+            {tasks.map((t) => (
+              <li>{t.description}</li>
+            ))}
+          </ul>
+        </>
+      );
+    }
+    ```
+5. Commit and push your changes
+
+### Step-by-step: Moving the state to the server
+
+1. Move the loading of tasks to `useEffect`:
+    ```jsx
+    function Application() {
+      const [tasks, setTasks] = useState([]);
+    
+      function loadTasks() {
+        setTasks([
+          {description: "Create project", completed: true},
+          {description: "Create React webapp", completed: false},
+          {description: "Create Hono backend", completed: false},
+        ]);
+      }
+    
+      useEffect(() => {
+        loadTasks();
+      }, []);
+    }
+    ```
+2. Replace the loading of tasks with an API call. Notice that this will fail:
+    ```js
+      async function loadTasks() {
+        const res = await fetch("/api/tasks");
+        setTasks(await res.json());
+      }
+    ```
+3. We now need to create the Hono server to answer `/api/tasks`
+4. (You can commit at this point if you want to )
+
+### Step-by-step: Create the server
+
+For the full instructions, see the [reference materials](../README.md#creating-a-hono-application)
+
+1. Create a subdirectory with the server:
+   1. `mkdir server`
+   2. `cd server`
+   3. `npm init -y`
+   4. WARNING: Unfortunately, this creates a problem in `server/package.json` that we need to
+      fix with `npm pgk set type=module`
+   5. `npm i hono @hono/http-server`
+   6. `npm i -D nodemon`
+   7. `npm pkg set scripts.dev="nodemon index.js"`
+   8. Run `npm run dev` in the server directory to start the server
+      - WARNING: This will crash at this point!
+2. Implement `server/index.js` as a Hono server application:
+    ```js
+    import { Hono } from "hono";
+    import { serve } from "@hono/node-server";
+    
+    const app = new Hono();
+    serve(app);
+    ```
+3. Start the server by running `npm run dev` in the `server` directory and go to http://localhost:3000.
+   At this time, this will return a 404 error
+4. Fix the `server/index.js` to return the tasks
+    ```js
+    const tasks = [
+        { description: "Create project (server)", completed: true },
+        { description: "Create React webapp (server)", completed: true },
+        { description: "Create Hono backend", completed: true },
+        { description: "Update with Hono backend", completed: false },
+    ];
+    app.get("/api/tasks", (c) => {
+        return c.json(tasks);
+    });
+    ```
+5. Verify that it works on http://localhost:3000/api/tasks
+6. Commit the changes to Git. MAKE SURE `server/node_modules` is Git-ignored
+
+### Step-by-step: Use the server in the React application
+
+1. The client code of `fetch("/api/tasks")` is correct, but this fetches from
+   http://localhost:5173/api/tasks and not http://localhost:3000/api/tasks.
+2. In order to make Vite forward API requests to Hono, we need to create a `vite.config.js`-file:
+    ```js
+    import { defineConfig } from "vite";
+    
+    export default defineConfig({
+      server: {
+        proxy: {"/api": "http://localhost:3000"}
+      },
+    });
+    ```
+3. You need to restart `vite` for it to understand that there is a new config file
+4. You can verify the changes by going to http://localhost:5173/
+5. Commit and push your changes
+
+### Self-directed: Create tasks to be stored in Hono
+
+1. In the front-end: Create a `<form>` element with a `<input>` and a `<button>` to add a new task and the React code
+   to handle `<input onChange>` and `<form onSubmit>`
+2. If you want, the form submit could first update the frontend state directly
+3. Implement `handleSubmit` to call POST the new task to the server:
+   `fetch("/api/tasks", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newTask) })`
+4. In the server, create `app.post("/api/tasks")` to update the task collection:
+    ```js
+    app.post("/api/tasks", async (c) => {
+      const task = await c.req.json();
+      tasks.push(task);
+      return c.newResponse(null, 201);
+    });
+    ```
+5. In the client, you should call `loadTasks` after saving the new task to the server
+
+### Self-directed: Update state
+
+You probably want to be able to check tasks as done. The usual way of doing this is to use
+use fetch to call `PUT /tasks/:taskId` with the id of the task in question.
+
+In order to implement this, you have to make the following changes:
+
+* The tasks should have unique ids created by the server
+* The client should display check-boxes with the value of `Task.completed`
+* The checkbox should have a `onChange` handler that calls fetch on the server:
+    ```js
+    async function handleCompleted(taskId, competed) {
+      await fetch(`/api/tasks/${taskId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ completed })
+      });
+    }
+    ```
+* The server should update the task state in `app.put("/api/tasks/:taskId")`
+* The client should refresh the task list after PUT-ing the new state
+
+### Bonus challenge: Typescript
+
+You should add Typescript to the application. For the server, this
+requires you to replace `nodemon` with `tsx`. Try to put the definition
+of `TaskItem` in a place where both the client and the server use the 
+same `.ts`-file.
+
+</details>

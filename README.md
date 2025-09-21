@@ -76,8 +76,6 @@ This lecture covers GitHub Actions, Pull requests, GitHub issues and Code Review
 - (Collective code ownership)
 - (Sustainable pace)
 
-Bonus content: Course logo
-
 ### Lecture 3: A tour of React, Hono and Heroku
 
 [![Lecture 3 code](https://img.shields.io/badge/Lecture_3-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/03)
