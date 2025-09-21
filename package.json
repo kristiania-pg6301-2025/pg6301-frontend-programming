@@ -24,5 +24,9 @@
     "husky": "^9.1.7",
     "prettier": "^3.6.2",
     "vite": "^7.1.6"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   }
 }
