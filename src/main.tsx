@@ -1,8 +1,9 @@
 import { createRoot } from "react-dom/client";
 import React, { type FormEvent, useEffect, useState } from "react";
+import type { TaskItem } from "../shared/taskItem.js";
 
 function Application() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [description, setDescription] = useState("");
   async function loadTasks() {
     const res = await fetch("/api/tasks");
@@ -24,7 +25,7 @@ function Application() {
     await loadTasks();
   }
 
-  async function handleTaskUpdated(id: number, delta: unknown) {
+  async function handleTaskUpdated(id: number, delta: Partial<TaskItem>) {
     await fetch(`/api/tasks/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

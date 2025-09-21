@@ -1,13 +1,8 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
+import type { TaskItem } from "../shared/taskItem.js";
 
 const app = new Hono();
-
-interface TaskItem {
-  id: number;
-  description: string;
-  completed: boolean;
-}
 
 const tasks: TaskItem[] = [
   { id: 0, description: "Create project (server)", completed: true },
