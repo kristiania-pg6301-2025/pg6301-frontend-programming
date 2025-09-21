@@ -3,7 +3,13 @@ import { serve } from "@hono/node-server";
 
 const app = new Hono();
 
-const tasks = [
+interface TaskItem {
+  id: number;
+  description: string;
+  completed: boolean;
+}
+
+const tasks: TaskItem[] = [
   { id: 0, description: "Create project (server)", completed: true },
   { id: 1, description: "Create React webapp (server)", completed: true },
   { id: 2, description: "Create Hono backend", completed: true },
