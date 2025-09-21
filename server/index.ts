@@ -7,7 +7,8 @@ const tasks = [
   { id: 0, description: "Create project (server)", completed: true },
   { id: 1, description: "Create React webapp (server)", completed: true },
   { id: 2, description: "Create Hono backend", completed: true },
-  { id: 3, description: "Update with Hono backend", completed: false },
+  { id: 3, description: "Update with Hono backend", completed: true },
+  { id: 4, description: "Add typescript", completed: true },
 ];
 app.get("/api/tasks", (c) => {
   return c.json(tasks);

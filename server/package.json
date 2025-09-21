@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "tsx --watch index.ts"
   },
   "keywords": [],
   "author": "",
@@ -13,9 +13,7 @@
   "type": "module",
   "dependencies": {
     "@hono/node-server": "^1.19.3",
-    "hono": "^4.9.8"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.10"
+    "hono": "^4.9.8",
+    "tsx": "^4.20.5"
   }
 }
