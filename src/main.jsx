@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 
 function Application() {
   const [tasks, setTasks] = useState([]);
+  async function loadTasks() {
+    const res = await fetch("/api/tasks");
+    setTasks(await res.json());
+  }
+
   useEffect(() => {
-    setTasks([
-      { description: "Create project", completed: true },
-      { description: "Create React webapp", completed: false },
-      { description: "Create Hono backend", completed: false },
-    ]);
+    loadTasks();
   }, []);
   return (
     <>
