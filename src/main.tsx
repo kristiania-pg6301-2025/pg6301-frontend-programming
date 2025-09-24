@@ -1,9 +1,6 @@
 import React, { type FormEvent, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-
-interface TaskItem {
-  title: string;
-}
+import type { TaskItem } from "../shared/taskItem.js";
 
 function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
@@ -34,7 +31,9 @@ function Application() {
       <h1>Task Application</h1>
       <ul>
         {tasks.map((t) => (
-          <li>{t.title}</li>
+          <li>
+            {t.title} {t.completed.toString()}
+          </li>
         ))}
       </ul>
       <h2>New task</h2>

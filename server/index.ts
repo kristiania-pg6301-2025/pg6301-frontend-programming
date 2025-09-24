@@ -1,12 +1,14 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
+import type { TaskItem } from "../shared/taskItem.js";
 
-const tasks = [
+const tasks: TaskItem[] = [
   { title: "Create React Application (server)", completed: true },
   { title: "Create Hono server (server)", completed: true },
   { title: "Restart server automatically", completed: true },
   { title: "Create APIs (server)", completed: true },
   { title: "Introduce typescript", completed: true },
+  { title: "Update state", completed: false },
 ];
 
 const app = new Hono();
