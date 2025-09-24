@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 function Application() {
-  const [tasks, setTasks] = useState([
-    { title: "Create React Application", completed: true },
-    { title: "Create Hono server", completed: false },
-    { title: "Create APIs", completed: false },
-  ]);
+  const [tasks, setTasks] = useState([]);
 
   async function loadTasks() {
     const res = await fetch("/api/tasks");
@@ -19,10 +15,14 @@ function Application() {
   }, []);
   const [title, setTitle] = useState("");
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    setTasks((old) => [{ title, completed: false }, ...old]);
+    await fetch("/api/tasks", {
+      method: "POST",
+      body: JSON.stringify({ title, completed: true }),
+    });
     setTitle("");
+    await loadTasks();
   }
 
   return (

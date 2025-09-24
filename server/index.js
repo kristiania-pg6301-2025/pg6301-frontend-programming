@@ -12,4 +12,9 @@ const app = new Hono();
 app.get("/api/tasks", (c) => {
   return c.json(tasks);
 });
+app.post("/api/tasks", async (c) => {
+  const task = await c.req.json();
+  tasks.push(task);
+  return c.newResponse(null, 201);
+});
 serve(app);
