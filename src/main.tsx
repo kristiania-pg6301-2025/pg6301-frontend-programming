@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { type FormEvent, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
+interface TaskItem {
+  title: string;
+}
+
 function Application() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<TaskItem[]>([]);
 
   async function loadTasks() {
     const res = await fetch("/api/tasks");
@@ -15,7 +19,7 @@ function Application() {
   }, []);
   const [title, setTitle] = useState("");
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     await fetch("/api/tasks", {
       method: "POST",
@@ -44,4 +48,4 @@ function Application() {
   );
 }
 
-createRoot(document.getElementById("app")).render(<Application />);
+createRoot(document.getElementById("app")!).render(<Application />);
