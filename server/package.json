@@ -1,9 +1,10 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "tsx --watch index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,9 +13,7 @@
   "description": "",
   "dependencies": {
     "@hono/node-server": "^1.19.4",
-    "hono": "^4.9.8"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.10"
+    "hono": "^4.9.8",
+    "tsx": "^4.20.5"
   }
 }

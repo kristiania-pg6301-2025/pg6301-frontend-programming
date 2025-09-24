@@ -5,7 +5,8 @@ const tasks = [
   { title: "Create React Application (server)", completed: true },
   { title: "Create Hono server (server)", completed: true },
   { title: "Restart server automatically", completed: true },
-  { title: "Create APIs (server)", completed: false },
+  { title: "Create APIs (server)", completed: true },
+  { title: "Introduce typescript", completed: true },
 ];
 
 const app = new Hono();
