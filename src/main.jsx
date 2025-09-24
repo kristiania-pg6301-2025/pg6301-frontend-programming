@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 function Application() {
@@ -7,6 +7,16 @@ function Application() {
     { title: "Create Hono server", completed: false },
     { title: "Create APIs", completed: false },
   ]);
+
+  async function loadTasks() {
+    const res = await fetch("/api/tasks");
+    const tasks = await res.json();
+    setTasks(tasks);
+  }
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
   const [title, setTitle] = useState("");
 
   function handleSubmit(event) {
