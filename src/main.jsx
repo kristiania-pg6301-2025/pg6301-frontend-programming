@@ -12,6 +12,7 @@ function Application() {
   function handleSubmit(event) {
     event.preventDefault();
     setTasks((old) => [{ title, completed: false }, ...old]);
+    setTitle("");
   }
 
   return (
