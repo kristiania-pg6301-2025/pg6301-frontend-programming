@@ -26,13 +26,26 @@ function Application() {
     await loadTasks();
   }
 
+  async function handleCheckedUpdated(taskId: number, completed: boolean) {
+    await fetch(`/api/tasks/${taskId}`, {
+      method: "PUT",
+      body: JSON.stringify({ completed }),
+    });
+    await loadTasks();
+  }
+
   return (
     <>
       <h1>Task Application</h1>
       <ul>
         {tasks.map((t) => (
           <li>
-            {t.title} {t.completed.toString()}
+            <input
+              type={"checkbox"}
+              checked={t.completed}
+              onChange={(e) => handleCheckedUpdated(t.id, e.target.checked)}
+            />
+            {t.title}
           </li>
         ))}
       </ul>
