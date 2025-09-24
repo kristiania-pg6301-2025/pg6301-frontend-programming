@@ -18,16 +18,17 @@ function Application() {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    const newTask: Omit<TaskItem, "id"> = { title, completed: false };
     await fetch("/api/tasks", {
       method: "POST",
-      body: JSON.stringify({ title, completed: true }),
+      body: JSON.stringify(newTask),
     });
     setTitle("");
     await loadTasks();
   }
 
-  async function handleCheckedUpdated(taskId: number, completed: boolean) {
-    await fetch(`/api/tasks/${taskId}`, {
+  async function handleCheckedUpdated(id: number, completed: boolean) {
+    await fetch(`/api/tasks/${id}`, {
       method: "PUT",
       body: JSON.stringify({ completed }),
     });
@@ -39,7 +40,7 @@ function Application() {
       <h1>Task Application</h1>
       <ul>
         {tasks.map((t) => (
-          <li>
+          <li key={t.id}>
             <input
               type={"checkbox"}
               checked={t.completed}

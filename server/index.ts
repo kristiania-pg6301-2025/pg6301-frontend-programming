@@ -23,9 +23,9 @@ app.post("/api/tasks", async (c) => {
 app.put("/api/tasks/:id", async (c) => {
   const { id } = c.req.param();
   const delta: Partial<TaskItem> = await c.req.json();
-  console.log({ delta });
-  tasks[parseInt(id)] = {
-    ...tasks[parseInt(id)]!,
+  const taskIndex = parseInt(id);
+  tasks[taskIndex] = {
+    ...tasks[taskIndex]!,
     ...delta,
   };
   return c.newResponse(null, 200);
