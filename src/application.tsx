@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-interface TaskItem {
-  description: string;
-  complete: boolean;
-}
+import type { TaskItem } from "../shared/taskItem.js";
 
 const initialTasks: TaskItem[] = [
   { description: "Create client", complete: true },
@@ -12,7 +8,7 @@ const initialTasks: TaskItem[] = [
 ];
 
 export function Application() {
-  const [tasks, setTasks] = useState<TaskItem[]>([]);
+  const [tasks, setTasks] = useState<TaskItem[]>(initialTasks);
   useEffect(() => {
     setTasks(initialTasks);
   }, []);
