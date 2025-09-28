@@ -7,7 +7,7 @@ import type { TaskItem } from "../shared/taskItem.js";
 const initialTasks: TaskItem[] = [
   { description: "Create client", complete: true },
   { description: "Create server", complete: true },
-  { description: "Deploy server", complete: false },
+  { description: "Deploy server", complete: true },
 ];
 
 const app = new Hono();
