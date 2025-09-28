@@ -7,7 +7,7 @@
     "prepare": "husky",
     "dev": "vite",
     "start": "cd server && npm start",
-    "postinstall": "cd server && npm install"
+    "postinstall": "cd server && npm install --include=dev"
   },
   "repository": {
     "type": "git",
