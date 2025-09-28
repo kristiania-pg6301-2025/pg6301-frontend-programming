@@ -5,7 +5,9 @@
   "scripts": {
     "test": "tsc --noEmit && prettier --check .",
     "prepare": "husky",
-    "dev": "vite"
+    "dev": "vite",
+    "start": "cd server && npm start",
+    "postinstall": "cd server && npm install"
   },
   "repository": {
     "type": "git",
