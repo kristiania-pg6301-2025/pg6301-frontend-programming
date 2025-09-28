@@ -1,0 +1,121 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CSS Joy</title>
+    <style>
+      @property --primary-color {
+        syntax: "<color>";
+        initial-value: #6a89a7;
+        inherits: false;
+      }
+      @property --brand-color {
+        syntax: "<color>";
+        initial-value: purple;
+        inherits: false;
+      }
+
+      :root {
+        color-scheme: dark;
+        background-color: light-dark(lightgray, #384959);
+        margin: unset;
+      }
+
+      .carousel {
+        width: 100%;
+        overflow-x: auto;
+        margin: 3em auto;
+        display: flex;
+        gap: 1em;
+        scroll-behavior: smooth;
+        anchor-name: --carousel;
+        scroll-snap-type: x mandatory;
+        scroll-marker-group: after;
+      }
+
+      .carousel::-webkit-scrollbar {
+        display: none;
+      }
+      .carousel::scroll-button(right),
+      .carousel::scroll-button(left) {
+        border: none;
+        background-color: var(--brand-color);
+        color: white;
+        font-size: 3em;
+        font-family: Consolas;
+        height: 60px;
+        aspect-ratio: 1;
+        padding: 0 0 0.1em 0;
+        cursor: pointer;
+        border-radius: 100%;
+        position: fixed;
+        position-anchor: --carousel;
+      }
+      .carousel::scroll-button(right):disabled,
+      .carousel::scroll-button(left):disabled {
+        opacity: 0.5;
+        cursor: auto;
+      }
+      .carousel::scroll-button(right) {
+        position-area: right center;
+        content: "→";
+        translate: -50%;
+      }
+      .carousel::scroll-button(left) {
+        position-area: left center;
+        content: "←";
+        translate: 50%;
+      }
+      .carousel::scroll-marker-group {
+        display: flex;
+        justify-content: center;
+        gap: 0.5em;
+      }
+
+      .card {
+        background-color: var(--primary-color);
+        aspect-ratio: 5 / 3;
+        padding: 1em;
+        border-radius: 0.5em;
+        text-align: center;
+        align-content: center;
+        scroll-snap-align: start;
+
+        flex: 0 0 20em;
+        @media (max-width: 800px) {
+          flex: 0 0 calc(50% - 2.5em);
+        }
+        @media (max-width: 600px) {
+          flex: 0 0 100%;
+        }
+      }
+
+      .card::scroll-marker {
+        content: "";
+        height: 1em;
+        width: 1em;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+      }
+      .card::scroll-marker:target-current {
+        background-color: var(--brand-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousel">
+      <div class="card">Card 1</div>
+      <div class="card">Card 2</div>
+      <div class="card">Card 3</div>
+      <div class="card">Card 4</div>
+      <div class="card">Card 5</div>
+      <div class="card">Card 6</div>
+      <div class="card">Card 7</div>
+      <div class="card">Card 8</div>
+      <div class="card">Card 9</div>
+      <div class="card">Card 10</div>
+      <div class="card">Card 11</div>
+      <div class="card">Card 12</div>
+    </div>
+  </body>
+</html>
