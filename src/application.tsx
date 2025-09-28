@@ -9,8 +9,14 @@ const initialTasks: TaskItem[] = [
 
 export function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>(initialTasks);
+
+  async function loadTasks() {
+    const res = await fetch("/api/tasks");
+    setTasks(await res.json());
+  }
+
   useEffect(() => {
-    setTasks(initialTasks);
+    loadTasks();
   }, []);
   return (
     <>
