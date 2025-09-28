@@ -4,11 +4,14 @@
 
 <details>
 
-Good programming is about getting frequent feedback from what you are working on, both from team members and from programming tools.
+Good programming is about getting frequent feedback from what you are working on, both from team members and from
+programming tools.
 
-Test-driven development is a method where the tools help you take small, quick steps and validate the work along the way.
+Test-driven development is a method where the tools help you take small, quick steps and validate the work along the
+way.
 
-Pair programming is a normal way of working where two programmers sit at the same machine, screen, keyboard, and mouse, and solve the task together.
+Pair programming is a normal way of working where two programmers sit at the same machine, screen, keyboard, and mouse,
+and solve the task together.
 
 Both methods are useful for quality, progress, and—perhaps most importantly—for making programming more fun.
 
@@ -134,11 +137,13 @@ with 5, 6, then skip to 9, 10, 11 and then skip to 20
 
 <details>
 
-Programming tools allow you to collaborate safely and efficiently with other programmers. In this exercise, we will learn about GitHub Actions Workflows, Pull requests and Code reviews.
+Programming tools allow you to collaborate safely and efficiently with other programmers. In this exercise, we will
+learn about GitHub Actions Workflows, Pull requests and Code reviews.
 
 Make sure that you have followed Exercise 1 first, as Exercise 2 builds on what you learned before.
 
-In this exercise, we will implement a program to calculate the scores of a [Yahtzee game](https://codingdojo.org/kata/Yahtzee/)
+In this exercise, we will implement a program to calculate the scores of
+a [Yahtzee game](https://codingdojo.org/kata/Yahtzee/)
 
 ### Setup
 
@@ -163,34 +168,41 @@ In this exercise, we will implement a program to calculate the scores of a [Yaht
 
 ### Implement GitHub Actions
 
-GitHub Actions makes GitHub run verification steps and perform other actions each time you push a new version of the code. This can save you lots of trouble down the line.
+GitHub Actions makes GitHub run verification steps and perform other actions each time you push a new version of the
+code. This can save you lots of trouble down the line.
 
 1. On your repository in GitHub, choose Actions
-2. Here, you are presented with starting points for GitHub Actions. Type `node.js` into the search field and select the workflow with the same name among those that show up
+2. Here, you are presented with starting points for GitHub Actions. Type `node.js` into the search field and select the
+   workflow with the same name among those that show up
 3. When you commit this workflow, the Action will start running on GitHub. Make sure you get it to run to green
 
 ### Pull request
 
 You should now continue on the Yahtzee task, but first, create a new branch.
 
-1. In IntelliJ, click the branch name ("main") on the toolbar and select "New Branch..." from the menu. Give the branch the name `feature/score-threes`
+1. In IntelliJ, click the branch name ("main") on the toolbar and select "New Branch..." from the menu. Give the branch
+   the name `feature/score-threes`
 2. Implement the test and push
 3. In GitHub, go to "Pull requests" and create a new pull request based on `feature/score-threes`
-4. The other programmer than the one who created the Pull request should review the Pull request on GitHub and make a few comments
+4. The other programmer than the one who created the Pull request should review the Pull request on GitHub and make a
+   few comments
 5. Merge the pull requests
 6. In IntelliJ, once you pull the main branch, you should see the Pull request as a branch in the Git Window
 
 ### Repeat to learn
 
-Create a branch for `feature/score-pair`, implement scoring pair in Yahtzee with two tests with different pairs. Then create a Pull request, do a code review and merge
+Create a branch for `feature/score-pair`, implement scoring pair in Yahtzee with two tests with different pairs. Then
+create a Pull request, do a code review and merge
 
 ### Complete the task
 
-Talk among yourselves and review what is a good approach going forward. You have implemented a few Yahtzee rules. Which ones would you do next? What changes are needed to the code? Which branches would you like to create?
+Talk among yourselves and review what is a good approach going forward. You have implemented a few Yahtzee rules. Which
+ones would you do next? What changes are needed to the code? Which branches would you like to create?
 
 In GitHub, go to Issues and create a New issue for the tasks you are planning to execute.
 
-This is a good time to test out working in parallel. Assign one issue to each of the programmers in the pair, complete some Yahtzee rules and create a Pull request each. Review and merge each other's pull request.
+This is a good time to test out working in parallel. Assign one issue to each of the programmers in the pair, complete
+some Yahtzee rules and create a Pull request each. Review and merge each other's pull request.
 
 </details>
 
@@ -200,7 +212,9 @@ This is a good time to test out working in parallel. Assign one issue to each of
 
 ### The React todo-application
 
-The main running exercise of this course is the classic "TODO" application. This is a very common example, and you can see lots of examples using this online. The application lets to users create tasks and mark them as complete. In addition, we will be adding details to the tasks and give access to tasks to other users.
+The main running exercise of this course is the classic "TODO" application. This is a very common example, and you can
+see lots of examples using this online. The application lets to users create tasks and mark them as complete. In
+addition, we will be adding details to the tasks and give access to tasks to other users.
 
 Your application should have the following:
 
@@ -255,7 +269,9 @@ At this point, your todo application should consist of two components:
 
 ### Step 4: Competition
 
-We need a logo for the course GitHub pages. Post your as a comment to [Course logo issue](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/issues/12) and vote with emojiis on other entries. Despite knowing better from experience, I will let the democratic process decide on the logo.
+We need a logo for the course GitHub pages. Post your as a comment
+to [Course logo issue](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/issues/12) and vote with
+emojiis on other entries. Despite knowing better from experience, I will let the democratic process decide on the logo.
 
 </details>
 
@@ -283,7 +299,8 @@ Add react-router-dom as a dependency.
 When the user clicks the title for a task, they should navigate to the details for that task. If there is no
 description registered for the task, the user should be able to provide one.
 
-If you want to explore React a bit more right away, check out [the official React tutorials](https://react.dev/learn/tutorial-tic-tac-toe).
+If you want to explore React a bit more right away, check
+out [the official React tutorials](https://react.dev/learn/tutorial-tic-tac-toe).
 
 </details>
 
@@ -303,7 +320,8 @@ You should complete exercise 4 before starting this exercise.
 1. Create a new task from the front page (exercise 3)
 2. Click on the title of the task to see the task details with react-router-dom (exercise 4)
 3. Click on an `Edit` button to bring up a `<dialog />` to change the description of the task (this exercise)
-4. Submitting the form in the dialog should close the dialog and update the task description. It should also be possible to cancel the update
+4. Submitting the form in the dialog should close the dialog and update the task description. It should also be possible
+   to cancel the update
 
 ### How to implement it:
 
@@ -326,7 +344,7 @@ You can choose whether this page just displays the task description or if you wa
 
 ## Exercise 6:
 
-<details open>
+<details>
 
 ### Implementing APIs with Hono
 
@@ -521,5 +539,242 @@ It's easiest to do this by 1. adding typescript, 2. renaming `vite.config.{js =>
 and committing, 3. rename `src/main.{jsx => tsx}`, fix errors and commit,
 and 4. rename `server/index.{js => ts}` fix scripts and commit. Then add
 the `TaskItem` type and use it in the client and server.
+
+</details>
+
+## Exercise 7
+
+<details open>
+
+### Deploying your application to Heroku
+
+The goals of this exercise is to have an application running on Heroku. It's best to have completed exercise 6 before
+you start exercise 7, but I recommend starting exercise 7 with a new repository to maximize learning. We will create
+as small of an application as possible. When you have deployed it, you can expand it with the functionality you
+created in exercise 5 and 6.
+
+### Step-by-step: Getting the client ready
+
+1. Create a new GitHub repository and open it in IntelliJ
+2. Create a basic Node project with Vite, Husky, Prettier, and Typescript
+   1. `npm init -y`
+   2. `npm pkg set type=module`
+   3. `npm i -D husky prettier typescript vite`
+   4. `npx tsc --init`
+   5. `npx husky init`
+   6. `npm pkg set scripts.test="tsc --noEmit && prettier --check ."`
+   7. Create a `vite.config.ts` file to avoid `tsc` failing with no input files
+
+   ```ts
+   import { defineConfig } from "vite";
+
+   export default defineConfig({});
+   ```
+
+3. Update `.gitignore` and commit
+   1. `echo .idea/ > .gitignore`
+   2. `echo node_modules/ >> .gitignore`
+   3. Commit and push your project
+4. Create a React application
+   1. `npm i react react-dom`
+   2. `npm i -D @types/react @types/react-dom`
+   3. Create `index.html`
+      ```html
+      <!doctype html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <title>Task application</title>
+        </head>
+        <body>
+          <div id="app"></div>
+        </body>
+        <script src="src/main.tsx" type="module"></script>
+      </html>
+      ```
+   4. Create `src/main.tsx`:
+
+      ```tsx
+      import { createRoot } from "react-dom/client";
+      import { Application } from "./application.js";
+      import React from "react";
+
+      export function Application() {
+        return <h1>Task application</h1>;
+      }
+
+      createRoot(document.getElementById("app")!).render(<Application />);
+      ```
+
+   5. `npm pkg set scripts.dev=vite`
+   6. Run `npm run dev` and click on the URL in the console to see your application running
+
+### Step-by-step: Create a client component to fetch the tasks from the server
+
+Make the task application fetch tasks from the server. This will not work until
+the server is implemented:
+
+```tsx
+export function Application() {
+  const [tasks, setTasks] = useState<TaskItem[]>([
+    { description: "Create client", completed: true },
+    { description: "Fetch from server", completed: false },
+  ]);
+
+  async function loadTasks() {
+    const res = await fetch("/api/tasks");
+    setTasks(await res.json());
+  }
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
+  return (
+    <>
+      <h1>Task application</h1>
+      {tasks.map(({ description, complete }) => (
+        <li>
+          <input type="checkbox" checked={complete} /> {description}
+        </li>
+      ))}
+    </>
+  );
+}
+```
+
+### Step-by-step: Implement the server:
+
+Create the server `package.json` and the Hono server:
+
+1. `mkdir server`
+2. `cd server`
+3. `npm init -y`
+4. `npm i -D tsx`
+5. `npm pkg set type=module`
+6. `npm pkg set scripts.dev="tsx --watch index.ts"`
+7. `npm i hono @hono/node-server`
+8. Run `npm run dev` to start the server - this will crash until you make `index.ts`
+
+Create `server/index.ts`:
+
+```ts
+import { Hono } from "hono";
+import { serve } from "@hono/node-server";
+const app = new Hono();
+serve(app);
+```
+
+If you go to http://localhost:3000, you should now get a 404 as the server is
+running but doesn't have any content.
+
+Add a handler for `GET /api/tasks` in `index.ts`:
+
+```ts
+app.get("/api/tasks", (c) => {
+  return c.json([
+    { description: "Create client", completed: true },
+    { description: "Fetch from server", completed: true },
+    { description: "Deploy to Heroku", completed: false },
+  ]);
+});
+```
+
+If you go to http://localhost:3000/api/tasks, you should now see the JSON.
+
+### Step-by-step: Integrate the client and the server
+
+If you followed the instructions correctly, `<Application />` should load the
+tasks with `fetch("/api/tasks")`. However, this fetches the tasks from
+http://localhost:5173/api/tasks, not http://localhost:3000/api/tasks. During
+development, we need to tell Vite to forward the requests to Hono.
+
+Update `vite.config.ts` to forward the requests:
+
+```ts
+export default defineConfig({
+  server: { proxy: { "/api": "http://localhost:3000" } },
+});
+```
+
+If you go to http://localhost:5173 the tasks from the server should now be visible.
+
+### Step-by-step: Create a Heroku app
+
+In order to deploy to Heroku you need to register an account with [Heroku](https://heroku.com). Read through the
+documentation about [Heroku for GitHub Students](https://www.heroku.com/github-students) so you understand how to avoid
+cloud bills.
+
+Download the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+
+You can create a Heroku app and push your code to it. However, this will fail as
+our application hasn't set up a build and start script.
+
+1. `heroku apps:create`
+2. `git push heroku`
+3. See if you can understand the error message that comes from Herok
+
+### Step-by-step: Making your application deployable to Heroku
+
+When Heroku sees that you have a `package.json`-file, it correctly assumes that
+you have a JavaScript application. Heroku will perform the following steps:
+
+- Run `npm install` to download your dependencies (notice: we need to work around
+  some effects of Heroku running with the environment variable `NODE_ENV=production`)
+- Run `npm run build` if there is a build script in your application
+- Run `npm start` with the environment variable `PORT=...` set to the port
+  Heroku wants your server to use (for us, this is Hono)
+- If your application doesn't answer on the PORT within a certain timeout,
+  Heroku will terminate it
+
+This is what you need to do to set it up:
+
+1. `npm install` needs to also install the server dependencies (`--include=dev` is a workaround for Heroku running with `NODE_ENV=production`)
+   1. `npm pkg set scripts.postinstall="cd server && npm install --include=dev"`
+2. `npm run build` needs to run Vite to build your React code which outputs to the `dist/` directory
+   1. `npm pkg set scripts.build="vite build"`
+   2. `echo dist >> .gitignore`
+3. Hono needs to serve the code build by Vite in the previous step. Update `server/index.ts`
+
+   ```ts
+   import { serveStatic } from "@hono/node-server/serve-static";
+
+   // ... the rest of the code goes here
+   app.use("*", serveStatic({ root: "../dist" }));
+   ```
+
+4. Hono needs to use the port specified by Heroku
+   1. change the line `serve(app)` in `server/index.ts` to the following
+      ```ts
+      const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+      serve({ fetch: app.fetch, port });
+      ```
+   2. In order to make typescript recognize the `process` variable, you
+      need to add a dependency to `@types/node`:
+   3. `npm i -D @types/node`
+5. Heroku needs a `start` script
+   1. `npm pkg set scripts.start="cd server && npm start"`
+   2. `cd server`
+   3. `npm pkg set scripts.start="tsx index.ts"`
+6. `git commit`
+7. `git push heroku`
+8. Check that you didn't get any errors and try to open your app in the browser
+9. `heroku apps:open`
+10. If you got an error, run `heroku logs` to see if you can figure it out
+
+### Additional tasks
+
+1. Currently, the task items on the server and the client are not checked to be similar.
+   Create a `TaskItem` interface in `shared/taskItem.ts` and use it from both the
+   client and the server
+2. You should be able to add new tasks. Follow the steps in [exercise 6](#exercise-6)
+   to create the code on the client and the server. After you have developed and
+   checked the functionality locally, deploy it to Heroku
+3. The user should be able to check a task as done. Follow the instructions in
+   exercise 6 to get it to work
+4. In [exercise 5](#exercise-5) we introduced React Router. Implement the same
+   functionality. If you use `<BrowserRouter />` refreshing the page on Heroku
+   will return 404 (but `<HashRouter />`) will work. You will need a
+   "catch-all" route with Hono that serves statically `../dist/index.html`.
+   Can you figure it out?
 
 </details>

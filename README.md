@@ -135,10 +135,10 @@ previous lecture to be served from Hono.
 
 [![Lecture 7 code](https://img.shields.io/badge/Lecture_7-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/07)
 [![Lecture 7 reference](https://img.shields.io/badge/Lecture_7-reference_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/reference/07)
-[![Class assignment](https://img.shields.io/badge/Lecture_7-exercise-pink)](./exercises/EXERCISES.md#exercise-7)
+[![Lecture 7 exercise](https://img.shields.io/badge/Lecture_7-exercise-pink)](./exercises/EXERCISES.md#exercise-7)
 
 In this lecture, we will upload a simple web application to a cloud service and look at automatic deploys.
-See [the steps to deploy to Heroku](#deploy-to-heroku).
+See [the steps to deploy to Heroku](#deploying-to-heroku).
 
 **Reference material:**
 
@@ -220,6 +220,7 @@ This list of commands:
 ```shell
 npm init -y
 npm install -D vite
+npm pkg set type=module
 npm install react react-dom
 npm pkg set scripts.dev=vite
 
@@ -441,6 +442,18 @@ Now you need to commit your changes. You can then create a Heroku application an
 
 1. `heroku apps:create`
 2. `git push heroku`
+
+To set up your application to run with Heroku:
+
+1. `npm pkg set scripts.postinstall="cd server && npm install --include=dev"`
+2. `npm pkg set scripts.build="vite build"`
+3. `npm pkg set scripts.start="cd server && npm start"`
+4. `cd server`
+5. `npm pkg set scripts.start="tsx index.ts"`
+6. In your `server/index.ts` serve the React app as static content: `app.use("*", serveStatic({ root: "../dist" }));`
+7. In your `server/index.ts`, use the port specified by Hono: `serve({ fetch: app.fetch, port: parseInt(process.env.PORT || "3000") });`
+8. Run `git commit` and `git push heroku` to deploy
+9. Open your application with `heroku apps:open`
 
 #### Snapshot testing - check that a view is rendered correctly
 
