@@ -1,0 +1,28 @@
+{
+  "name": "pg6301-frontend-programming",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "prettier --check .",
+    "dev": "vite",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/issues"
+  },
+  "homepage": "https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming#readme",
+  "description": "",
+  "type": "module",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "prettier": "^3.6.2",
+    "vite": "^7.1.7"
+  }
+}
