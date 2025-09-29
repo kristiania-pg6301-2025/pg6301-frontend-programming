@@ -18,7 +18,14 @@ function UserProfile() {
       </h1>
       {userinfo.picture && (
         <div>
-          <img src={userinfo.picture} />
+          <img
+            src={
+              userinfo.picture !==
+              "https://graph.microsoft.com/v1.0/me/photo/$value"
+                ? userinfo.picture
+                : "/api/photo/microsoft"
+            }
+          />
         </div>
       )}
       <div>

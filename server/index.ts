@@ -17,6 +17,7 @@ if (!microsoft_client_secret) throw "Missing MICROSOFT_CLIENT_SECRET";
 interface OpenidConfig {
   discovery_url: string;
   client_id: string;
+  scope: string;
   client_secret: string;
 }
 
@@ -25,6 +26,7 @@ const configs: Record<string, OpenidConfig> = {
     discovery_url:
       "https://www.linkedin.com/oauth/.well-known/openid-configuration",
     client_id: "7792wb3of776if",
+    scope: "openid profile email",
     client_secret: linkedin_client_secret,
   },
   google: {
@@ -32,17 +34,23 @@ const configs: Record<string, OpenidConfig> = {
       "https://accounts.google.com/.well-known/openid-configuration",
     client_id:
       "34816606807-9rtbidk4oltr6hob3mqlfmuka82e0sb2.apps.googleusercontent.com",
+    scope: "openid profile email",
     client_secret: google_client_secret,
   },
   microsoft: {
     discovery_url:
       "https://login.microsoftonline.com/organizations/v2.0/.well-known/openid-configuration",
     client_id: "bc55c254-03d0-455c-8d03-e4b70108db71",
+    scope: "openid profile email User.Read",
     client_secret: microsoft_client_secret,
   },
 };
 
-async function getDiscoveryDocument({ discovery_url }: OpenidConfig): Promise<{
+async function getDiscoveryDocument({
+  discovery_url,
+}: {
+  discovery_url: string;
+}): Promise<{
   token_endpoint: string;
   authorization_endpoint: string;
   userinfo_endpoint: string;
@@ -53,16 +61,13 @@ async function getDiscoveryDocument({ discovery_url }: OpenidConfig): Promise<{
 
 app.get("/api/login/:provider/start", async (c) => {
   const { provider } = c.req.param();
-  const config = configs[provider]!;
-  const { authorization_endpoint } = await getDiscoveryDocument(config);
+  const { discovery_url, client_id, scope } = configs[provider]!;
+  const { authorization_endpoint } = await getDiscoveryDocument({
+    discovery_url,
+  });
 
   const redirect_uri = `${new URL(c.req.url).origin}/api/login/${provider}/callback`;
-  const query = {
-    client_id: config.client_id,
-    redirect_uri,
-    response_type: "code",
-    scope: "openid profile email",
-  };
+  const query = { client_id, redirect_uri, response_type: "code", scope };
   return c.redirect(`${authorization_endpoint}?${new URLSearchParams(query)}`);
 });
 
@@ -76,13 +81,13 @@ app.get("/api/login/end_session", async (c) => {
 app.get("/api/login/:provider/callback", async (c) => {
   const { provider } = c.req.param();
   const config = configs[provider]!;
-  const { client_id, client_secret } = config;
+  const { client_id, client_secret, discovery_url } = config;
   const { error, error_description, code } = c.req.query();
   if (error) {
     return c.json({ error, error_description });
   }
   if (code) {
-    const { token_endpoint } = await getDiscoveryDocument(config);
+    const { token_endpoint } = await getDiscoveryDocument({ discovery_url });
     const redirect_uri = `${new URL(c.req.url).origin}/api/login/${provider}/callback`;
     const payload = {
       client_id,
@@ -107,11 +112,11 @@ app.get("/api/login/:provider/callback", async (c) => {
 });
 
 app.get("/api/userinfo", async (c) => {
-  for (const [provider, config] of Object.entries(configs)) {
+  for (const [provider, { discovery_url }] of Object.entries(configs)) {
     const access_token = getCookie(c, `access_token_${provider}`);
     if (!access_token) continue;
 
-    const { userinfo_endpoint } = await getDiscoveryDocument(config);
+    const { userinfo_endpoint } = await getDiscoveryDocument({ discovery_url });
     const res = await fetch(userinfo_endpoint, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
@@ -121,6 +126,26 @@ app.get("/api/userinfo", async (c) => {
   }
 
   return c.newResponse(null, 401);
+});
+
+app.get("/api/photo/:provider", async (c) => {
+  const { provider } = c.req.param();
+  const access_token = getCookie(c, `access_token_${provider}`);
+  if (!access_token) return c.newResponse(null, 401);
+
+  const resp = await fetch("https://graph.microsoft.com/v1.0/me/photo/$value", {
+    headers: { Authorization: `Bearer ${access_token}` },
+  });
+  if (!resp.ok) {
+    console.log(await resp.text());
+    return c.text("No photo", 404);
+  }
+  const arrayBuffer = await resp.arrayBuffer();
+  return new Response(arrayBuffer, {
+    headers: {
+      "Content-Type": resp.headers.get("content-type") ?? "image/jpeg",
+    },
+  });
 });
 
 serve(app);
