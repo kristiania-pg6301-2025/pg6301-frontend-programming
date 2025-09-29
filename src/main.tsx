@@ -28,6 +28,20 @@ function UserProfile() {
   );
 }
 
+function LoginPage() {
+  return (
+    <>
+      <h1>Log in</h1>
+      <div>
+        <a href="/api/login/linkedin/start">Login with Linkedin</a>
+      </div>
+      <div>
+        <a href="/api/login/google/start">Login with Google</a>
+      </div>
+    </>
+  );
+}
+
 function Application() {
   const [userinfo, setUserinfo] = useState<UserInfo>();
 
@@ -36,8 +50,7 @@ function Application() {
   async function loadUserInfo() {
     const res = await fetch("/api/userinfo");
     if (res.status === 401) {
-      window.location.pathname = "/api/login/start";
-      return;
+      return navigate("/login");
     }
     setUserinfo(await res.json());
     navigate("/profile");
@@ -52,6 +65,7 @@ function Application() {
       <Routes>
         <Route path={"/"} element={<h1>Loading</h1>} />
         <Route path={"/profile"} element={<UserProfile />} />
+        <Route path={"/login"} element={<LoginPage />} />
         <Route path={"*"} element={<h1>Not found</h1>} />
       </Routes>
     </UserContext>
