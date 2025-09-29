@@ -21,6 +21,7 @@
   "homepage": "https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming#readme",
   "description": "",
   "devDependencies": {
+    "@types/node": "^24.6.0",
     "@types/react": "^19.1.15",
     "@types/react-dom": "^19.1.9",
     "concurrently": "^9.2.1",

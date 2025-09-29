@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 import type { UserInfo } from "../shared/userInfo.js";
-import * as React from "react";
 
 const UserContext = React.createContext<{ userinfo: UserInfo | undefined }>({
   userinfo: undefined,
@@ -11,7 +11,21 @@ const UserContext = React.createContext<{ userinfo: UserInfo | undefined }>({
 function UserProfile() {
   const { userinfo } = useContext(UserContext);
   if (!userinfo) return null;
-  return <h1>Welcome {userinfo.username}</h1>;
+  return (
+    <>
+      <h1>
+        Welcome {userinfo.name} ({userinfo.email})
+      </h1>
+      {userinfo.picture && (
+        <div>
+          <img src={userinfo.picture} />
+        </div>
+      )}
+      <div>
+        <a href={"/api/login/end_session"}>Log out</a>
+      </div>
+    </>
+  );
 }
 
 function Application() {
@@ -21,6 +35,10 @@ function Application() {
 
   async function loadUserInfo() {
     const res = await fetch("/api/userinfo");
+    if (res.status === 401) {
+      window.location.pathname = "/api/login/start";
+      return;
+    }
     setUserinfo(await res.json());
     navigate("/profile");
   }
