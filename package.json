@@ -5,7 +5,8 @@
   "scripts": {
     "test": "tsc --noEmit && prettier --check .",
     "prepare": "husky",
-    "dev": "vite"
+    "dev": "concurrently vite npm:dev:server",
+    "dev:server": "cd server && npm run dev"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@types/react": "^19.1.15",
     "@types/react-dom": "^19.1.9",
+    "concurrently": "^9.2.1",
     "husky": "^9.1.7",
     "prettier": "^3.6.2",
     "typescript": "^5.9.2",

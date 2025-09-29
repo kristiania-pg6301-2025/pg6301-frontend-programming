@@ -1,9 +1,17 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import type { UserInfo } from "../shared/userInfo.js";
+import * as React from "react";
 
-interface UserInfo {
-  username: string;
+const UserContext = React.createContext<{ userinfo: UserInfo | undefined }>({
+  userinfo: undefined,
+});
+
+function UserProfile() {
+  const { userinfo } = useContext(UserContext);
+  if (!userinfo) return null;
+  return <h1>Welcome {userinfo.username}</h1>;
 }
 
 function Application() {
@@ -22,10 +30,13 @@ function Application() {
   }, []);
 
   return (
-    <Routes>
-      <Route path={"/"} element={<h1>Loading</h1>} />
-      <Route path={"*"} element={<h1>Not found</h1>} />
-    </Routes>
+    <UserContext value={{ userinfo }}>
+      <Routes>
+        <Route path={"/"} element={<h1>Loading</h1>} />
+        <Route path={"/profile"} element={<UserProfile />} />
+        <Route path={"*"} element={<h1>Not found</h1>} />
+      </Routes>
+    </UserContext>
   );
 }
 
