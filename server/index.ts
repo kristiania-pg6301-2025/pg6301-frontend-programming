@@ -8,6 +8,9 @@ const app = new Hono();
 const linkedin_client_secret = process.env.LINKEDIN_CLIENT_SECRET;
 if (!linkedin_client_secret) throw "Missing LINKEDIN_CLIENT_SECRET";
 
+const google_client_secret = process.env.GOOGLE_CLIENT_SECRET;
+if (!google_client_secret) throw "Missing GOOGLE_CLIENT_SECRET";
+
 interface OpenidConfig {
   discovery_url: string;
   client_id: string;
@@ -20,6 +23,13 @@ const configs: Record<string, OpenidConfig> = {
       "https://www.linkedin.com/oauth/.well-known/openid-configuration",
     client_id: "7792wb3of776if",
     client_secret: linkedin_client_secret,
+  },
+  google: {
+    discovery_url:
+      "https://accounts.google.com/.well-known/openid-configuration",
+    client_id:
+      "34816606807-9rtbidk4oltr6hob3mqlfmuka82e0sb2.apps.googleusercontent.com",
+    client_secret: google_client_secret,
   },
 };
 
@@ -88,12 +98,9 @@ app.get("/api/login/:provider/callback", async (c) => {
 });
 
 app.get("/api/userinfo", async (c) => {
-  const cookies = getCookie(c);
   for (const [provider, config] of Object.entries(configs)) {
     const access_token = getCookie(c, `access_token_${provider}`);
     if (!access_token) continue;
-
-    console.log(`Found access token for ${provider}`);
 
     const { userinfo_endpoint } = await getDiscoveryDocument(config);
     const res = await fetch(userinfo_endpoint, {
