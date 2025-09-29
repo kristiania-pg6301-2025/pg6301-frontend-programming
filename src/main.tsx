@@ -38,6 +38,9 @@ function LoginPage() {
       <div>
         <a href="/api/login/google/start">Login with Google</a>
       </div>
+      <div>
+        <a href="/api/login/microsoft/start">Login with Microsoft</a>
+      </div>
     </>
   );
 }

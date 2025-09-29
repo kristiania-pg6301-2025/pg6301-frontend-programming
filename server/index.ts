@@ -11,6 +11,9 @@ if (!linkedin_client_secret) throw "Missing LINKEDIN_CLIENT_SECRET";
 const google_client_secret = process.env.GOOGLE_CLIENT_SECRET;
 if (!google_client_secret) throw "Missing GOOGLE_CLIENT_SECRET";
 
+const microsoft_client_secret = process.env.MICROSOFT_CLIENT_SECRET;
+if (!microsoft_client_secret) throw "Missing MICROSOFT_CLIENT_SECRET";
+
 interface OpenidConfig {
   discovery_url: string;
   client_id: string;
@@ -30,6 +33,12 @@ const configs: Record<string, OpenidConfig> = {
     client_id:
       "34816606807-9rtbidk4oltr6hob3mqlfmuka82e0sb2.apps.googleusercontent.com",
     client_secret: google_client_secret,
+  },
+  microsoft: {
+    discovery_url:
+      "https://login.microsoftonline.com/organizations/v2.0/.well-known/openid-configuration",
+    client_id: "bc55c254-03d0-455c-8d03-e4b70108db71",
+    client_secret: microsoft_client_secret,
   },
 };
 
