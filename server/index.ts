@@ -13,6 +13,19 @@ const app = new Hono();
 app.get("/api/tasks", (c) => {
   return c.json(taskList);
 });
+
+async function sleep(milliseconds: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), milliseconds);
+  });
+}
+
+app.post("/api/tasks", async (c) => {
+  const { description, completed } = await c.req.json();
+  await sleep(2000);
+  taskList.push({ description, completed });
+  return c.newResponse(null, 204);
+});
 app.get("*", serveStatic({ root: "../dist" }));
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 serve({ fetch: app.fetch, port });
