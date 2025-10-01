@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "dev": "vite",
     "test": "tsc --noEmit && prettier --check .",
     "prepare": "husky"
   },
