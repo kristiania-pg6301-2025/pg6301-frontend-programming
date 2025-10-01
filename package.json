@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "cd server && npm start",
     "dev": "vite",
     "test": "tsc --noEmit && prettier --check .",
     "prepare": "husky"
