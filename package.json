@@ -2,8 +2,10 @@
   "name": "pg6301-frontend-programming",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc --noEmit && prettier --check .",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
