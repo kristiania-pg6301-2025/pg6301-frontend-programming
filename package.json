@@ -7,7 +7,8 @@
     "start": "cd server && npm start",
     "dev": "vite",
     "test": "tsc --noEmit && prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "cd server && npm install"
   },
   "repository": {
     "type": "git",
