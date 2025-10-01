@@ -14,8 +14,13 @@ const taskList: TaskItem[] = [
 
 function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
+  async function loadTasks() {
+    const res = await fetch("/api/tasks");
+    setTasks(await res.json());
+  }
+
   useEffect(() => {
-    setTasks(taskList);
+    loadTasks();
   }, []);
   return (
     <>
