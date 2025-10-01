@@ -1,16 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { useEffect, useState } from "react";
-
-interface TaskItem {
-  description: string;
-  completed: boolean;
-}
-
-const taskList: TaskItem[] = [
-  { description: "Create react app", completed: true },
-  { description: "Create Hono application", completed: false },
-  { description: "Deploy to Heroku", completed: false },
-];
+import type { TaskItem } from "../shared/taskItem.js";
 
 function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
