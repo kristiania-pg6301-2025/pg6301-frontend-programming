@@ -6,7 +6,7 @@ import type { TaskItem } from "../shared/taskItem.js";
 const taskList: TaskItem[] = [
   { description: "Create react app", completed: true },
   { description: "Create Hono application (server updated)", completed: true },
-  { description: "Deploy to Heroku", completed: false },
+  { description: "Deploy to Heroku", completed: true },
 ];
 
 const app = new Hono();
