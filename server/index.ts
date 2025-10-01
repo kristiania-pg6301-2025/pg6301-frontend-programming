@@ -12,4 +12,5 @@ const app = new Hono();
 app.get("/api/tasks", (c) => {
   return c.json(taskList);
 });
-serve(app);
+const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+serve({ fetch: app.fetch, port });
