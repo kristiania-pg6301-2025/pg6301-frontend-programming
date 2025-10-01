@@ -8,7 +8,7 @@
     "dev": "vite",
     "test": "tsc --noEmit && prettier --check .",
     "prepare": "husky",
-    "postinstall": "cd server && npm install"
+    "postinstall": "cd server && npm install --include=dev"
   },
   "repository": {
     "type": "git",
