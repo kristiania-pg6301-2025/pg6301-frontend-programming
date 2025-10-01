@@ -573,8 +573,9 @@ created in exercise 5 and 6.
 
 3. Update `.gitignore` and commit
    1. `echo .idea/ > .gitignore`
-   2. `echo node_modules/ >> .gitignore`
-   3. Commit and push your project
+       - NOTE: This doesn't work with Powershell. You have to update `.gitignore` manually
+   3. `echo node_modules/ >> .gitignore`
+   4. Commit and push your project
 4. Create a React application
    1. `npm i react react-dom`
    2. `npm i -D @types/react @types/react-dom`
@@ -596,7 +597,6 @@ created in exercise 5 and 6.
 
       ```tsx
       import { createRoot } from "react-dom/client";
-      import { Application } from "./application.js";
       import React from "react";
 
       export function Application() {
@@ -608,6 +608,7 @@ created in exercise 5 and 6.
 
    5. `npm pkg set scripts.dev=vite`
    6. Run `npm run dev` and click on the URL in the console to see your application running
+   7. Commit and push
 
 ### Step-by-step: Create a client component to fetch the tasks from the server
 
@@ -616,7 +617,7 @@ the server is implemented:
 
 ```tsx
 export function Application() {
-  const [tasks, setTasks] = useState<TaskItem[]>([
+  const [tasks, setTasks] = useState([
     { description: "Create client", completed: true },
     { description: "Fetch from server", completed: false },
   ]);
@@ -641,6 +642,8 @@ export function Application() {
   );
 }
 ```
+
+Commit and push your code.
 
 ### Step-by-step: Implement the server:
 
@@ -697,6 +700,8 @@ export default defineConfig({
 ```
 
 If you go to http://localhost:5173 the tasks from the server should now be visible.
+
+Commit and push your code.
 
 ### Step-by-step: Create a Heroku app
 
