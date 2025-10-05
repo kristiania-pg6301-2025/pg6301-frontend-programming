@@ -7,16 +7,23 @@ import type { TaskItem } from "../shared/taskItem.js";
 function NewTaskForm({ onReload }: { onReload: () => Promise<void> }) {
   const [description, setDescription] = useState("");
 
+  const [saving, setSaving] = useState(false);
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    const newTask: TaskItem = { description, completed: false };
-    await fetch("/api/tasks", {
-      method: "POST",
-      body: JSON.stringify(newTask),
-      headers: { "Content-Type": "application/json" },
-    });
-    setDescription("");
-    onReload();
+    setSaving(true);
+    try {
+      const newTask: TaskItem = { description, completed: false };
+      await fetch("/api/tasks", {
+        method: "POST",
+        body: JSON.stringify(newTask),
+        headers: { "Content-Type": "application/json" },
+      });
+      setDescription("");
+      onReload();
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -25,12 +32,13 @@ function NewTaskForm({ onReload }: { onReload: () => Promise<void> }) {
       <form onSubmit={handleSubmit}>
         <div>
           <input
+            disabled={saving}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div>
-          <button>Submit</button>
+          <button disabled={saving}>Submit</button>
         </div>
       </form>
     </>
