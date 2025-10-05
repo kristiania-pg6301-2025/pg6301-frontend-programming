@@ -36,3 +36,9 @@ app.get("/api/tasks", async (c) => {
   await delayWithError(300);
   return c.json(tasks);
 });
+
+app.post("/api/tasks", async (c) => {
+  const task: TaskItem = await c.req.json();
+  tasks.push(task);
+  return c.newResponse(null, 204);
+});

@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 
 import "./application.css";
 import type { TaskItem } from "../shared/taskItem.js";
@@ -32,6 +32,20 @@ function Application() {
     }
   }
 
+  const [description, setDescription] = useState("");
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    const newTask: TaskItem = { description, completed: false };
+    await fetch("/api/tasks", {
+      method: "POST",
+      body: JSON.stringify(newTask),
+      headers: { "Content-Type": "application/json" },
+    });
+    setDescription("");
+    loadTasks();
+  }
+
   return (
     <>
       <h1>Tasks</h1>
@@ -45,6 +59,18 @@ function Application() {
           <input type={"checkbox"} checked={completed} /> {description}
         </li>
       ))}
+      <h2>New task</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div>
+          <button>Submit</button>
+        </div>
+      </form>
     </>
   );
 }
