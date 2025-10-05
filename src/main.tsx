@@ -4,23 +4,32 @@ import { type FormEvent, useEffect, useState } from "react";
 import "./application.css";
 import type { TaskItem } from "../shared/taskItem.js";
 
+async function postTask(task: TaskItem) {
+  const res = await fetch("/api/tasks", {
+    method: "POST",
+    body: JSON.stringify(task),
+    headers: { "Content-Type": "application/json" },
+  });
+  if (!res.ok) {
+    throw new Error(`Request error: ${res.status}: ${await res.text()}`);
+  }
+}
+
 function NewTaskForm({ onReload }: { onReload: () => Promise<void> }) {
   const [description, setDescription] = useState("");
-
+  const [error, setError] = useState<Error>();
   const [saving, setSaving] = useState(false);
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     setSaving(true);
+    setError(undefined);
     try {
-      const newTask: TaskItem = { description, completed: false };
-      await fetch("/api/tasks", {
-        method: "POST",
-        body: JSON.stringify(newTask),
-        headers: { "Content-Type": "application/json" },
-      });
+      await postTask({ description, completed: false });
       setDescription("");
       onReload();
+    } catch (error) {
+      setError(error as Error);
     } finally {
       setSaving(false);
     }
@@ -29,6 +38,7 @@ function NewTaskForm({ onReload }: { onReload: () => Promise<void> }) {
   return (
     <>
       <h2>New task</h2>
+      {error && <div className={"error"}>{error.toString()}</div>}
       <form onSubmit={handleSubmit}>
         <div>
           <input

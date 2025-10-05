@@ -17,11 +17,11 @@ const tasks: TaskItem[] = [
   { description: "Deal with errors from server", completed: true },
 ];
 
-function randomError() {
+function randomError(chance: number) {
   const random = Math.random();
-  if (random < 0.2) {
+  if (random < 0.1) {
     throw new Error("Error from promise");
-  } else if (random < 0.5) {
+  } else if (random < chance) {
     throw new HTTPException(400, { message: "Error from user" });
   }
 }
@@ -38,7 +38,7 @@ app.get("/api/tasks", async (c) => {
 });
 
 app.post("/api/tasks", async (c) => {
-  await delay(2000).then(randomError);
+  await delay(800).then(() => randomError(0.4));
   const task: TaskItem = await c.req.json();
   tasks.push(task);
   return c.newResponse(null, 204);
