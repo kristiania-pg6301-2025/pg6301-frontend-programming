@@ -1,0 +1,20 @@
+.spinner {
+  width: 3em;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  border: 1em solid lightgray;
+  border-left-color: gray;
+}
+
+.spinner {
+  animation: spin-animation 1s infinite linear;
+}
+
+@keyframes spin-animation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

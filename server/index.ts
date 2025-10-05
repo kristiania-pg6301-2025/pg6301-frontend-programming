@@ -15,4 +15,13 @@ const tasks = [
   { description: "Deal with errors from server", completed: false },
 ];
 
-app.get("/api/tasks", (c) => c.json(tasks));
+async function delay(timeout: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+}
+
+app.get("/api/tasks", async (c) => {
+  await delay(1500);
+  return c.json(tasks);
+});
