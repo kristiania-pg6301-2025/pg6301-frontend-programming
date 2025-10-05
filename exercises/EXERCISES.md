@@ -544,7 +544,7 @@ the `TaskItem` type and use it in the client and server.
 
 ## Exercise 7
 
-<details open>
+<details>
 
 ### Deploying your application to Heroku
 
@@ -781,5 +781,22 @@ This is what you need to do to set it up:
    will return 404 (but `<HashRouter />`) will work. You will need a
    "catch-all" route with Hono that serves statically `../dist/index.html`.
    Can you figure it out?
+
+</details>
+
+## Exercise 8
+
+<details open>
+
+### Communication between client and server
+
+For this lecture exercise, we will be starting work on the course assignment.
+The information will be given on [Mattermost](https://mattermost.kristiania.no/it-h2024/channels/3s-pg6301-webutvikling-og-api-design)
+
+If you want to repeat the lecture of the week, a detailed script of the steps
+is provided in the [reference branch for lecture 8](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/blob/reference/08/README.md).
+The description does not explain all steps as the explanation has been covered
+in the previous lectures. If you haven't completed exercise 3-6 already and
+you don't remember enough from the lectures, you will probably be lost.
 
 </details>

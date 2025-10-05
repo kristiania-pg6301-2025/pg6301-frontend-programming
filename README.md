@@ -158,6 +158,17 @@ checks automatically.
 In this lecture, we will start from a blank application to review what we have covered so far. This will also give us
 some chance to deal with some information we have glossed over about the communication between the client and the server.
 
+In this lecture, we will also hand out the assignment for the course on
+[Mattermost](https://mattermost.kristiania.no/it-h2024/channels/3s-pg6301-webutvikling-og-api-design)
+
+**Reference material:**
+
+In this lecture, we will be seeing Promises and async/await a lot more. This can be confusing and I recommend these
+video descriptions:
+
+- [Fireship.io video on Async/await and promises](https://www.youtube.com/watch?v=vn3tm0quoqE)
+- [The JavaScript Event Loop (Jake Archibald)](https://www.youtube.com/watch?v=cCOL7MC4Pl0)
+
 ### Lecture 9: Storing data MongoDB
 
 [![Lecture 9 code](https://img.shields.io/badge/Lecture_9-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/09)
