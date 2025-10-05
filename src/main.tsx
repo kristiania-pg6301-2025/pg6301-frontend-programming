@@ -2,10 +2,11 @@ import { createRoot } from "react-dom/client";
 import { useEffect, useState } from "react";
 
 import "./application.css";
+import type { TaskItem } from "../shared/taskItem.js";
 
 function Application() {
   const [loaded, setLoaded] = useState(false);
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [error, setError] = useState<Error>();
   useEffect(() => {
     loadTasks();

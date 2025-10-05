@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { HTTPException } from "hono/http-exception";
+import type { TaskItem } from "../shared/taskItem.js";
 
 const app = new Hono();
 
@@ -10,10 +11,10 @@ serve({ fetch: app.fetch, port: parseInt(port) });
 
 app.get("*", serveStatic({ root: "../dist" }));
 
-const tasks = [
+const tasks: TaskItem[] = [
   { description: "Fetch data from server", completed: true },
-  { description: "Deal with slow server", completed: false },
-  { description: "Deal with errors from server", completed: false },
+  { description: "Deal with slow server", completed: true },
+  { description: "Deal with errors from server", completed: true },
 ];
 
 async function delayWithError(timeout: number) {
