@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
+import { HTTPException } from "hono/http-exception";
 
 const app = new Hono();
 
@@ -22,6 +23,12 @@ async function delay(timeout: number) {
 }
 
 app.get("/api/tasks", async (c) => {
-  await delay(1500);
+  await delay(300);
+  if (Math.random() < 0.2) {
+    throw new Error("Server failure");
+  }
+  if (Math.random() < 0.4) {
+    throw new HTTPException(400, { message: "Invalid request" });
+  }
   return c.json(tasks);
 });
