@@ -15,6 +15,15 @@ const tasks: TaskItem[] = [
   { description: "Deal with errors", completed: false },
 ];
 
-app.get("/api/tasks", (c) => c.json(tasks));
+async function delay(millis: number) {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => resolve(), millis);
+  });
+}
+
+app.get("/api/tasks", async (c) => {
+  await delay(1000);
+  return c.json(tasks);
+});
 
 app.get("*", serveStatic({ root: "../dist" }));
