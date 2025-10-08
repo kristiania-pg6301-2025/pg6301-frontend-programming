@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { type FormEvent, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import type { TaskItem } from "../shared/taskItem.js";
 
@@ -18,7 +18,12 @@ function Application() {
   const [error, setError] = useState<Error>();
   const [tasks, setTasks] = useState<TaskItem[]>([]);
 
+  const [description, setDescription] = useState("");
+
   async function loadTask() {
+    setTasks([]);
+    setLoading(true);
+    setError(undefined);
     try {
       setTasks(await fetchTasks());
     } catch (error) {
@@ -31,6 +36,19 @@ function Application() {
   useEffect(() => {
     loadTask();
   }, []);
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    await fetch("/api/tasks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        description,
+        completed: false,
+      }),
+    });
+    loadTask();
+  }
 
   return (
     <>
@@ -47,6 +65,19 @@ function Application() {
           <input type={"checkbox"} checked={completed} /> {description}
         </li>
       ))}
+      <h2>Add new task</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div>
+          <button>Submit</button>
+        </div>
+      </form>
     </>
   );
 }

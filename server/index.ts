@@ -24,10 +24,16 @@ async function delay(millis: number) {
 
 app.get("/api/tasks", async (c) => {
   await delay(1000);
-  if (Math.random() < 0.7) {
+  if (Math.random() < 0.6) {
     throw new HTTPException(400, { message: "You did something wrong" });
   }
   return c.json(tasks);
+});
+
+app.post("/api/tasks", async (c) => {
+  const { description, completed } = await c.req.json();
+  tasks.push({ description, completed });
+  return c.newResponse(null, 204);
 });
 
 app.get("*", serveStatic({ root: "../dist" }));
