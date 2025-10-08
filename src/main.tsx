@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
+import type { TaskItem } from "../shared/taskItem.js";
 
 function Application() {
-  const [tasks, setTasks] = useState([
+  const [tasks, setTasks] = useState<TaskItem[]>([
     { description: "Deploy to Heroku", completed: true },
     { description: "Fetch tasks from server", completed: false },
   ]);
