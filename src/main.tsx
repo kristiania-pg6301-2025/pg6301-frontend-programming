@@ -11,6 +11,7 @@ function Application() {
   async function loadTask() {
     const res = await fetch("/api/tasks");
     setTasks(await res.json());
+    setLoading(false);
   }
 
   useEffect(() => {
