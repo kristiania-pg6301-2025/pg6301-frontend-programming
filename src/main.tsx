@@ -20,6 +20,7 @@ function Application() {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
 
   const [posting, setPosting] = useState(false);
+  const [postFailed, setPostFailed] = useState(false);
   const [description, setDescription] = useState("");
 
   async function loadTask() {
@@ -45,7 +46,8 @@ function Application() {
     setTasks([]);
     setError(undefined);
     setLoading(true);
-    await fetch("/api/tasks", {
+    setPostFailed(false);
+    const res = await fetch("/api/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -54,8 +56,13 @@ function Application() {
       }),
     });
     setPosting(false);
-    setDescription("");
-    loadTask();
+    if (res.ok) {
+      setDescription("");
+      loadTask();
+    } else {
+      setLoading(false);
+      setPostFailed(true);
+    }
   }
 
   return (
@@ -89,6 +96,7 @@ function Application() {
             ></div>
           )}
         </div>
+        {postFailed && <div className={"error"}>Post failed</div>}
         <div>
           <button disabled={posting}>Submit</button>
         </div>

@@ -32,6 +32,9 @@ app.get("/api/tasks", async (c) => {
 
 app.post("/api/tasks", async (c) => {
   await delay(1000);
+  if (Math.random() < 0.75) {
+    throw new HTTPException(400, { message: "You did something wrong" });
+  }
   const { description, completed } = await c.req.json();
   tasks.push({ description, completed });
   return c.newResponse(null, 204);
