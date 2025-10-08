@@ -23,7 +23,7 @@ async function delay(millis: number) {
 }
 
 app.get("/api/tasks", async (c) => {
-  await delay(1000);
+  await delay(500);
   if (Math.random() < 0.6) {
     throw new HTTPException(400, { message: "You did something wrong" });
   }
@@ -31,6 +31,7 @@ app.get("/api/tasks", async (c) => {
 });
 
 app.post("/api/tasks", async (c) => {
+  await delay(1000);
   const { description, completed } = await c.req.json();
   tasks.push({ description, completed });
   return c.newResponse(null, 204);

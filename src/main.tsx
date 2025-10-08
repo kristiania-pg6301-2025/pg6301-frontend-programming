@@ -16,8 +16,10 @@ async function fetchTasks() {
 function Application() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error>();
+
   const [tasks, setTasks] = useState<TaskItem[]>([]);
 
+  const [posting, setPosting] = useState(false);
   const [description, setDescription] = useState("");
 
   async function loadTask() {
@@ -39,6 +41,10 @@ function Application() {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    setPosting(true);
+    setTasks([]);
+    setError(undefined);
+    setLoading(true);
     await fetch("/api/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -47,6 +53,8 @@ function Application() {
         completed: false,
       }),
     });
+    setPosting(false);
+    setDescription("");
     loadTask();
   }
 
@@ -69,13 +77,20 @@ function Application() {
       <form onSubmit={handleSubmit}>
         <div>
           <input
+            disabled={posting}
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+          {posting && (
+            <div
+              style={{ display: "inline-block", width: "0.5em" }}
+              className={"spinner"}
+            ></div>
+          )}
         </div>
         <div>
-          <button>Submit</button>
+          <button disabled={posting}>Submit</button>
         </div>
       </form>
     </>
