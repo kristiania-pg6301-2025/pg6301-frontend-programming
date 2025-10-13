@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
 import type { TaskItem } from "../shared/taskItem.js";
+import { MongoClient } from "mongodb";
 
 const app = new Hono();
 
@@ -14,10 +15,18 @@ const tasks: TaskItem[] = [
   { description: "Save tasks in database", completed: false },
 ];
 
+const MONGODB_URL = "mongodb://localhost:27017/";
+
+const client = new MongoClient(MONGODB_URL);
+const connection = await client.connect();
+const db = connection.db("task_application");
+
 app.get("/api/tasks", (c) => c.json(tasks));
 app.post("/api/tasks", async (c) => {
   const { description, completed } = await c.req.json();
-  tasks.push({ description, completed });
+  const task = { description, completed };
+  tasks.push(task);
+  await db.collection("tasks").insertOne(task);
   return c.newResponse(null, 204);
 });
 
