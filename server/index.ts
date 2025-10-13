@@ -21,7 +21,9 @@ const client = new MongoClient(MONGODB_URL);
 const connection = await client.connect();
 const db = connection.db("task_application");
 
-app.get("/api/tasks", (c) => c.json(tasks));
+app.get("/api/tasks", async (c) => {
+  return c.json(await db.collection("tasks").find().toArray());
+});
 app.post("/api/tasks", async (c) => {
   const { description, completed } = await c.req.json();
   const task = { description, completed };
