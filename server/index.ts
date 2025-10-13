@@ -8,7 +8,9 @@ const app = new Hono();
 const port = process.env.PORT || "3000";
 serve({ fetch: app.fetch, port: parseInt(port) });
 
-const MONGODB_URL = "mongodb://localhost:27017/";
+console.log(process.env);
+
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb://localhost:27017/";
 
 const client = new MongoClient(MONGODB_URL);
 const connection = await client.connect();
