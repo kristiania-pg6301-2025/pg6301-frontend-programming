@@ -573,9 +573,9 @@ created in exercise 5 and 6.
 
 3. Update `.gitignore` and commit
    1. `echo .idea/ > .gitignore`
-       - NOTE: This doesn't work with Powershell. You have to update `.gitignore` manually
-   3. `echo node_modules/ >> .gitignore`
-   4. Commit and push your project
+      - NOTE: This doesn't work with Powershell. You have to update `.gitignore` manually
+   2. `echo node_modules/ >> .gitignore`
+   3. Commit and push your project
 4. Create a React application
    1. `npm i react react-dom`
    2. `npm i -D @types/react @types/react-dom`
@@ -786,7 +786,7 @@ This is what you need to do to set it up:
 
 ## Exercise 8
 
-<details open>
+<details>
 
 ### Communication between client and server
 
@@ -798,5 +798,133 @@ is provided in the [reference branch for lecture 8](https://github.com/kristiani
 The description does not explain all steps as the explanation has been covered
 in the previous lectures. If you haven't completed exercise 3-6 already and
 you don't remember enough from the lectures, you will probably be lost.
+
+</details>
+
+## Exercise 9
+
+<details open>
+
+### Getting started with Mongodb
+
+Feel free to work on the assignment this week. If you find extra time, you can play with MongoDB.
+You should complete at least exercise 7 before attempting this exercise.
+
+1. Follow the [notes from lecture 9](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/blob/reference/09/README.md)
+   to set up a React + Hono application
+
+### Run Mongodb in Docker Desktop
+
+1. Download [Docker Desktop](https://docs.docker.com/desktop/)
+2. Create a docker compose file to start Mongodb
+
+```yaml
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+```
+
+### Save data and retrieve in mongodb in `server/index.ts`
+
+1. `cd server`
+2. `npm i mongodb`
+3. Implement the `/api/tasks` endpoints with MongoDB
+
+```ts
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb://localhost:27017/";
+
+const client = new MongoClient(MONGODB_URL);
+const connection = await client.connect();
+const taskDb = connection.db("task_application");
+
+app.get("/api/tasks", async (c) => {
+  return c.json(await taskDb.collection("tasks").find().toArray());
+});
+app.post("/api/tasks", async (c) => {
+  const { description, completed } = await c.req.json();
+  const task = { description, completed };
+  await taskDb.collection("tasks").insertOne(task);
+  return c.newResponse(null, 204);
+});
+```
+
+## Use MongoDB Atlas to play with a sample database and access Mongo from Heroku
+
+1. Sign up with [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
+2. Create an organization (can be your name) and a project (exercise06)
+3. Select "Create a deployment" to create a database
+   - **Make sure you select M0** to avoid having to pay for hosting
+4. Add a user and your local IP-address (NB: You will need to "allow access from Cloud Environment" to use with Heroku)
+5. When the database is created, you can "Load Sample Data" to add a useful example dataset
+6. When the sample data is loaded, Browse collections and go to `sample_mflix` -> `movies`
+7. Download [Compass](https://www.mongodb.com/docs/compass/current/). In the web page, you can find instructions for
+   installing and connecting to Atlas with Compass. If you have forgotten the password, you can generate a new one on
+   the web page under Security > Database Access > Edit
+8. Explore the `sample_mflix` database in Compass
+
+## Create a Hono API for MongoDB
+
+Create an Hono application similarly to how we have done before:
+
+## Give the API access to the Mongo database
+
+`npm install mongodb`
+
+Update the moviesApi to get movies from MongoDB:
+
+```js
+import { MongoClient } from "mongodb";
+// ...
+
+const client = new MongoClient(mongoDbUrl);
+const connection = await client.connect();
+const database = connection.db("sample_mflix");
+
+app.get("/api/movies", async (req, res) => {
+  const movies = await database
+    .collection("movies")
+    .find({ year: 2013 })
+    .limit(20)
+    .toArray();
+  res.json(movies);
+});
+```
+
+Check that you get 20 movies for 2013 when you go to http://localhost:3000
+
+## Treat the password with care!
+
+Create a new file named `.env` with the following line:
+
+```env
+MONGODB_URL=<your mongo db URL, including password>
+```
+
+\*\*Make sure to add `.env` to `.gitignore`. This is a very secret file!
+
+To use the environment file in your code:
+
+1. `cd server`
+2. `npm pkg set scripts.dev="tsx --env-file .env --watch index.ts`
+
+To set up the environment variable in HEROKU, you need to go to https://dashboard.heroku.com, go to your app >
+Settings > Reveal Config Vars
+
+## Tasks
+
+1. Try to add different filtering and sorting options. For example - list all movies from a country sorted by the most
+   popular
+2. Limit the fields returned from the database to the server and thus to the client
+3. Let the use specify filter values, for example by year, country or cast
+4. Let the user specify multiple countries
+5. Show the available options for years and countries in the in drop down lists
+6. Update POST /api/movies so that new movies are stored in MongoD-B
+7. Create or update supertest tests that store data to MongoDB
+8. Deploy your code to Heroku - this requires you to set up security:
+
+- In Heroku: Update the MONGODB_URL under your app Settings as a Config Var
+- In MongoDB: Update Security > Network Access to allow all IP addresses
 
 </details>
