@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "tsc --noEmit && prettier --check .",
-    "dev": "vite",
+    "dev": "concurrently vite npm:dev:server",
+    "dev:server": "cd server && npm run dev",
     "prepare": "husky",
     "build": "vite build",
     "postinstall": "cd server && npm install --include=dev",
