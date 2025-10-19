@@ -19,7 +19,7 @@ function FrontPage() {
 }
 
 function Profile() {
-  const [userinfo, setUserinfo] = useState<unknown>();
+  const [userinfo, setUserinfo] = useState<object>();
   async function fetchUserInfo() {
     const res = await fetch("/api/userinfo");
     setUserinfo(await res.json());
@@ -32,6 +32,9 @@ function Profile() {
   return (
     <>
       <h1>User Profile</h1>
+      {userinfo && "picture" in userinfo && (
+        <img src={userinfo.picture!.toString()} />
+      )}
       <pre>{JSON.stringify(userinfo, null, 2)}</pre>
     </>
   );

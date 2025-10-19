@@ -18,8 +18,9 @@ async function getDiscoveryDoc() {
 app.get("/api/login/linkedin/start", async (c) => {
   const { authorization_endpoint } = await getDiscoveryDoc();
   const redirect_uri = "http://localhost:5173/api/login/linkedin/complete";
+  const scope = "email openid profile";
   return c.redirect(
-    `${authorization_endpoint}?${new URLSearchParams({ client_id, redirect_uri, response_type: "code", scope: "email openid" })}`,
+    `${authorization_endpoint}?${new URLSearchParams({ client_id, redirect_uri, response_type: "code", scope })}`,
   );
 });
 
