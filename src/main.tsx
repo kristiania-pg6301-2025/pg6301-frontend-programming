@@ -27,9 +27,15 @@ function Login() {
     <>
       <h1>Log in:</h1>
       <ul>
-        <li>Login with LinkedIn</li>
-        <li>Login with Microsoft</li>
-        <li>Login with Google</li>
+        <li>
+          <a href={"/api/login/linkedin/start"}>Login with LinkedIn</a>
+        </li>
+        <li>
+          <a href={"/api/login/microsoft/start"}>Login with Microsoft</a>
+        </li>
+        <li>
+          <a href={"/api/login/google/start"}>Login with Google</a>
+        </li>
       </ul>
     </>
   );
