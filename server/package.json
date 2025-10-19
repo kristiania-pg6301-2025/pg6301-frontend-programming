@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx --watch server.ts"
+    "dev": "tsx --env-file=.env --watch server.ts"
   },
   "keywords": [],
   "author": "",
