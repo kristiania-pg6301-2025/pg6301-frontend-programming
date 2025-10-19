@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
+import { getCookie, setCookie } from "hono/cookie";
 
 const app = new Hono();
 serve(app);
@@ -39,8 +40,17 @@ app.get("/api/login/linkedin/complete", async (c) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams(payload),
   });
+  const { access_token } = await res.json();
+  setCookie(c, "access_token", access_token);
+  return c.redirect("/");
+});
 
-  return c.text(
-    `we'll see: Post to ${token_endpoint} ${code}: ${await res.text()}`,
-  );
+app.get("/api/userinfo", async (c) => {
+  const access_token = getCookie(c, "access_token");
+  console.log({ access_token });
+  const { userinfo_endpoint } = await getDiscoveryDoc();
+  const res = await fetch(userinfo_endpoint, {
+    headers: { Authorization: `Bearer ${access_token}` },
+  });
+  return c.json(await res.json());
 });

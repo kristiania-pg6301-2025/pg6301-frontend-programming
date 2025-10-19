@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
@@ -19,7 +19,22 @@ function FrontPage() {
 }
 
 function Profile() {
-  return <h1>User Profile</h1>;
+  const [userinfo, setUserinfo] = useState<unknown>();
+  async function fetchUserInfo() {
+    const res = await fetch("/api/userinfo");
+    setUserinfo(await res.json());
+  }
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
+  return (
+    <>
+      <h1>User Profile</h1>
+      <pre>{JSON.stringify(userinfo, null, 2)}</pre>
+    </>
+  );
 }
 
 function Login() {
