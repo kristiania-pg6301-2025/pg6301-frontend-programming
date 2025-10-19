@@ -803,7 +803,7 @@ you don't remember enough from the lectures, you will probably be lost.
 
 ## Exercise 9
 
-<details open>
+<details>
 
 ### Getting started with Mongodb
 
@@ -926,5 +926,86 @@ Settings > Reveal Config Vars
 
 - In Heroku: Update the MONGODB_URL under your app Settings as a Config Var
 - In MongoDB: Update Security > Network Access to allow all IP addresses
+
+</details>
+
+## Exercise 10
+
+<details open>
+
+### Securing your application with OpenID Connect
+
+The goal of this exercise is to add authentication to your application by letting the user sign in with their Google
+Account. You should have completed [exercise 8](#exercise-8) before attempting this exercise.
+
+### Steps:
+
+1. Follow the [notes from lecture 9](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/blob/reference/09/README.md)
+   to set up a React + Hono application
+2. Add `react-router-dom` to the application and create a `LoginPage` and `ProfilePage` component that the user can navigate to
+3. When the user navigates to `ProfilePage`, do a `fetch("/api/userinfo")` with some error handling
+4. Implement `fetch("/api/userinfo")` to return a 401 (Unauthenticated) status code
+5. When the `ProfilePage` gets 401, it should use `useNavigate` to go to `/login`
+6. On the `LoginPage`, create a link to `/api/login/google/start`
+7. In Hono, you need to implement `/api/login/google/start`, which will start the authentication flow
+
+### Setting up the authentication backend
+
+1. Register a new web application with [Google Authentication](https://console.cloud.google.com/apis/credentials)
+   - You should add `http://localhost:5173/api/login/google/complete` as a redirect URI
+   - If you have deployed to Heroku, you should add the path `/api/login/google/complete` on your Heroku app
+2. Implement `/api/login/google/start` by redirecting the user to the `authorization_endpoint` from
+   https://accounts.google.com/.well-known/openid-configuration, with `client_id`, and `redirect_uri` from the last step.
+   You also need the http parameters `scope=email` and `response_type=code`.
+   You should experiment and see what error messages you get when you miss a parameter
+   ```ts
+   const query = { client_id, redirect_uri, response_type: "code", scope };
+   return c.redirect(`${authorization_endpoint}?${new URLSearchParams(query)}`);
+   ```
+3. If you try to log in, you will eventually be redirected back to http://localhost:5173/api/login/google/complete
+   with the parameter `code`. To get an access code for the user, find the `token_endpoint`
+   in https://accounts.google.com/.well-known/openid-configuration and make a POST request to get the access token
+   (the `client_id`, `redirect_uri` and `client_secret` comes from your registration with Google,:
+   while the `code` was returned with the redirect)
+   ```ts
+   const payload = {
+     client_id,
+     client_secret,
+     code,
+     redirect_uri,
+     grant_type: "authorization_code",
+   };
+   const tokenRes = await fetch(token_endpoint, {
+     method: "POST",
+     headers: { "Content-Type": "application/x-www-form-urlencoded" },
+     body: new URLSearchParams(payload),
+   });
+   const { access_token } = await tokenRes.json();
+   ```
+4. Store the `access_token` in a cookie: `setCookie(c, "access_token", access_token)`
+5. Implement `get("/api/userinfo")`: `getToken(c, "access_token")` and
+   call fetch on `userinfo_endpoint` from https://accounts.google.com/.well-known/openid-configuration
+   using the access token as a Authorization header:
+   ```ts
+   const res = await fetch(userinfo_endpoint, {
+     headers: { Authorization: `Bearer ${access_token}` },
+   });
+   ```
+6. Implement the frontend to display the user information from the GET /api/userinfo
+
+### Making it work properly
+
+- The `client_secret` should be kept secret and not checked into GitHub.
+  Update the `dev` script _in the server_ to `tsx --env-file=.env --watch index.ts`.
+  You can now put the secret in a `.env`-file and read it from `process.env`.
+  You should add `.env` to `.gitignore`.
+- You should try to deploy your authenticated application to Heroku. You need to
+  create a Heroku app and in the Google Console, you have to add a redirect_url
+  matching the Heroku app name. See if you can find out how to dynamically create
+  the redirect url using `c.req.url`. In Heroku, you should add the client secret
+  as a Config Var in the [Heroku Dashboard](https://dashboard.heroku.com/apps)
+- Try to implement alternative logins like LinkedIn. For a slightly bigger challenge,
+  you can implement login with GitHub. How would you change you application to
+  support multiple logins?
 
 </details>
