@@ -9,7 +9,10 @@ const port = process.env.PORT || "3000";
 serve({ fetch: app.fetch, port: parseInt(port) });
 
 const client_id = "77m8tju8g0vwaz";
-const client_secret = "WPL_AP1.GxRqFuQGTry0awzY.TVxm5w==";
+const client_secret = process.env.LINKEDIN_CLIENT_SECRET;
+if (!client_secret) {
+  throw new Error("Please configure LINKEDIN_CLIENT_SECRET");
+}
 
 app.get("/api/login/:providerName/fetchToken", async (c) => {
   const { providerName } = c.req.param();
