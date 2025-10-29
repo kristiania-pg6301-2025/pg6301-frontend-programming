@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { getCookie, setCookie } from "hono/cookie";
+import { MongoClient } from "mongodb";
 
 const app = new Hono();
 serve(app);
@@ -54,4 +55,19 @@ app.get("/api/userinfo", async (c) => {
     headers: { Authorization: `Bearer ${access_token}` },
   });
   return c.json(await res.json());
+});
+
+const client = new MongoClient(process.env.MONGODB_URL!);
+const connection = await client.connect();
+
+const moviesCollection = connection.db("sample_mflix").collection("movies");
+
+app.get("/api/movies", async (c) => {
+  return c.json(
+    await moviesCollection
+      .find({ year: { $gt: 2000, $lt: 2010 }, countries: "Norway" })
+      .sort({ metacritic: -1 })
+      .limit(100)
+      .toArray(),
+  );
 });

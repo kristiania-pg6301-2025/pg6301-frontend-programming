@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import type { MovieInfo } from "../shared/movieInfo.js";
 
 function FrontPage() {
   return (
@@ -59,12 +60,39 @@ function Login() {
   );
 }
 
+function Movies() {
+  const [movies, setMovies] = useState<MovieInfo[]>([]);
+
+  async function loadMovies() {
+    const res = await fetch("/api/movies");
+    setMovies(await res.json());
+  }
+
+  useEffect(() => {
+    loadMovies();
+  }, []);
+
+  return (
+    <>
+      <h2>Movies</h2>
+      <ul>
+        {movies.map((m) => (
+          <li key={m._id}>
+            Movie {m.title} ({m.year} - {m.countries?.join(", ")})
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
 function Application() {
   return (
     <Routes>
       <Route path={"/"} element={<FrontPage />} />
       <Route path={"/profile"} element={<Profile />} />
       <Route path={"/login"} element={<Login />} />
+      <Route path={"/movies"} element={<Movies />} />
       <Route path={"*"} element={<h1>Not found</h1>} />
     </Routes>
   );
