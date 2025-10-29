@@ -175,7 +175,7 @@ video descriptions:
 [![Lecture 9 reference](https://img.shields.io/badge/Lecture_9-reference_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/reference/09)
 [![Lecture 9 exercise](https://img.shields.io/badge/Lecture_9-exercise-pink)](./exercises/EXERCISES.md#exercise-9)
 
-In this lecture, we learn how to store and retrieve data in [MongoDB](https://www.mongodb.com/).
+In this lecture, we learn how to store and retrieve data in [MongoDB](https://www.mongodb.com/). See [reference notes for MongoDB](#mongodb)
 
 **Reference material:**
 
@@ -196,10 +196,12 @@ In this lecture, we learn how to store and retrieve data in [MongoDB](https://ww
 In this lecture we will implement "log in with Google"-functionality. We will also explore other identity
 services that also implement OpenID Connect, such as LinkedIn and Microsoft Entra ID.
 
-### Lecture 11:
+### Lecture 11: Completing OpenID Connect and MongoDB
 
 [![Lecture 11 code](https://img.shields.io/badge/Lecture_11-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/11)
 [![Lecture 11 reference](https://img.shields.io/badge/Lecture_11-reference_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/reference/11)
+
+We were unable to fully complete the contents of lecture 9 and 10 so we will complete this this week, working with [Open-ID Connect](#openid-connect) and [MongoDB](#mongodb)
 
 ### Lecture 12: Repetition of everything
 
@@ -545,20 +547,6 @@ it("handles event", async () => {
 
 For testing Hono files, I recommend [Supertest](https://github.com/ladjs/supertest)
 
-<details>
-
-**_Setup_**:
-
-1. `cd client`
-2. `npm install --save-dev vitest supertest`
-
-To test a bookApi defined in `server/booksApi.js` like this:
-
-TODO
-
-you can use a test in `server/tests/booksApi.test.js` like this:
-
-TODO
 
 ## OpenID Connect - Log on with Google
 
@@ -697,6 +685,43 @@ app.get("/profile", (req, res) => {
   }
 });
 ```
+
+</details>
+
+## MongoDB
+
+### Reading data from MongoDb
+
+<details>
+
+Run `cd server` and `npm install mongodb` to install the MongoDB dependency. In this example, we use the `sample_mflix` database that comes with [Atlas MongoDB](https://cloud.mongodb.com/)
+
+**Example of a get-route to retrieve data from MongoDB**
+
+```js
+import { MongoClient } from "mongodb";
+
+const client = new MongoClient(process.env.MONGODB_URL!);
+const connection = await client.connect();
+
+const moviesCollection = connection.db("sample_mflix").collection("movies");
+
+app.get("/api/movies", async (c) => {
+  return c.json(
+    await moviesCollection
+      .find({ year: { $gt: 2000, $lt: 2010 }, countries: "Norway" })
+      .sort({ metacritic: -1 })
+      .limit(100)
+      .toArray(),
+  );
+});
+```
+
+In this example, the database username, password and databasename is provided in `MONGODB_URL`. During local development, this value should be placed in a `server/.env`-file, which should be added to `.gitignore`. Update the `dev` script in the server to `tsx --env-file .env --watch index.ts` to read environment variables at startup.
+
+When deploying to Heroku, add `MONGODB_URL` to the application under Settings > Config Vars.
+
+When deploying to Heroku using [Atlas MongoDB](https://cloud.mongodb.com/), you also need to make sure Heroku has network access to your database under Security > Network Access. Here, you need to add `0.0.0.0/0` as an IP-address.
 
 </details>
 
