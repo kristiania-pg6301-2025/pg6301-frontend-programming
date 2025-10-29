@@ -201,7 +201,9 @@ services that also implement OpenID Connect, such as LinkedIn and Microsoft Entr
 [![Lecture 11 code](https://img.shields.io/badge/Lecture_11-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/11)
 [![Lecture 11 reference](https://img.shields.io/badge/Lecture_11-reference_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/reference/11)
 
-We were unable to fully complete the contents of lecture 9 and 10 so we will complete this this week, working with [Open-ID Connect](#openid-connect) and [MongoDB](#mongodb)
+We were unable to fully complete the contents of lecture 9 and 10 so we will complete this this week, working with [Open-ID Connect](#openid-connect) and [MongoDB](#mongodb).
+
+There is no separate exercise for this lecture - instead: make sure that you complete the exercises for lecture 7 through 10.
 
 ### Lecture 12: Repetition of everything
 
@@ -215,7 +217,7 @@ This week's lecture, we will talk a [little about the exam](./exercises/exam-pre
 We start then with a simple map and then discuss how to move forward based on the wishes
 of the audience, so the lecture has no reference code.
 
-For the exercise-time start on the last exercise that you haven't completed.
+For the exercise-time start on the last exercise that you haven't completed. You can also work on the exam prep.
 
 ## Reference material
 
