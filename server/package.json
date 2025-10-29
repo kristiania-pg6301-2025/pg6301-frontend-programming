@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.19.5",
-    "hono": "^4.10.2"
+    "hono": "^4.10.2",
+    "mongodb": "^6.20.0"
   }
 }

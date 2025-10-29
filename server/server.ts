@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { getCookie, setCookie } from "hono/cookie";
+import { MongoClient } from "mongodb";
 
 const app = new Hono();
 
@@ -91,3 +92,20 @@ app.get("/api/profile", async (c) => {
 });
 
 app.get("*", serveStatic({ root: "../dist" }));
+
+const client = new MongoClient(process.env.MONGODB_URL!);
+
+const connection = await client.connect();
+const moviesCollection = connection.db("sample_mflix").collection("movies");
+
+app.get("/api/movies", async (c) => {
+  const { genres } = c.req.query();
+  return c.json(
+    await moviesCollection
+      .find({ year: { $gt: 2000, $lt: 2005 }, genres })
+      .sort({ metacritic: -1 })
+      .skip(100)
+      .limit(100)
+      .toArray(),
+  );
+});
