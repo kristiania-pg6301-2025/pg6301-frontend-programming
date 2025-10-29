@@ -26,13 +26,13 @@ app.get("/api/login/:providerName/fetchToken", async (c) => {
     body: new URLSearchParams({
       code,
       client_id,
-      grant_type: "authorization_code",
       client_secret,
+      grant_type: "authorization_code",
       redirect_uri: `http://localhost:5173/api/login/${providerName}/fetchToken`,
     }),
   });
   const responseJson = await res.json();
-  if (false && "access_token" in responseJson) {
+  if ("access_token" in responseJson) {
     setCookie(c, "token", responseJson.access_token, {
       httpOnly: true,
       secure: true,

@@ -1,11 +1,6 @@
 import { createRoot } from "react-dom/client";
-import {
-  BrowserRouter,
-  HashRouter,
-  Link,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function FrontPage() {
   return (
@@ -47,11 +42,43 @@ function LoginPage() {
   );
 }
 
+interface UserInfo {
+  sub: string;
+  name: string;
+  email: string;
+  email_verified: boolean;
+  picture?: string;
+}
+
+function UserProfile() {
+  const [profile, setProfile] = useState<UserInfo>();
+
+  async function loadUserInfo() {
+    const res = await fetch("/api/profile");
+    setProfile(await res.json());
+  }
+
+  useEffect(() => {
+    loadUserInfo();
+  }, []);
+
+  if (!profile) return <h1>Loading...</h1>;
+
+  return (
+    <>
+      <h1>
+        Welcome {profile.name} ({profile.email})
+      </h1>
+      {profile.picture && <img src={profile.picture} alt={profile.name} />}
+    </>
+  );
+}
+
 function Application() {
   return (
     <Routes>
       <Route path={"/"} element={<FrontPage />} />
-      <Route path={"/profile"} element={<h1>User info goes here</h1>} />
+      <Route path={"/profile"} element={<UserProfile />} />
       <Route path={"/login"} element={<LoginPage />} />
       <Route path={"*"} element={<h1>Not found in frontend</h1>} />
     </Routes>
