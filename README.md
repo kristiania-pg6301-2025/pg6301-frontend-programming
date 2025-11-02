@@ -201,13 +201,13 @@ services that also implement OpenID Connect, such as LinkedIn and Microsoft Entr
 [![Lecture 11 code](https://img.shields.io/badge/Lecture_11-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/11)
 [![Lecture 11 reference](https://img.shields.io/badge/Lecture_11-reference_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/reference/11)
 
-We were unable to fully complete the contents of lecture 9 and 10 so we will complete this this week, working with [Open-ID Connect](#openid-connect) and [MongoDB](#mongodb).
+We were unable to fully complete the contents of lecture 9 and 10 so we will complete this this week, working with [Open-ID Connect](#openid-connect---log-on-with-google) and [MongoDB](#mongodb).
 
 There is no separate exercise for this lecture - instead: make sure that you complete the exercises for lecture 7 through 10.
 
 ### Lecture 12: Repetition of everything
 
-[![Lecture 12 Mentimeter](https://img.shields.io/badge/Lecture_12-mentimenter-yellow)](https://www.menti.com/)
+[![Lecture 12 Mentimeter](https://img.shields.io/badge/Lecture_12-mentimenter-yellow)](https://www.menti.com/al3cqrg2gh6g)
 
 [![Lecture 12 code](https://img.shields.io/badge/Lecture_12-lecture_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/lecture/12)
 [![Lecture 12 reference](https://img.shields.io/badge/Lecture_12-reference_code-blue)](https://github.com/kristiania-pg6301-2025/pg6301-frontend-programming/tree/reference/12)
@@ -287,6 +287,8 @@ to use Heroku or a similar service
 
 ### A. Deployment to GitHub Pages
 
+<details>
+
 #### Minimal `vite.config.ts`
 
 ```ts
@@ -333,10 +335,19 @@ jobs:
 ```
 
 </details>
+</details>
 
 ### B. Deploying to Heroku
 
+<details>
+
+#### Deploying to Heroku
+
 By running on Heroku, you can have a server-side application which accesses a database.
+
+In order to deploy to Heroku you need to register an account with [Heroku](https://heroku.com). Read through the
+documentation about [Heroku for GitHub Students](https://www.heroku.com/github-students) so you understand how to avoid
+cloud bills.
 
 #### Creating a Hono Application
 
@@ -385,7 +396,24 @@ const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 serve({ fetch: app.fetch, port });
 ```
 
+**Deploying to Heroku**
+
+To set up your application to run with Heroku:
+
+Download the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+
+Now you need to commit your changes. You can then create a Heroku application and push your code to it.
+
+1. `heroku apps:create`
+2. `git push heroku`
+3. Run `git commit` and `git push heroku` to deploy
+4. Open your application with `heroku apps:open`
+
+</details>
+
 ### Handling API calls:
+
+<details>
 
 **Make Vite proxy (forward) calls to /api to port 3000 when running locally:**
 
@@ -445,30 +473,9 @@ app.post("/api/tasks", async (c) => {
 });
 ```
 
-#### Deploying to Heroku
+</details>
 
-In order to deploy to Heroku you need to register an account with [Heroku](https://heroku.com). Read through the
-documentation about [Heroku for GitHub Students](https://www.heroku.com/github-students) so you understand how to avoid
-cloud bills.
-
-Download the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
-
-Now you need to commit your changes. You can then create a Heroku application and push your code to it.
-
-1. `heroku apps:create`
-2. `git push heroku`
-
-To set up your application to run with Heroku:
-
-1. `npm pkg set scripts.postinstall="cd server && npm install --include=dev"`
-2. `npm pkg set scripts.build="vite build"`
-3. `npm pkg set scripts.start="cd server && npm start"`
-4. `cd server`
-5. `npm pkg set scripts.start="tsx index.ts"`
-6. In your `server/index.ts` serve the React app as static content: `app.use("*", serveStatic({ root: "../dist" }));`
-7. In your `server/index.ts`, use the port specified by Hono: `serve({ fetch: app.fetch, port: parseInt(process.env.PORT || "3000") });`
-8. Run `git commit` and `git push heroku` to deploy
-9. Open your application with `heroku apps:open`
+## Testing
 
 #### Snapshot testing - check that a view is rendered correctly
 
@@ -545,150 +552,13 @@ it("handles event", async () => {
 
 </details>
 
-#### Using supertest to check server side behavior
+#### Testing Hono endpoints
 
-For testing Hono files, I recommend [Supertest](https://github.com/ladjs/supertest)
-
+For testing Hono files, I recommend [the Hono test guide](https://hono.dev/docs/guides/testing)
 
 ## OpenID Connect - Log on with Google
 
-### Client side (implicit flow)
-
-<details>
-
-"Implicit flow" means that the login provider (Google) will not require a client secret to complete the authentication.
-This is often not recommended, and for example Microsoft Entra ID instead uses another mechanism called PKCE, which
-protects against some security risks.
-
-1. Set up the application in [Google Cloud Console](https://console.cloud.google.com/apis/credentials). Create a new
-   OAuth client ID and select Web Application. Make sure `http://localhost:3000` is added as an Authorized JavaScript
-   origin and `http://localhost:3000/callback` is an authorized redirect URI
-2. To start authentication, redirect the browser (see code below)
-3. To complete the authentication, pick up the `access_token` when Google redirects the browser back (see code below)
-4. Save the `access_token` (e.g. in `localStorage`) and add as a header to all requests to backend
-
-</details>
-
-#### Redirect the client to authenticate
-
-<details>
-
-```javascript
-function LoginButton() {
-  const [authorizationUrl, setAuthorizationUrl] = useState();
-  async function generateAuthorizationUrl() {
-    // Get the location of endpoints from Google
-    const { authorization_endpoint } = await fetchJson(
-      "https://accounts.google.com/.well-known/openid-configuration",
-    );
-    // Tell Google how to perform the authentication
-    const parameters = {
-      response_type: "token",
-      client_id: "<get this from Google Cloud Console>",
-      // Tell user to come back to http://localhost:3000/login/callback when logged in
-      redirect_uri: window.location.origin + "/login/callback",
-      scope: "profile email",
-    };
-    setAuthorizationUrl(
-      discoveryDoc.authorization_endpoint +
-        "?" +
-        new URLSearchParams(parameters),
-    );
-  }
-
-  useEffect(() => {
-    generateAuthorizationUrl();
-  }, []);
-
-  return <a href={authorizationUrl}>Log in with Google</a>;
-}
-```
-
-In the case of Entra ID, you also need
-parameters `response_type: "code"`, `response_mode: "fragment"`, `code_challenge_method` and `code_challenge` (the
-latest two are needed for PKCE).
-
-</details>
-
-#### Handle the authentication callback
-
-<details>
-
-```javascript
-// Router should take user here on /callback
-export function LoginCallback() {
-  const navigate = useNavigate();
-  // Given an URL like http://localhost:3000/callback#access_token=sdlgnsoln&foo=bar,
-  //  window.location.hash will give the part starting with "#"
-  //  ...substring(1) will remove the "#"
-  //  and Object.fromEntries(new URLSearchParams(...)) will parse it into an object
-  // In this case, hash = { access_token: "sdlgnsoln", foo: "bar" }
-  const callbackParameters = Object.fromEntries(
-    new URLSearchParams(window.location.hash.substring(1)),
-  );
-
-  async function handleCallback() {
-    // Get the values returned from the login provider. For Active Directory,
-    // this will be more complex
-    const { access_token } = callbackParameters;
-    await fetch("/api/login/accessToken", {
-      method: "POST",
-      body: JSON.stringify({ access_token }),
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    navigate("/");
-  }
-
-  useEffect(() => {
-    handleCallback();
-  }, []);
-
-  return <div>Please wait...</div>;
-}
-```
-
-For Active Directory, the hash will instead include a `code`, which you will then need to send to the `token_endpoint`
-along with the `client_id` and `redirect_uri` as well as `grant_type: "authorization_code"` and the `code_verifier`
-value from PKCE. This call will return the `access_token`.
-
-</details>
-
-#### Handle access_token on the backend
-
-<details>
-
-```javascript
-app.use(async (req, res, next) => {
-  const { access_token } = req.signedCookies;
-  if (access_token) {
-    const { userinfo_endpoint } = await fetchJSON(
-      "https://accounts.google.com/.well-known/openid-configuration",
-    );
-    req.userinfo = await fetchJSON(userinfo_endpoint, {
-      headers: { Authorization: `Bearer ${access_token}` },
-    });
-  }
-  next();
-});
-
-app.post("/api/login", (req, res) => {
-  const { access_token } = req.body;
-  res.cookie("access_token", access_token, { signed: true });
-  res.sendStatus(204);
-});
-
-app.get("/profile", (req, res) => {
-  if (!req.userinfo) {
-    res.send(401);
-  } else {
-    res.send(req.userinfo);
-  }
-});
-```
-
-</details>
+See the [notes for exercise 10](./exercises/EXERCISES.md#exercise-10) for notes on how OpenID Connect works.
 
 ## MongoDB
 
@@ -703,7 +573,7 @@ Run `cd server` and `npm install mongodb` to install the MongoDB dependency. In 
 ```js
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.MONGODB_URL!);
+const client = new MongoClient(process.env.MONGODB_URL);
 const connection = await client.connect();
 
 const moviesCollection = connection.db("sample_mflix").collection("movies");
