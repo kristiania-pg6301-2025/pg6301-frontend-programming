@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import type { RentalLocation } from "../../../shared/rentalLocation.js";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { fetchJson } from "../../../shared/fetchJson.js";
 
 export function RentalLocationList() {
+  const [searchParams] = useSearchParams();
   const [locations, setLocations] = useState<RentalLocation[]>([
     { _id: "1", name: "Beachfront apartment", summary: "Wonderful" },
   ]);
 
   async function loadLocations() {
-    const res = await fetch("/api/locations");
-    setLocations(await res.json());
+    setLocations(await fetchJson(`/api/locations?${searchParams}`));
   }
 
   useEffect(() => {
     loadLocations();
-  }, []);
+  }, [searchParams]);
 
   return (
     <>
