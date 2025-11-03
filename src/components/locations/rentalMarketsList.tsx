@@ -6,7 +6,7 @@ export function RentalMarketsList() {
   const [markets, setMarkets] = useState<string[]>([]);
 
   async function loadMarkets() {
-    setMarkets(await fetchJson("/api/markets"));
+    setMarkets(await fetchJson("/api/locations/markets"));
   }
 
   useEffect(() => {

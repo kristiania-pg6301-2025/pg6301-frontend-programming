@@ -1,12 +1,13 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
-import { type Filter, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import { getCookie } from "hono/cookie";
 import { HTTPException } from "hono/http-exception";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { createOpenidConnectProvider } from "./createOpenidConnectProvider.js";
 import type { RentalLocation } from "../shared/rentalLocation.js";
+import { createRentalLocationsApp } from "./rentalLocationsApp.js";
 
 const app = new Hono();
 
@@ -54,29 +55,12 @@ app.route(
 const client = new MongoClient(process.env.MONGODB_URL!, { timeoutMS: 5_000 });
 const connection = await client.connect();
 console.log("Connected to " + client);
-const listingsCollection = connection
-  .db("sample_airbnb")
-  .collection<RentalLocation>("listingsAndReviews");
 
-app.get("/api/locations", async (c) => {
-  const query = c.req.query();
-  let filter: Filter<RentalLocation> = {};
-  if ("market" in query) filter = { ...filter, "address.market": query.market };
-  return c.json(
-    await listingsCollection
-      .find(filter)
-      .project({ _id: 1, name: 2, summary: 3, images: { picture_url: 4 } })
-      .limit(100)
-      .toArray(),
-  );
-});
-app.get("/api/locations/:id", async (c) =>
-  c.json(await listingsCollection.findOne({ _id: c.req.param().id })),
-);
-app.get("/api/markets", async (c) =>
-  c.json(
-    (await listingsCollection.distinct("address.market")).filter(
-      (s) => s.length > 0,
-    ),
+app.route(
+  "/api/locations",
+  createRentalLocationsApp(
+    connection
+      .db("sample_airbnb")
+      .collection<RentalLocation>("listingsAndReviews"),
   ),
 );
