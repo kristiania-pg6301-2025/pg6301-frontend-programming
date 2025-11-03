@@ -215,7 +215,19 @@ app.get("/api/locations", (c) => c.json(locations));
 
 ### Extract `interface RentalLocation` and correct typo
 
+```typescript
+export interface RentalLocation {
+  _id: string;
+  name: string;
+  summary: string;
+}
+```
+
+</details>
+
 ## Server uses Mongodb
+
+<details>
 
 ### Run Mongodb in Docker Desktop
 
