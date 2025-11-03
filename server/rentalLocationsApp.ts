@@ -27,5 +27,20 @@ export function createRentalLocationsApp(
   app.get("/:id", async (c) =>
     c.json(await collection.findOne({ _id: c.req.param().id })),
   );
+  app.post("/:id/reviews", async (c) => {
+    const user = c.get("user");
+    if (!user) return c.newResponse(null, 401);
+    const { id } = c.req.param();
+    const { comments } = await c.req.json();
+    const review = {
+      _id: Date.now().toString(),
+      reviewer_name: user.name,
+      comments,
+      date: new Date().toISOString(),
+    };
+    await collection.updateOne({ _id: id }, { $push: { reviews: review } });
+    return c.newResponse(null, 204);
+  });
+
   return app;
 }

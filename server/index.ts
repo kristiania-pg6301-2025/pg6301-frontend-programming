@@ -3,11 +3,19 @@ import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { MongoClient } from "mongodb";
 import { getCookie } from "hono/cookie";
-import { HTTPException } from "hono/http-exception";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { createOpenidConnectProvider } from "./createOpenidConnectProvider.js";
 import type { RentalLocation } from "../shared/rentalLocation.js";
 import { createRentalLocationsApp } from "./rentalLocationsApp.js";
+
+interface User {
+  name: string;
+}
+
+declare module "hono" {
+  interface ContextVariableMap {
+    user: User;
+  }
+}
 
 const app = new Hono();
 
@@ -27,19 +35,22 @@ app.use(async (c, next) => {
   await next();
 });
 
-app.get("/api/userinfo", async (c) => {
+app.use("*", async (c, next) => {
   const userinfo_endpoint = getCookie(c, "userinfo_endpoint");
   const access_token = getCookie(c, "access_token");
-  if (!userinfo_endpoint || !access_token) return c.status(401);
-  const res = await fetch(userinfo_endpoint, {
-    headers: { Authorization: `Bearer ${access_token}` },
-  });
-  if (!res.ok) {
-    throw new HTTPException(res.status as ContentfulStatusCode, {
-      message: await res.text(),
+  if (userinfo_endpoint && access_token) {
+    const res = await fetch(userinfo_endpoint, {
+      headers: { Authorization: `Bearer ${access_token}` },
     });
+    if (res.ok) c.set("user", await res.json());
   }
-  return c.json(await res.json());
+  return next();
+});
+
+app.get("/api/userinfo", async (c) => {
+  const user = c.get("user");
+  if (!user) return c.status(401);
+  return c.json(user);
 });
 
 app.route(

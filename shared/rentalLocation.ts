@@ -8,7 +8,7 @@ export interface RentalLocation {
   };
   reviews: {
     _id: string;
-    date: Date;
+    date: string;
     reviewer_name: string;
     comments: string;
   }[];
