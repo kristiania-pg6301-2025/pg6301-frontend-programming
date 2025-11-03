@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
-import type { RentalLocation } from "../shared/rentalLocation.js";
+import { MongoClient } from "mongodb";
 
 const app = new Hono();
 
@@ -10,8 +10,12 @@ serve({ fetch: app.fetch, port: parseInt(port) });
 
 app.get("*", serveStatic({ root: "../dist" }));
 
-const locations: RentalLocation[] = [
-  { _id: "1", name: "Server apartment", summary: "Nice" },
-  { _id: "2", name: "Server cabin", summary: "Beautiful" },
-];
-app.get("/api/locations", (c) => c.json(locations));
+const client = new MongoClient(process.env.MONGODB_URL!);
+const connection = await client.connect();
+const listingsCollection = connection
+  .db("sample_airbnb")
+  .collection("listingsAndReviews");
+
+app.get("/api/locations", async (c) =>
+  c.json(await listingsCollection.find().limit(100).toArray()),
+);

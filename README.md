@@ -229,41 +229,35 @@ export interface RentalLocation {
 
 <details>
 
-### Run Mongodb in Docker Desktop
-
-1. Download [Docker Desktop](https://docs.docker.com/desktop/)
-2. Create a docker compose file to start Mongodb
-
-```yaml
-services:
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
-```
+### Setup Mongodb on Atlas
 
 ### Save data and retrieve in mongodb in `server/index.ts`
 
-1. `cd server`
-2. `npm i mongodb`
-3. Implement the `/api/tasks` endpoints with MongoDB
+1. `echo .env >> .gitignore`
+2. `cd server`
+3. `npm i mongodb`
+4. `npm pkg set scripts.dev="tsx --env-file ../.env --watch index.ts`
+5. Restart the dev script to use the `.env`-file
+6. Implement the `/api/locations` endpoints with MongoDB
+
+Create a cluster on [Atlas MongoDB](https://cloud.mongodb.com/) and load the sample `sample_airbnb` into it.
+
+Place the value from your connection settings into `.env`:
+
+```properties
+MONGODB_URL=mongodb+srv://<username>:<password>@<cluster-host>.mongodb.net/?appName=Cluster0
+```
 
 ```ts
-const MONGODB_URL = process.env.MONGODB_URL || "mongodb://localhost:27017/";
-
-const client = new MongoClient(MONGODB_URL);
+const client = new MongoClient(process.env.MONGODB_URL!);
 const connection = await client.connect();
-const taskDb = connection.db("task_application");
+const listingsCollection = connection
+  .db("sample_airbnb")
+  .collection("listingsAndReviews");
 
-app.get("/api/tasks", async (c) => {
-  return c.json(await taskDb.collection("tasks").find().toArray());
-});
-app.post("/api/tasks", async (c) => {
-  const { description, completed } = await c.req.json();
-  const task = { description, completed };
-  await taskDb.collection("tasks").insertOne(task);
-  return c.newResponse(null, 204);
-});
+app.get("/api/locations", async (c) =>
+  c.json(await listingsCollection.find().limit(100).toArray()),
+);
 ```
 
 </details>
