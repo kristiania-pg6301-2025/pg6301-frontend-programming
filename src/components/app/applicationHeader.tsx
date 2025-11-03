@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export function ApplicationHeader() {
   const [userinfo, setUserinfo] = useState<{ name: string }>();
@@ -14,7 +15,9 @@ export function ApplicationHeader() {
 
   return (
     <header>
-      <div>Logo</div>
+      <div>
+        <Link to={"/"}>Logo</Link>
+      </div>
       <div style={{ flex: 1 }} />
       <div>
         {userinfo ? (

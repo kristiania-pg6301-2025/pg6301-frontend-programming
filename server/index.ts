@@ -61,5 +61,9 @@ app.get("/api/locations", async (c) =>
   c.json(await listingsCollection.find().limit(100).toArray()),
 );
 app.get("/api/markets", async (c) =>
-  c.json(await listingsCollection.distinct("address.market")),
+  c.json(
+    (await listingsCollection.distinct("address.market")).filter(
+      (s) => s.length > 0,
+    ),
+  ),
 );
