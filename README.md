@@ -248,6 +248,8 @@ Place the value from your connection settings into `.env`:
 MONGODB_URL=mongodb+srv://<username>:<password>@<cluster-host>.mongodb.net/?appName=Cluster0
 ```
 
+When deploying, you should go to the [Heroku Dashboard](https://dashboard.heroku.com/apps/) and for your app, select Settings > Reveal Config Vars and add the MONGODB_URL. You need to restart your app for the changes to take effect.
+
 ```ts
 const client = new MongoClient(process.env.MONGODB_URL!);
 const connection = await client.connect();
