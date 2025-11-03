@@ -14,6 +14,17 @@ serve({ fetch: app.fetch, port: parseInt(port) });
 
 app.get("*", serveStatic({ root: "../dist" }));
 
+app.use(async (c, next) => {
+  const forwardedProto = c.req.header("x-forwarded-proto");
+  if (forwardedProto === "https") {
+    Object.defineProperty(c.req, "url", {
+      value: c.req.url.toString().replace("http:", "https:"),
+      configurable: true,
+    });
+  }
+  await next();
+});
+
 app.get("/api/userinfo", async (c) => {
   const userinfo_endpoint = getCookie(c, "userinfo_endpoint");
   const access_token = getCookie(c, "access_token");
