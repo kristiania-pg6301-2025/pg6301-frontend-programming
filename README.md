@@ -26,7 +26,7 @@ npm init -y
 npm i -D vite husky prettier typescript
 echo node_modules/ >> .gitignore
 npm pkg set scripts.dev=vite
-npm i react react-dom
+npm i react react-dom react-router-dom
 npx tsc --init
 npm i -D @types/react @types/react-dom
 npx prettier --write tsconfig.json
@@ -148,7 +148,7 @@ cd ..
 npm i -D concurrently
 npm pkg set scripts.dev="concurrently vite npm:dev:server"
 npm pkg set scripts.dev:server="cd server && npm run dev"
-git add package.json package-lock.json
+
 ```
 
 Start developing with `npm run dev`
@@ -156,31 +156,41 @@ Start developing with `npm run dev`
 ### Fetch from the server
 
 ```tsx
+import { useEffect, useState } from "react";
+import { BrowserRouter, Link } from "react-router-dom";
+import { createRoot } from "react-dom/client";
+
 function Application() {
-  const [tasks, setTasks] = useState([
-    { description: "Fetch data from server", completed: false },
+  const [locations, setLocations] = useState([
+    { _id: "1", name: "Beachfront apartment", summary: "Wonderful" },
   ]);
 
-  async function loadTasks() {
-    const res = await fetch("/api/tasks");
-    setTasks(await res.json());
+  async function loadLocations() {
+    const res = await fetch("/api/locations");
+    setLocations(await res.json());
   }
 
   useEffect(() => {
-    loadTasks();
+    loadLocations();
   }, []);
 
   return (
     <>
-      <h1>Tasks</h1>
-      {tasks.map(({ description, completed }) => (
-        <li>
-          <input type={"checkbox"} checked={completed} /> {description}
+      <h1>Locations</h1>
+      {locations.map(({ _id, name }) => (
+        <li key={_id}>
+          <Link to={`/locations/${_id}`}>{name}</Link>
         </li>
       ))}
     </>
   );
 }
+
+createRoot(document.getElementById("app")!).render(
+  <BrowserRouter>
+    <Application />
+  </BrowserRouter>,
+);
 ```
 
 ### `vite.config.ts`
@@ -196,14 +206,14 @@ export default defineConfig({
 ### Server responds
 
 ```ts
-const tasks = [
-  { description: "Fetch data from server", complete: true },
-  { description: "Deal with slow server", complete: false },
-  { description: "Deal with errors from server", complete: false },
+const locations = [
+  { _id: "1", summary: "Server apartment", description: "Nice" },
+  { _id: "2", summary: "Server cabin", description: "Beautiful" },
 ];
-
-app.get("/api/tasks", (c) => c.json(tasks));
+app.get("/api/locations", (c) => c.json(locations));
 ```
+
+### Extract `interface RentalLocation` and correct typo
 
 ## Server uses Mongodb
 
