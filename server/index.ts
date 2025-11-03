@@ -6,6 +6,7 @@ import { getCookie } from "hono/cookie";
 import { HTTPException } from "hono/http-exception";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { createOpenidConnectProvider } from "./createOpenidConnectProvider.js";
+import type { RentalLocation } from "../shared/rentalLocation.js";
 
 const app = new Hono();
 
@@ -55,11 +56,11 @@ const connection = await client.connect();
 console.log("Connected to " + client);
 const listingsCollection = connection
   .db("sample_airbnb")
-  .collection("listingsAndReviews");
+  .collection<RentalLocation>("listingsAndReviews");
 
 app.get("/api/locations", async (c) => {
   const query = c.req.query();
-  let filter: Filter<any> = {};
+  let filter: Filter<RentalLocation> = {};
   if ("market" in query) filter = { ...filter, "address.market": query.market };
   return c.json(
     await listingsCollection
@@ -69,6 +70,9 @@ app.get("/api/locations", async (c) => {
       .toArray(),
   );
 });
+app.get("/api/locations/:id", async (c) =>
+  c.json(await listingsCollection.findOne({ _id: c.req.param().id })),
+);
 app.get("/api/markets", async (c) =>
   c.json(
     (await listingsCollection.distinct("address.market")).filter(

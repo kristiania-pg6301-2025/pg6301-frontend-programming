@@ -5,9 +5,7 @@ import { fetchJson } from "../../../shared/fetchJson.js";
 
 export function RentalLocationList() {
   const [searchParams] = useSearchParams();
-  const [locations, setLocations] = useState<RentalLocation[]>([
-    { _id: "1", name: "Beachfront apartment", summary: "Wonderful" },
-  ]);
+  const [locations, setLocations] = useState<RentalLocation[]>([]);
 
   async function loadLocations() {
     setLocations(await fetchJson(`/api/locations?${searchParams}`));

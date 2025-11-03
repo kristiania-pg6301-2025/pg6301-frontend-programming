@@ -12,3 +12,8 @@ header {
 #app > * {
   padding: 0.5rem;
 }
+
+article {
+  margin-inline: auto;
+  max-width: 80ch;
+}
