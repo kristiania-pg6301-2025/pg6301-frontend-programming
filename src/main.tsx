@@ -4,9 +4,7 @@ import { createRoot } from "react-dom/client";
 import type { RentalLocation } from "../shared/rentalLocation.js";
 
 function Application() {
-  const [locations, setLocations] = useState<RentalLocation[]>([
-    { _id: "1", name: "Beachfront apartment", summary: "Wonderful" },
-  ]);
+  const [locations, setLocations] = useState<RentalLocation[]>([]);
 
   async function loadLocations() {
     const res = await fetch("/api/locations");

@@ -21,6 +21,7 @@ app.get("/api/locations", async (c) =>
   c.json(
     await collection
       .find({ property_type: "House", "address.market": "Porto" })
+      .sort({ name: 1 })
       .limit(200)
       .toArray(),
   ),
