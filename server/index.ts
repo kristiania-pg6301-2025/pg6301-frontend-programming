@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
+import type { RentalLocation } from "../shared/rentalLocation.js";
 
 const app = new Hono();
 
@@ -9,8 +10,8 @@ serve({ fetch: app.fetch, port: parseInt(port) });
 
 app.get("*", serveStatic({ root: "../dist" }));
 
-const locations = [
-  { _id: "1", summary: "Server apartment", description: "Nice" },
-  { _id: "2", summary: "Server cabin", description: "Beautiful" },
+const locations: RentalLocation[] = [
+  { _id: "1", name: "Server apartment", summary: "Nice" },
+  { _id: "2", name: "Server cabin", summary: "Beautiful" },
 ];
 app.get("/api/locations", (c) => c.json(locations));
