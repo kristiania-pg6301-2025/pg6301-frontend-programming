@@ -4,6 +4,7 @@ import { serveStatic } from "@hono/node-server/serve-static";
 import type { RentalLocation } from "../shared/rentalLocation.js";
 import { MongoClient } from "mongodb";
 import { createOpenidRoute } from "./openidRoute.js";
+import { getCookie } from "hono/cookie";
 
 const app = new Hono();
 
@@ -19,6 +20,18 @@ app.route(
       "https://www.linkedin.com/oauth/.well-known/openid-configuration",
   }),
 );
+app.get("/api/userinfo", async (c) => {
+  const authorizationCookie = getCookie(c, "authorization");
+  if (authorizationCookie) {
+    const { access_token, userinfo_endpoint } = JSON.parse(authorizationCookie);
+    const res = await fetch(userinfo_endpoint, {
+      headers: { Authorization: `Bearer ${access_token}` },
+    });
+    return c.json(await res.json());
+  }
+  return c.newResponse(null, 401);
+});
+
 app.get("*", serveStatic({ root: "../dist" }));
 
 const client = new MongoClient(process.env.MONGODB_URL!);

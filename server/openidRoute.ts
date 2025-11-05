@@ -19,7 +19,7 @@ export async function createOpenidRoute({
     const authorizationUrl = `${authorization_endpoint}?${new URLSearchParams({
       client_id,
       response_type: "code",
-      scope: "profile",
+      scope: "openid profile email",
       redirect_uri: c.req.url + "/complete",
     })}`;
     return c.redirect(authorizationUrl);
@@ -40,7 +40,6 @@ export async function createOpenidRoute({
         client_secret,
         redirect_uri: url.origin + url.pathname,
       }).toString();
-      console.log({ token_endpoint, body });
       const res = await fetch(token_endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -49,12 +48,11 @@ export async function createOpenidRoute({
 
       const tokenResponse = await res.json();
       const { access_token } = tokenResponse;
-      setCookie(
-        c,
-        "authorization",
-        JSON.stringify(access_token, userinfo_endpoint),
-        { secure: true, httpOnly: true },
-      );
+      const cookieValue = JSON.stringify({ access_token, userinfo_endpoint });
+      setCookie(c, "authorization", cookieValue, {
+        secure: true,
+        httpOnly: true,
+      });
       return c.json(tokenResponse);
     }
 
