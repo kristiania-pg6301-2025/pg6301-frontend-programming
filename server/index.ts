@@ -3,12 +3,22 @@ import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
 import type { RentalLocation } from "../shared/rentalLocation.js";
 import { MongoClient } from "mongodb";
+import { createOpenidRoute } from "./openidRoute.js";
 
 const app = new Hono();
 
 const port = process.env.PORT || "3000";
 serve({ fetch: app.fetch, port: parseInt(port) });
 
+app.route(
+  "/api/login/linkedin",
+  await createOpenidRoute({
+    client_id: "77m8tju8g0vwaz",
+    client_secret: process.env.LINKEDIN_CLIENT_SECRET!,
+    discoveryDocument:
+      "https://www.linkedin.com/oauth/.well-known/openid-configuration",
+  }),
+);
 app.get("*", serveStatic({ root: "../dist" }));
 
 const client = new MongoClient(process.env.MONGODB_URL!);

@@ -1,0 +1,17 @@
+* {
+  margin: unset;
+}
+
+header {
+  background-color: lime;
+  display: flex;
+  column-gap: 1ch;
+
+  .spacer {
+    flex: 1;
+  }
+}
+
+#app > * {
+  padding: 0.25rem;
+}

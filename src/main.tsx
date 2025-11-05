@@ -1,28 +1,24 @@
-import { useEffect, useState } from "react";
 import { BrowserRouter, Link } from "react-router-dom";
 import { createRoot } from "react-dom/client";
-import type { RentalLocation } from "../shared/rentalLocation.js";
+import { ListLocations } from "./components/locations/listLocations.js";
+
+import "./application.css";
 
 function Application() {
-  const [locations, setLocations] = useState<RentalLocation[]>([]);
-
-  async function loadLocations() {
-    const res = await fetch("/api/locations");
-    setLocations(await res.json());
-  }
-
-  useEffect(() => {
-    loadLocations();
-  }, []);
-
   return (
     <>
-      <h1>Locations</h1>
-      {locations.map(({ _id, name }) => (
-        <li key={_id}>
-          <Link to={`/locations/${_id}`}>{name}</Link>
-        </li>
-      ))}
+      <header>
+        <div>
+          <Link to={"/"}>Logo</Link>
+        </div>
+        <div>Main page</div>
+        <div className={"spacer"} />
+        <a href={"/api/login/linkedin"}>Log on</a>
+        <div>Help</div>
+      </header>
+      <main>
+        <ListLocations />
+      </main>
     </>
   );
 }
